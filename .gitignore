@@ -1,3 +1,11 @@
+# Builds and generated files for this project
+
+functions/nuxt
+src/.nuxt
+public/_nuxt
+
+
+
 # Logs
 logs
 *.log
