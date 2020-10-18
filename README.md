@@ -1,5 +1,7 @@
 # ben-mayer-nuxt-firebase
 
+[Demo](https://benmayer-firebase-node-test.web.app/)
+
 ## Build Setup
 
 ``` bash
