@@ -1,5 +1,6 @@
 {
-  "name": "src",
+  "name": "ben-mayer-firebase-nuct",
+  "description": "This is a nuxt.js fibase test ",
   "version": "1.0.0",
   "private": true,
   "scripts": {

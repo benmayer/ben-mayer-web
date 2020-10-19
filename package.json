@@ -1,0 +1,30 @@
+{
+  "name": "ben-mayer-firebase-nuct",
+  "description": "This is a nuxt.js fibase test ",
+  "author": "benmayer",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "cd src && yarn dev",
+    "serve": "firebase serve --only functions,hosting",
+    "build": "npm --prefix src run build",
+    "clean": "yarn clean:public && yarn clean:functions",
+    "clean:public": "rm -rf public/_nuxt",
+    "clean:functions": "rm -rf functions/nuxt",
+    "copy": "yarn copy:public && yarn copy:functions",
+    "copy:public": "mkdir -p public/_nuxt && cp -r src/.nuxt/dist/client/ public/_nuxt && cp -a src/static/. public/",
+    "copy:functions": "cp -r src/.nuxt/ functions/nuxt/ && cp src/nuxt.config.js functions/",
+    "predeploy:functions": "yarn clean:functions && yarn build && yarn copy:functions",
+    "predeploy:public": "yarn clean:public && yarn copy:public",
+    "predeploy": "yarn predeploy:functions && yarn predeploy:public",
+    "deploy": "yarn predeploy && firebase deploy"
+  },
+  "engines": {
+    "node": "12"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0"
+  }
+}
