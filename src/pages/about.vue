@@ -3,10 +3,10 @@
     <div>
       <Logo />
       <h1 class="title">
-        Ben Mayer
+        About
       </h1>
       <div class="links">
-        <Nav /> 
+        <Nav />
       </div>
     </div>
   </div>
