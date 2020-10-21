@@ -1,19 +1,22 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        Ben Mayer
-      </h1>
-      <div class="links">
-        <Nav /> 
-      </div>
-    </div>
+      <Header :title="title" />
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      title: 'Ben Mayer'
+    }
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  }
+}
 </script>
 
 <style>
@@ -26,7 +29,7 @@ export default {}
   text-align: center;
 }
 
-.title {
+.site__title {
   font-family:
     'Quicksand',
     'Source Sans Pro',
@@ -50,9 +53,5 @@ export default {}
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>

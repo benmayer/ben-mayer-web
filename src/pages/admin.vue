@@ -1,21 +1,15 @@
 <template>
   <div class="container">
-    <Header :title="title" />
+    <form name="login">
+      <input email placeholder="email" /> 
+      <input password placeholder="password" /> 
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      title: 'About'
-    }
-  },
-  head() {
-    return {
-      title: this.title,
-    }
-  }
+  layout: 'admin'
 }
 </script>
 
@@ -29,7 +23,7 @@ export default {
   text-align: center;
 }
 
-.title {
+.site__title {
   font-family:
     'Quicksand',
     'Source Sans Pro',
@@ -53,9 +47,5 @@ export default {
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>

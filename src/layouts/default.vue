@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <Nuxt />
-  </div>
+    <div class="site__wrapper">
+      <NuxtLink class="button__login button--green" to="/admin">Login</NuxtLink>
+      <Nuxt />
+    </div>
 </template>
+
+<script>
+export default {
+
+}
+</script>
 
 <style>
 html {
@@ -58,5 +65,18 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.felx {
+    display: flex;
+    box-sizing: border-box;
+}
+.flex-row {
+    flex-direction: row;
+}
+.button__login{
+  position: absolute;
+  right:0;
+  margin:1em;
 }
 </style>
