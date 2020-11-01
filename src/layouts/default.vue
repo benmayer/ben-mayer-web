@@ -1,6 +1,7 @@
 <template>
     <div class="site__wrapper">
-      <NuxtLink class="button__login button--green" to="/admin">Login</NuxtLink>
+      <NuxtLink v-if="!$store.state.auth" class="button__login button--green" to="/login">Login </NuxtLink>
+      <NuxtLink v-if="$store.state.auth" class="button__login button--green" to="/admin">Admin</NuxtLink>
       <Nuxt />
     </div>
 </template>
@@ -29,6 +30,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  background: #040308e6;
 }
 
 *,
@@ -71,8 +73,11 @@ html {
     display: flex;
     box-sizing: border-box;
 }
-.flex-row {
+.row {
     flex-direction: row;
+}
+.column {
+    flex-direction: column;
 }
 .button__login{
   position: absolute;

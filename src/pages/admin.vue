@@ -1,15 +1,22 @@
 <template>
-  <div class="container">
-    <form name="login">
-      <input email placeholder="email" /> 
-      <input password placeholder="password" /> 
-    </form>
+  <div class="container flex">
+      <h1 class="site__title">{{ title }}</h1>
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'admin'
+  layout: 'admin',
+  data() {
+    return {
+      title: 'Admin'
+    }
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  }
 }
 </script>
 
@@ -17,7 +24,6 @@ export default {
 .container {
   margin: 0 auto;
   min-height: 100vh;
-  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;

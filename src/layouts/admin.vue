@@ -1,9 +1,21 @@
 <template>
     <div class="site__wrapper">
-      <NuxtLink class="button__login button--green" to="/">Home</NuxtLink>
+      <NuxtLink v-if="!$store.state.auth" class="button__login button--green" to="/">Home</NuxtLink>
+      <button v-if="$store.state.auth" @click="logout" class="button__login button--green">Logout</button>
       <Nuxt />
     </div>
 </template>
+
+<script>
+export default {
+  middleware: 'authenticated-access',
+  methods: {
+    logout (e) {
+      this.$store.commit('setAuth', 0)
+    }
+  }
+}
+</script>
 
 <style>
 html {
