@@ -1,3 +1,5 @@
+
+
 module.exports = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -10,18 +12,6 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
-  },
-  config: {
-    // // REQUIRED: Official config for firebase.initializeApp(config):
-    // apiKey: process.env.FIREBASE_CONFIG_API_KEY,
-    // authDomain: process.env.FIREBASE_CONFIG_AUTH_DOMAIN,
-    // databaseURL: process.env.FIREBASE_CONFIG_DATABASE_URL,
-    // projectId: process.env.FIREBASE_CONFIG_PROJECT_ID,
-    // storageBucket: process.env.FIREBASE_CONFIG_STORAGE_BUCKET,
-    // messagingSenderId: process.env.FIREBASE_CONFIG_MESSAGING_SENDER_ID,
-    // appId: process.env.FIREBASE_CONFIG_APP_ID
-  },
-  services: {
   },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
@@ -40,6 +30,23 @@ module.exports = {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: process.env.FIREBASE_CONFIG_API_KEY,
+          authDomain: process.env.FIREBASE_CONFIG_AUTH_DOMAIN,
+          databaseURL: process.env.FIREBASE_CONFIG_DATABASE_URL,
+          projectId: process.env.FIREBASE_CONFIG_PROJECT_ID,
+          storageBucket: process.env.FIREBASE_CONFIG_STORAGE_BUCKET,
+          messagingSenderId: process.env.FIREBASE_CONFIG_MESSAGING_SENDER_ID,
+          appId: process.env.FIREBASE_CONFIG_APP_ID
+        },
+        services: {
+          auth: true // Just as example. Can be any other service.
+        }
+      }
+    ]
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

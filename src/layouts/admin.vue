@@ -11,7 +11,7 @@ export default {
   middleware: 'authenticated-access',
   methods: {
     logout (e) {
-      this.$store.commit('setAuth', 0)
+      this.$store.commit('simpleAuth', 0)
     }
   }
 }

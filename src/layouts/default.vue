@@ -1,7 +1,7 @@
 <template>
     <div class="site__wrapper">
-      <NuxtLink v-if="!$store.state.auth" class="button__login button--green" to="/login">Login </NuxtLink>
-      <NuxtLink v-if="$store.state.auth" class="button__login button--green" to="/admin">Admin</NuxtLink>
+      <NuxtLink v-if="!$store.state.simpleAuth" class="button__login button--green" to="/login">Login </NuxtLink>
+      <NuxtLink v-if="$store.state.simpleAuth" class="button__login button--green" to="/admin">Admin</NuxtLink>
       <Nuxt />
     </div>
 </template>
@@ -31,6 +31,7 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   background: #040308e6;
+  color:#fbfbfb;
 }
 
 *,

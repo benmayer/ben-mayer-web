@@ -1,12 +1,12 @@
 <template>
   <div class="container flex column">
     <div class=""> {{ authMessage }}</div>
-    <!-- <form name="login" >
-      <input email placeholder="email" /> 
-      <input password placeholder="password" /> 
-    </form> -->
-    <button v-if="!this.$store.state.auth" @click="login" class="button--green">Login</button>
-    <button v-if="this.$store.state.auth" @click="logout" class="button--green">Logout</button>
+    <form name="login" v-on:submit="createUser" >
+      <input type="email" placeholder="email" v-model="user.email"/> 
+      <input type="password" placeholder="password" v-model="user.password"/>
+      <button v-if="!this.$store.state.simpleAuth" class="button--green">Login</button>
+    </form>
+    <button v-if="this.$store.state.simpleAuth" @click="logout" class="button--green">Logout</button>
   </div>
 </template>
 
@@ -14,19 +14,32 @@
 export default {
   data () {
     return {
-    }
-  },
-  computed: {
-    authMessage () {
-      return !this.$store.state.auth ? 'You\'re currently logged out. Log in by tapping the Login button below' : 'You\'re logged in!'
+      user: {
+        email: null,
+        password: null
+      },
+      authMessage: 'You\'re logged out!'
     }
   },
   methods: {
     login (e) {
-      this.$store.commit('setAuth', 1)
+      this.$store.commit('simpleAuth', 1)
     },
     logout (e) {
-      this.$store.commit('setAuth', 0)
+      this.$store.commit('simpleAuth', 0)
+    },
+    async createUser(e) {
+      e.preventDefault()
+      try {
+        await this.$fire.auth.createUserWithEmailAndPassword(
+          this.user.email,
+          this.user.password
+        ).then( () => {
+          this.authMessage = 'You\'re logged in'
+        }) 
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
