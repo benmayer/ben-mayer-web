@@ -1,4 +1,5 @@
 module.exports = {
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'Ben Mayer',
@@ -41,7 +42,15 @@ module.exports = {
           appId: process.env.FIREBASE_CONFIG_APP_ID
         },
         services: {
-          auth: true // Just as example. Can be any other service.
+          auth: {
+            persistence: 'local', // default
+            initialize: {
+              onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+              onAuthStateChangedAction: 'onAuthStateChangedAction',
+              subscribeManually: false
+            },
+            ssr: true,
+          }
         }
       }
     ]

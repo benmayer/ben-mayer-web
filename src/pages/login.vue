@@ -1,13 +1,18 @@
 <template>
   <div class="container flex column">
+    
     <form name="login" v-on:submit="login">
       <input placeholder="email" v-model="credentials.email"/> 
       <input type="password" placeholder="password" v-model="credentials.password"/>
       <button class="button--green">Login</button>
     </form>
-    <p v-if="this.$store.state.loading">loading</p>
-    <p v-if="error">{{ error }}</p>
-    <button class="button--green" @click="logout">logout</button>
+    
+    <p v-if="message">{{ message }}</p>
+    <client-only>
+      <p v-if="loading">loading</p>
+      <p> {{ user }}</p>
+      <button v-if="auth" class="button--green" @click="logout">logout</button>
+    </client-only>
   </div>
 </template>
 
@@ -16,23 +21,34 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      credentials: {
-      },
-      error: false 
+      credentials: {},
+      message: null
     }
+  },
+  computed: {
+    // to avoid using this.$store.state.auth 
+    ...mapState([
+      'auth',
+      'user',
+      'loading',
+    ])
   },
   methods: {
     async login (e) {
       e.preventDefault()
       this.$store.commit('SET_LOADING', true)
+      this.message = ""
       try {
         await this.$fire.auth.signInWithEmailAndPassword(
           this.credentials.email,
           this.credentials.password
-        )
-        this.$store.commit('SET_LOADING', false) 
+        ).then((e) => {
+          this.$store.commit('SET_LOADING', false) 
+          this.credentials = {}
+          this.message = e.message ? e.message : 'Success! You\'re logged in.'
+        })
       } catch (e) {
-        this.error = e.message 
+        this.message = e.message 
         this.$store.commit('SET_LOADING', false) 
       }
     },
@@ -41,8 +57,9 @@ export default {
       await this.$fire.auth.signOut()
       .then(() => {
         this.$store.commit('SET_LOADING', false) 
-      }).catch((error) => {
-        this.error = e.message
+        this.message = 'Logout succesful'
+      }).catch((e) => {
+        this.message = e.message
       })
     },
   }
