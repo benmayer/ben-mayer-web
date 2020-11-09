@@ -1,47 +1,52 @@
 <template>
   <div class="container flex column">
-    <div class=""> {{ authMessage }}</div>
-    <form name="login" v-on:submit="createUser" >
-      <input type="email" placeholder="email" v-model="user.email"/> 
-      <input type="password" placeholder="password" v-model="user.password"/>
-      <button v-if="!this.$store.state.simpleAuth" class="button--green">Login</button>
+    <form name="login" v-on:submit="login">
+      <input placeholder="email" v-model="credentials.email"/> 
+      <input type="password" placeholder="password" v-model="credentials.password"/>
+      <button class="button--green">Login</button>
     </form>
-    <button v-if="this.$store.state.simpleAuth" @click="logout" class="button--green">Logout</button>
+    <p v-if="this.$store.state.loading">loading</p>
+    <p v-if="error">{{ error }}</p>
+    <button class="button--green" @click="logout">logout</button>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      user: {
-        email: null,
-        password: null
+      credentials: {
       },
-      authMessage: 'You\'re logged out!'
+      error: false 
     }
   },
   methods: {
-    login (e) {
-      this.$store.commit('simpleAuth', 1)
-    },
-    logout (e) {
-      this.$store.commit('simpleAuth', 0)
-    },
-    async createUser(e) {
+    async login (e) {
       e.preventDefault()
+      this.$store.commit('SET_LOADING', true)
       try {
-        await this.$fire.auth.createUserWithEmailAndPassword(
-          this.user.email,
-          this.user.password
-        ).then( () => {
-          this.authMessage = 'You\'re logged in'
-        }) 
+        await this.$fire.auth.signInWithEmailAndPassword(
+          this.credentials.email,
+          this.credentials.password
+        )
+        this.$store.commit('SET_LOADING', false) 
       } catch (e) {
-        console.log(e)
+        this.error = e.message 
+        this.$store.commit('SET_LOADING', false) 
       }
-    }
+    },
+    async logout (e) {
+      this.$store.commit('SET_LOADING', true)
+      await this.$fire.auth.signOut()
+      .then(() => {
+        this.$store.commit('SET_LOADING', false) 
+      }).catch((error) => {
+        this.error = e.message
+      })
+    },
   }
+
 }
 </script>
 

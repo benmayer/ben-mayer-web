@@ -1,26 +1,41 @@
-export const state = () => {
-  return {
-    simpleAuth: 0
-  }
-}
+import nuxtConfig from "../nuxt.config"
+
+export const state = () => ({
+    user: null,
+    loading: true,
+})
 
 export const mutations = {
-  simpleAuth (state, auth) {
-    state.simpleAuth = auth
+  SET_LOADING: (state, payload) => {
+    state.loading = payload
   },
   ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
-    const { uid, email, emailVerified } = authUser
-    state.user = { uid, email, emailVerified }
+    if (!authUser) {
+      // claims = null
+      // perform logout operations
+    } else {
+      const { uid, email, emailVerified } = authUser
+      state.user = { uid, email, emailVerified }
+    }
   }
 }
 
 export const actions = {
   onAuthStateChangedAction: (ctx, { authUser, claims }) => {
-    if (!authUser) {
-      // claims = null
-      // Perform logout operations
-    } else {
-      // Do something with the authUser and the claims object...
+    ctx.commit('ON_AUTH_STATE_CHANGED_MUTATION', {state, authUser, claims})
+    ctx.commit('SET_LOADING', false)
+  }
+}
+
+export const getters =  {
+  isLoggedIn: (state) => {
+    try {
+      return state.user.uid !== null
+    } catch {
+      return false
     }
+  },
+  isLoading: (state) => {
+    return state.isLoading
   }
 }
