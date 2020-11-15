@@ -1,9 +1,6 @@
 <template>
     <div class="site__wrapper">
       <Message :message="message" />
-      <NuxtLink v-if="!user" class="button__login button--green" to="/login">Login </NuxtLink>
-      <NuxtLink v-if="user" class="button__login button--green" to="/admin">Admin </NuxtLink>
-      <!-- <button v-if="user"  class="button__login button--green">Logout</button> -->
       <Nuxt />
     </div>
 </template>

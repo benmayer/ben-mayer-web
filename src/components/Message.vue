@@ -1,7 +1,10 @@
 
-
 <template>
-    <div v-if="message" class="site__message"><span>{{message}}</span><span class="site__message_close" @click="close">x</span></div>
+    <div v-if="message" class="site__message-wrapper">
+        <div class="site__message flex">
+            <span>{{message}}</span><span class="site__message_close" @click="close">x</span>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -20,9 +23,9 @@ export default {
     watch: {
         message (value){
             if (value){
-                setTimeout(() => {
-                    this.$store.commit('SET_MESSAGE', null)
-                }, 2000);
+                // setTimeout(() => {
+                //     this.$store.commit('SET_MESSAGE', null)
+                // }, 2000);
              }
         }
     }
@@ -30,28 +33,35 @@ export default {
 </script>
 <style>
 
-.site__message {
+.site__message-wrapper {
     position: absolute;
     top: 0;
     left:0;
     width: 100%;
     padding: .5em 1em;
-    text-align: center;
-    background-color: #3b8070;
 
     z-index: 1000;
 }
+.site__message {
+    max-width: 600px;
+    width: 100%;
+    padding:1em;
+    margin: auto;
+    background-color: #3b8070;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+}
 .site__message_close {
-    display: block;
-    position: absolute;
     padding: 1em;
-    right: 0;
-    top: 0;
     line-height: 0;
-    height: 100%;
+    width: 0;
+    height: 0;
+    text-align: center;
 }
 .site__message_close:hover {
-    background-color: #35495e50;
     cursor: pointer;
 }
+
 </style>
