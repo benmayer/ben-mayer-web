@@ -1,36 +1,37 @@
 <template>
   <div class="container flex column">
+
     
     <form name="login" v-on:submit="login">
       <input placeholder="email" v-model="credentials.email"/> 
       <input type="password" placeholder="password" v-model="credentials.password"/>
       <button class="button--green">Login</button>
     </form>
-    
+    <p v-if="isLoading">loading</p>
+    <p v-if="isLoggedIn"> Hello {{getUser.email}}</p>
     <p v-if="message">{{ message }}</p>
-    <client-only>
-      <p v-if="loading">loading</p>
-      <p> {{ user }}</p>
-      <button v-if="auth" class="button--green" @click="logout">logout</button>
-    </client-only>
+    <button v-if="isLoggedIn" class="button--green" @click="logout">logout</button>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   data () {
     return {
       credentials: {},
-      message: null
+      message: null,
     }
+  },
+  fetch ({ store }) {
+
   },
   computed: {
     // to avoid using this.$store.state.auth 
-    ...mapState([
-      'auth',
-      'user',
-      'loading',
+    ...mapGetters([
+      'isLoading',
+      'isLoggedIn',
+      'getUser',
     ])
   },
   methods: {
@@ -48,6 +49,7 @@ export default {
           this.message = e.message ? e.message : 'Success! You\'re logged in.'
         })
       } catch (e) {
+        console.log("catch", e)
         this.message = e.message 
         this.$store.commit('SET_LOADING', false) 
       }
