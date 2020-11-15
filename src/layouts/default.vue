@@ -1,14 +1,36 @@
 <template>
     <div class="site__wrapper">
-      <NuxtLink v-if="!$store.state.simpleAuth" class="button__login button--green" to="/login">Login </NuxtLink>
-      <NuxtLink v-if="$store.state.simpleAuth" class="button__login button--green" to="/admin">Admin</NuxtLink>
+      <Message :message="message" />
+      <NuxtLink v-if="!user" class="button__login button--green" to="/login">Login </NuxtLink>
+      <NuxtLink v-if="user" class="button__login button--green" to="/admin">Admin </NuxtLink>
+      <!-- <button v-if="user"  class="button__login button--green">Logout</button> -->
       <Nuxt />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-
+  computed: {
+    ...mapState([
+      'user',
+      'message',
+      'loading',
+    ])
+  },
+  methods: {
+    async logout (e) {
+      this.$store.commit('SET_LOADING', true)
+      await this.$fire.auth.signOut()
+      .then(() => {
+        this.$store.commit('SET_LOADING', false) 
+        this.$store.commit('SET_MESSAGE', 'Logout succesful')
+        // this.$router.replace('/login')
+      }).catch((e) => {
+        this.$store.commit('SET_MESSAGE', e.message)
+      })
+    },
+  }
 }
 </script>
 
@@ -70,7 +92,7 @@ html {
   background-color: #35495e;
 }
 
-.felx {
+.flex {
     display: flex;
     box-sizing: border-box;
 }

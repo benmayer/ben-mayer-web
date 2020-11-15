@@ -7,6 +7,7 @@
 <script>
 export default {
   layout: 'admin',
+  middleware: 'authenticated-access',
   data() {
     return {
       title: 'Admin'
@@ -16,7 +17,7 @@ export default {
     return {
       title: this.title,
     }
-  }
+  },
 }
 </script>
 

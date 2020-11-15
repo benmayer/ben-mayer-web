@@ -1,18 +1,34 @@
 <template>
     <div class="site__wrapper">
-      <NuxtLink v-if="!$store.state.auth" class="button__login button--green" to="/">Home</NuxtLink>
-      <button v-if="$store.state.auth" @click="logout" class="button__login button--green">Logout</button>
+      <Message :message="message" />
+      <NuxtLink v-if="!user" class="button__login button--green" to="/">Home</NuxtLink>
+      <button v-if="user" @click="logout" class="button__login button--green">Logout</button>
       <Nuxt />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  middleware: 'authenticated-access',
+  computed: {
+    ...mapState([
+      'user',
+      'message',
+      'loading',
+    ])
+  },
   methods: {
-    logout (e) {
-      this.$store.commit('simpleAuth', 0)
-    }
+    async logout (e) {
+      this.$store.commit('SET_LOADING', true)
+      await this.$fire.auth.signOut()
+      .then(() => {
+        this.$store.commit('SET_LOADING', false) 
+        this.$store.commit('SET_MESSAGE', 'Logout succesful')
+        // this.$router.replace('/login')
+      }).catch((e) => {
+        this.$store.commit('SET_MESSAGE', e.message)
+      })
+    },
   }
 }
 </script>

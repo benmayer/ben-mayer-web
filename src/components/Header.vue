@@ -1,7 +1,7 @@
 
 
 <template>
-    <header class="site__header flex flex-row">
+    <header class="site__header">
         <Logo />
         <h1 class="site__title">{{ title }}</h1>
         <Nav />

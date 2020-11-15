@@ -1,7 +1,7 @@
 
 
 <template>
-    <nav class="site__nav flex flex-row">
+    <nav class="site__nav">
         <NuxtLink class="button--green" to="/">Home </NuxtLink>
         <NuxtLink class="button--green" to="/about">About </NuxtLink>
     </nav>
