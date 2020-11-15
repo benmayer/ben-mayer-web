@@ -13,13 +13,14 @@
     "node": "12"
   },
   "dependencies": {
+    "@nuxtjs/firebase": "^7.0.0",
+    "@nuxtjs/pwa": "^3.2.2",
+    "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
     "firebase": "^8.0.0",
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.6.1",
-    "nuxt-start": "^2.3.4",
-    "@nuxtjs/firebase": "^7.0.0",
-    "core-js": "^3.6.5",
-    "dotenv": "^8.2.0"
+    "nuxt-start": "^2.3.4"
   },
   "devDependencies": {
     "eslint": "^5.12.0",

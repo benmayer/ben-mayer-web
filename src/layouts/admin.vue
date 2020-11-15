@@ -10,12 +10,22 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  middleware: 'authenticated-access',
   computed: {
     ...mapState([
       'user',
       'message',
       'loading',
     ])
+  },
+  watch: {
+    user (value) {
+      if (!value) {
+        this.$router.push({
+          path: '/login'
+        })
+      }
+    }
   },
   methods: {
     async logout (e) {
@@ -24,7 +34,6 @@ export default {
       .then(() => {
         this.$store.commit('SET_LOADING', false) 
         this.$store.commit('SET_MESSAGE', 'Logout succesful')
-        // this.$router.replace('/login')
       }).catch((e) => {
         this.$store.commit('SET_MESSAGE', e.message)
       })

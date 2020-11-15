@@ -17,19 +17,6 @@ export default {
       'message',
       'loading',
     ])
-  },
-  methods: {
-    async logout (e) {
-      this.$store.commit('SET_LOADING', true)
-      await this.$fire.auth.signOut()
-      .then(() => {
-        this.$store.commit('SET_LOADING', false) 
-        this.$store.commit('SET_MESSAGE', 'Logout succesful')
-        // this.$router.replace('/login')
-      }).catch((e) => {
-        this.$store.commit('SET_MESSAGE', e.message)
-      })
-    },
   }
 }
 </script>
@@ -65,7 +52,7 @@ html {
 
 .button--green {
   display: inline-block;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1px solid #3b8070;
   color: #3b8070;
   text-decoration: none;
@@ -79,7 +66,7 @@ html {
 
 .button--grey {
   display: inline-block;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1px solid #35495e;
   color: #35495e;
   text-decoration: none;

@@ -1,9 +1,9 @@
 <template>
   <div class="container flex column">
-    <form v-if="!user" name="login" v-on:submit="login">
-      <input placeholder="email" v-model="credentials.email"/> 
-      <input type="password" placeholder="password" v-model="credentials.password"/>
-      <button class="button--green">Login</button>
+    <form v-if="!user" name="login" class="login__form flex column" @submit.prevent>
+      <input placeholder="email" v-model="credentials.email" class="login__form-input input__email"/> 
+      <input type="password" placeholder="password" v-model="credentials.password" class="login__form-input input__password"/>
+      <button class="button--green login__form-button" type="submit" @click="login">Login</button>
     </form>
     <p v-if="user"> Hello {{user.email}}</p>
     <NuxtLink v-if="user" class="button--green" to="/admin">Admin</NuxtLink>
@@ -19,8 +19,17 @@ export default {
       credentials: {},
     }
   },
-  fetch ({ store }) {
+  // fetch ({ store }) {
 
+  // },
+  watch: {
+    user (value) {
+      if (value) {
+        this.$router.push({
+          path: '/admin'
+        })
+      }
+    }
   },
   computed: {
     // to avoid using this.$store.state.auth 
@@ -32,7 +41,6 @@ export default {
   },
   methods: {
     async login (e) {
-      e.preventDefault()
       this.$store.commit('SET_LOADING', true)
       try {
         await this.$fire.auth.signInWithEmailAndPassword(
@@ -43,7 +51,6 @@ export default {
           this.$store.commit('SET_LOADING', false)
           this.$store.commit('SET_MESSAGE', message)
           this.credentials = {}
-          // this.$router.replace('/admin')
         })
       } catch (e) {
         this.$store.commit('SET_LOADING', false)
@@ -65,29 +72,21 @@ export default {
   text-align: center;
 }
 
-.site__title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.login__form{ 
+  max-width: 300px;
+  width: 100%;
+  padding: 1em;
+  background: #a7a7a71c;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.login__form-input{
+  padding: 1em;
+  margin-bottom: .5em;
+  background: white;
+  border: 1px solid #efefef;
+}
+.login__form-button{
+    margin-top: 1em;
+    background: white;
+    font-weight: 600;
 }
 </style>

@@ -16,6 +16,15 @@ export default {
         close () { 
             this.$store.commit('SET_MESSAGE', null)
         }
+    },
+    watch: {
+        message (value){
+            if (value){
+                setTimeout(() => {
+                    this.$store.commit('SET_MESSAGE', null)
+                }, 2000);
+             }
+        }
     }
 }
 </script>
