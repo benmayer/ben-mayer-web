@@ -1,6 +1,27 @@
 <template>
-  <div class="container flex">
-      <h1 class="site__title">{{ title }}</h1>
+  <div class="container flex column">
+      <table class="blogs__table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Changed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="blog of blogs" :key="blog.id">
+          <td>
+            <nuxt-link :to="{ name: 'blog-id', params: { 'id': blog.id }}">{{ blog.id }}</nuxt-link>
+          </td>
+          <td>{{ blog.title }}</td>
+          <td>{{ blog.published ? 'Published' : 'Draft' }}</td>
+          <td>{{ blog.created | toDate }}</td>
+          <td>{{ blog.changed | toDate }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -9,13 +30,27 @@ export default {
   layout: 'admin',
   data() {
     return {
-      title: 'Admin'
+      title: 'Admin',
+      blogs: [],
     }
   },
   head() {
     return {
       title: this.title,
     }
+  },
+  async mounted () {
+    const db = this.$fire.firestore
+    const dbQueryBlogs = await db
+      .collection('blogs')
+      .orderBy('created', 'desc')
+      .get()
+    dbQueryBlogs.forEach( (entry) => {
+      this.blogs.push({
+        id: entry.id,
+        ...entry.data()
+      })
+    })
   }
 }
 </script>
@@ -29,29 +64,13 @@ export default {
   text-align: center;
 }
 
-.site__title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.blogs__table{
+  width:100%;
+  max-width: 960px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+thead > tr > th,
+tbody > tr > td {
+  border: 1px solid #a2a2a2;
 }
 </style>

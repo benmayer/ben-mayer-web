@@ -1,0 +1,34 @@
+<template>
+  <div class="site__wrapper">
+
+    <div class="container flex column">
+        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#DBE1EC" viewBox="0 0 48 48"><path d="M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z"/></svg>
+        <h1 class="site__title">{{ title }}</h1>
+        <code class="error__message"> {{ message }}</code>
+        <NuxtLink to="/">Home page</NuxtLink>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['error'],
+    layout: 'error',
+    data () {
+        return {
+            title: (this.error.statusCode === 404) ? 'Page not found' : 'An error occurred',
+            message: (this.error.message) ? this.error.message : 'Something went wrong, tha\'s all we know',
+        }
+    }
+  }
+</script>
+<style >
+a {color:#7f828b!important;text-decoration:none}
+.error__message {
+    margin: 1em auto;
+    padding:1em;
+    background: #DBE1EC;
+    color:#35495e;
+    border-radius: 3px;
+}
+</style>
