@@ -1,0 +1,16 @@
+# Copy this file on your local dev environment and name it ".env"
+# Set your dev variables for your local machine.
+# NEVER add the ".env" to your version control system!
+
+
+# Firebase configuration
+# Get it from https://console.firebase.google.com
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FIREBASE_CONFIG_API_KEY=APIkey123APIkey123APIkey123APIkey123API
+FIREBASE_CONFIG_AUTH_DOMAIN=YOUR-PROJECT-NAME.firebaseapp.com
+FIREBASE_CONFIG_DATABASE_URL=https://YOUR-PROJECT-NAME.firebaseio.com
+FIREBASE_CONFIG_PROJECT_ID=YOUR-PROJECT-NAME
+FIREBASE_CONFIG_STORAGE_BUCKET=YOUR-PROJECT-NAME.appspot.com
+FIREBASE_CONFIG_MESSAGING_SENDER_ID=012345678901
+FIREBASE_CONFIG_APP_ID=1:234567890:web:abcdefgh1234567
+FIREBASE_CONFIG_MEASUREMENT_ID=G-XXXXXXXXXX
