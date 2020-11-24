@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex column">
+  <div class="flex container items-center mx-auto text-center">
     <form v-if="!user" name="login" class="login__form flex column" @submit.prevent>
       <input placeholder="email" v-model="credentials.email" class="login__form-input input__email"/> 
       <input type="password" placeholder="password" v-model="credentials.password" class="login__form-input input__password"/>
@@ -64,12 +64,7 @@ export default {
 
 <style>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
 }
 
 .login__form{ 

@@ -25,6 +25,7 @@ module.exports = {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+      '@nuxtjs/tailwindcss'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -59,8 +60,12 @@ module.exports = {
         // emulatorPort: 8080,
         // emulatorHost: 'localhost',
         // settings: {   
-          
-        // },
+        //   render: {
+        //     bundleRenderer: {
+        //       runInNewContext: false
+        //     }
+        //   },
+        // }
       }
     }
   },
@@ -78,11 +83,6 @@ module.exports = {
       // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
       // only set this true for testing and remember to always clear your browser cache in development
       dev: true,
-    }
-  },
-  render: {
-    bundleRenderer: {
-      runInNewContext: false
     }
   },
 

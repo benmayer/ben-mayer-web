@@ -1,7 +1,7 @@
 
 
 <template>
-    <header class="site__header">
+    <header class="site__header mx-auto">
         <Logo />
         <h1 class="site__title">{{ title }}</h1>
         <Nav />

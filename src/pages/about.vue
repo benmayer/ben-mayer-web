@@ -1,6 +1,6 @@
 <template>
-  <div class="container flex">
-    <Header :title="title" />
+  <div class="flex container items-center mx-auto text-center">
+    <Header :title="title" class="mx-auto"/>
   </div>
 </template>
 
@@ -21,11 +21,7 @@ export default {
 
 <style>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
 }
 
 .title {

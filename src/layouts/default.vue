@@ -1,5 +1,5 @@
 <template>
-    <div class="site__wrapper">
+    <div class="flex h-screen">
       <Message :message="message" />
       <Nuxt />
     </div>

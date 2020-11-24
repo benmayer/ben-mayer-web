@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex">
+  <div class="flex container items-center mx-auto text-center">
       <Header :title="title" />
   </div>
 </template>
@@ -20,13 +20,6 @@ export default {
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
 .site__title {
   font-family:

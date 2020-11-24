@@ -1,24 +1,24 @@
 <template>
-  <div class="container flex column">
-      <table class="blogs__table">
+  <div class="flex container items-center mx-auto text-center">
+      <table class="table-auto border-collapse w-full mx-auto ">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Status</th>
-          <th>Created</th>
-          <th>Changed</th>
+          <th class="p-2">ID</th>
+          <th class="p-2">Title</th>
+          <th class="p-2">Status</th>
+          <th class="p-2">Created</th>
+          <th class="p-2">Changed</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="blog of blogs" :key="blog.id">
-          <td>
+          <td class="p-2">
             <nuxt-link :to="{ name: 'blog-id', params: { 'id': blog.id }}">{{ blog.id }}</nuxt-link>
           </td>
-          <td>{{ blog.title }}</td>
-          <td>{{ blog.published ? 'Published' : 'Draft' }}</td>
-          <td>{{ blog.created | toDate }}</td>
-          <td>{{ blog.changed | toDate }}</td>
+          <td class="p-2">{{ blog.title }}</td>
+          <td class="p-2">{{ blog.published ? 'Published' : 'Draft' }}</td>
+          <td class="p-2">{{ blog.created | toDate }}</td>
+          <td class="p-2">{{ blog.changed | toDate }}</td>
         </tr>
       </tbody>
     </table>
@@ -56,18 +56,6 @@ export default {
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.blogs__table{
-  width:100%;
-  max-width: 960px;
-}
 
 thead > tr > th,
 tbody > tr > td {

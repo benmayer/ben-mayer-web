@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex column">
+  <div class="flex container items-center mx-auto text-center">
     <div class=""> {{ authMessage }}</div>
     <form name="login" v-on:submit="createUser" >
       <input type="email" placeholder="email" v-model="user.email"/> 
@@ -47,12 +47,7 @@ export default {
 
 <style>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
 }
 
 .site__title {

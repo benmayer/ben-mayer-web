@@ -1,5 +1,5 @@
 <template>
-    <div class="site__wrapper">
+    <div class="flex h-screen">
       <Message :message="message" />
       <NuxtLink v-if="!user" class="button__login button--green" to="/">Home</NuxtLink>
       <button v-if="user" @click="logout" class="button__login button--green">Logout</button>
