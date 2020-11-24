@@ -15,28 +15,27 @@ $ yarn install
 
 
 # serve nuxt on dev server at localhost:3000
-$ cd src 
-$ yarn dev
-
-
-
-# build for production and launch server
-$ cd src 
-$ npm run build
-$ npm start
+$ yarn dev 
 
 # generate static project
-$ cd src 
-$ npm run generate
+$ yarn predeploy
 
-# serve firebase functions locally at localhost:5000
-$ firebase serve --only functions, hosting
-
+# build for production and serve firebase functions locally at localhost:5000
+$ yarn serve
 
 # build firebase for productions
-$ firebase deploy
+$ yarn deploy
 
 
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## Firebase installation
+
+install firebase cli and login using your firebase account
+
+``` bash 
+$ curl -sL https://firebase.tools | bash
+
+```
+then create a .env file in the `src` directory your firebase config
+

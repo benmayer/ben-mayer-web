@@ -36,8 +36,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background: #040308e6;
-  color:#fbfbfb;
+  
+  color: #040308e6;
+  background:#fbfbfb;
 }
 
 *,
@@ -45,6 +46,13 @@ html {
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: #040308e6;
+    color:#fbfbfb;
+  }
 }
 
 .button--green {
