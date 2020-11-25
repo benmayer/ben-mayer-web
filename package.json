@@ -5,6 +5,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "install": "cd src && yarn install && cd ../functions && yarn install",
     "dev": "cd src && yarn dev",
     "serve": "firebase serve --only functions,hosting",
     "build": "npm --prefix src run build",
@@ -20,7 +21,6 @@
     "deploy": "yarn predeploy && firebase deploy"
   },
   "engines": {
-    "node": "12"
   },
   "dependencies": {},
   "devDependencies": {

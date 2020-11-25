@@ -8,35 +8,34 @@ export default {
   // middleware: 'anonymous-access',
   data () {
     return {
-      blog: null
+      blog: {}
     }
   },
-  validate ({ params }) {
-    // Must be a number
-    return params.id !== undefined
-  },
-  async mounted () {
+  // validate ({ params }) {
+  //   console.log('params.id', params.id)
+  //   return params.id !== undefined
+  // },
+  async fetch() {
     const db = this.$fire.firestore
-
     try {
-      const documentSnapshot = await db.collection('blogs')
+      const dbBlogQuery = await db.collection('blogs')
         .doc(this.$route.params.id)
         .get()
-
-      if (!documentSnapshot.exists) {
-        this.$nuxt.error({ statusCode: 404, message: 'Blog not found' })
-        return
-      }
-
-      this.blog = {
-        id: documentSnapshot.id,
-        ...documentSnapshot.data()
+      if (!dbBlogQuery.exists) {
+        this.$nuxt.error({ statusCode: 404, message: 'Looks like you\'ve got the wrong page dude.' })
+      }else {
+        this.blog = {
+          id: dbBlogQuery.id,
+          ...dbBlogQuery.data()
+        }
       }
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.error(e)
-      this.$nuxt.error({ statusCode: 404, message: 'Blog not found' })
+      this.$nuxt.error({ statusCode: 500, message: 'No idea what\'s up. Maybe try again in a bit.'})
     }
+  },
+  async mounted () {
+
   },
   head () {
     return {
