@@ -16,7 +16,8 @@
     "dotenv": "^8.2.0",
     "firebase": "^8.0.0",
     "firebase-admin": "^9.4.1",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "tiptap": "^1.30.0"
   },
   "devDependencies": {}
 }

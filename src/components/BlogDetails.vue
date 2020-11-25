@@ -1,12 +1,12 @@
 <template>
-  <article class="blog">
+  <article class="blog__post max-w-3xl sm:p-4 p-2 mx-auto">
     <div class="mb-5">
       <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex flex-wrap">
         <div v-for="tag of tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
         </div>
       </div>
-      <h1>{{ blog.title }}</h1>
+      <h1 class="text-5xl">{{ blog.title }}</h1>
       <h2 v-if="blog.lead" class="font-sans text-gray-700 font-light">
         {{ blog.lead }}
       </h2>

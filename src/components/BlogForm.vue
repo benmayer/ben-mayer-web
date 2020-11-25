@@ -1,12 +1,12 @@
 <template>
-  <div class="lg:flex mx-auto justify-center">
+  <div class="flex lg:container w-full mx-auto justify-center">
     <div class="lg:w-2/4">
       <div class="mx-5">
         <div class="mb-4">
           <label for="title">Title</label>
           <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId">
         </div>
-        <!-- <editor v-model="blog.body" /> -->
+        <Editor v-model="blog.body" />
       </div>
     </div>
     <div class="lg:w-1/4">
