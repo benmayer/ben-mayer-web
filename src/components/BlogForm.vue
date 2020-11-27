@@ -168,8 +168,8 @@ export default {
     async updateValue () {
       this.status = 'Saving...'
 
-      const serverTimestamp = this.$firebase.firestore.FieldValue.serverTimestamp()
-      const db = this.$firebase.firestore()
+      const serverTimestamp = this.$fireModule.firestore.FieldValue.serverTimestamp()
+      const db = this.$fire.firestore
       const blog = cloneDeep(this.blog)
 
       const id = blog.id
@@ -239,7 +239,7 @@ export default {
       const result = window.confirm('Are you sure you want to delete this blog?')
       if (result) {
         if (this.originalId) {
-          const db = this.$firebase.firestore()
+          const db = this.$fire.firestore
 
           const promise1 = db.collection('blogs').doc(this.originalId).delete()
           const promise2 = db.collection('teasers').doc(this.originalId).delete()
@@ -266,7 +266,7 @@ export default {
       this.blog.id = this.slugify(this.blog.title)
     },
     async checkExists () {
-      const db = this.$firebase.firestore()
+      const db = this.$fire.firestore
       const documentSnapshot = await db.collection('blogs').doc(this.blog.id).get()
       return documentSnapshot.exists
     },
@@ -338,8 +338,10 @@ export default {
         })
     },
     uploadSingleImageFile (filename, blob, metadata) {
-      const storage = this.$firebase.storage()
+      const storage = this.$fire.storage
       const imageRef = storage.ref(`images/${filename}`)
+
+
 
       return imageRef.put(blob, metadata).then((snapshot) => {
         // eslint-disable-next-line promise/no-nesting
@@ -398,8 +400,10 @@ export default {
     deleteImage () {
       this.isDeletingImage = true
 
-      const fullImageDeletePromise = this.$firebase.storage().refFromURL(this.blog.imageUrl).delete()
-      const thumbImageDeletePromise = this.$firebase.storage().refFromURL(this.blog.teaserImageUrl).delete()
+      const storage = this.$fire.storage;
+
+      const fullImageDeletePromise = storage.refFromURL(this.blog.imageUrl).delete()
+      const thumbImageDeletePromise = storage.refFromURL(this.blog.teaserImageUrl).delete()
 
       return Promise.all([fullImageDeletePromise, thumbImageDeletePromise])
         .then(() => {
@@ -423,3 +427,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+input, textarea {
+    background: rgb(144 144 144 / 11%);
+    border: 1px solid #8a8a8a57;
+    padding: .25em .5em;
+}
+</style>

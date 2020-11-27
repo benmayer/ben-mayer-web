@@ -53,6 +53,7 @@ module.exports = {
         },
         ssr: true,
       },
+      storage: true,
       firestore: {
         // memoryOnly: false, // default
         // chunkName: process.env.NODE_ENV !== 'production' ? 'firebase-auth' : '[id]', // default
