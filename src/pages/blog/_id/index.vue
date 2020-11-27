@@ -4,7 +4,7 @@
 <script>
 
 export default {
-  name: 'BlogPage',
+  name: 'BlogPost',
   // middleware: 'anonymous-access',
   data () {
     return {

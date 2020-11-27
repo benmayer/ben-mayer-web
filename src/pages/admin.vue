@@ -1,15 +1,18 @@
 <template>
   <div class="flex container items-center mx-auto text-center">
+      <nuxt-link to="/blog/new" class="block mb-5 no-underline font-bold uppercase text-sm float-right">
+      Create new article
+    </nuxt-link>
       <table class="table-auto border-collapse w-full mx-auto ">
-      <thead>
-        <tr>
-          <th class="p-2">ID</th>
-          <th class="p-2">Title</th>
-          <th class="p-2">Status</th>
-          <th class="p-2">Created</th>
-          <th class="p-2">Changed</th>
-        </tr>
-      </thead>
+        <thead>
+          <tr>
+            <th class="p-2">ID</th>
+            <th class="p-2">Title</th>
+            <th class="p-2">Status</th>
+            <th class="p-2">Created</th>
+            <th class="p-2">Changed</th>
+          </tr>
+        </thead>
       <tbody>
         <tr v-for="blog of blogs" :key="blog.id">
           <td class="p-2">

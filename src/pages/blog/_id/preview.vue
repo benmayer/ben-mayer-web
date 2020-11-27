@@ -4,7 +4,7 @@
 <script>
 
 export default {
-  name: 'BlogPreviewPage',
+  name: 'BlogPreviewPost',
   middleware: 'authenticated-access',
   data () {
     return {

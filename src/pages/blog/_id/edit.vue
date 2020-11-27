@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'BlogEditPage',
+  name: 'BlogEditPost',
   middleware: 'authenticated-access',
   layout: 'admin',
   data () {
