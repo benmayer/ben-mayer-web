@@ -36,7 +36,7 @@
             class="menubar__button"
             @click="commands.code"
           >
-           <span>< ></span>
+           <span><></span>
           </button>
         </div>
         <div class="menubar__group">

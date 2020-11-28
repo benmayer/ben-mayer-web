@@ -23,7 +23,7 @@ export default {
       batchSize: 10
     }
   },
-  async mounted () {
+  async fetch () {
     // this.$store.commit('SET_LOADING', true)
       const db = this.$fire.firestore
 
@@ -42,7 +42,6 @@ export default {
           ...entry.data()
         })
       })
-     console.log(this.blogs)
 
       // this.$store.commit('SET_LOADING', false)
   },

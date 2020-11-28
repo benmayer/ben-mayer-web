@@ -102,11 +102,10 @@
 </template>
 <script>
 import { cloneDeep } from 'lodash'
-// import Editor from '~/components/Editor'
+import { mapState } from 'vuex'
 
 export default {
   name: 'BlogForm',
-  // components: { Editor },
   props: {
     value: {
       type: Object,
@@ -131,6 +130,13 @@ export default {
         quality: 0.7
       }
     }
+  },
+  computed: {
+    // to avoid using this.$store.state.auth 
+    ...mapState([
+      'message',
+      'loading',
+    ])
   },
   watch: {
     value: {
@@ -172,6 +178,8 @@ export default {
       const db = this.$fire.firestore
       const blog = cloneDeep(this.blog)
 
+      console.log(blog)
+
       const id = blog.id
       delete blog.id
 
@@ -184,38 +192,24 @@ export default {
       blog.tags = this.tags.trim() !== '' ? this.tags.split(',').map(item => item.trim()) : []
 
       try {
-        const promises = []
+        const firebaseQue = []
+        const setBlogPost = db.collection('blogs').doc(id).set(blog)
 
-        const promise1 = db.collection('blogs').doc(id).set(blog)
-
-        const teaser = {
-          title: blog.title,
-          body: blog.teaser || '',
-          tags: blog.tags,
-          imageUrl: blog.teaserImageUrl || null,
-          imageAlt: blog.imageAlt || '',
-          created: blog.created,
-          changed: blog.changed,
-          published: blog.published || false
-        }
-
-        const promise2 = db.collection('teasers').doc(id).set(teaser)
-
-        promises.push(promise1, promise2)
+        firebaseQue.push(setBlogPost)
 
         if (this.originalId && this.originalId !== id) {
-          const promise3 = db.collection('blogs').doc(this.originalId).delete()
-          const promise4 = db.collection('teasers').doc(this.originalId).delete()
-
-          promises.push(promise3, promise4)
+          const deleteBlogPost = db.collection('blogs').doc(this.originalId).delete()
+          firebaseQue.push(deleteBlogPost)
         }
+        await Promise.all(firebaseQue).then(() => {
+          this.$store.commit('SET_MESSAGE', "Post saved.")
+        })
 
-        await Promise.all(promises)
       } catch (error) {
         // eslint-disable-next-line no-alert
-        alert('Error saving blog or teaser')
         // eslint-disable-next-line no-console
         console.error(error)
+        this.$store.commit('SET_MESSAGE', error.message || 'Unable to save post!')
       }
 
       blog.id = id
@@ -236,28 +230,26 @@ export default {
     },
     confirmDelete () {
       // eslint-disable-next-line no-alert
-      const result = window.confirm('Are you sure you want to delete this blog?')
+      const result = window.confirm('Are you sure you want to delete this post?')
       if (result) {
         if (this.originalId) {
           const db = this.$fire.firestore
+          const deleteBlogPost = db.collection('blogs').doc(this.originalId).delete()
 
-          const promise1 = db.collection('blogs').doc(this.originalId).delete()
-          const promise2 = db.collection('teasers').doc(this.originalId).delete()
-
-          Promise.all([promise1, promise2])
+          Promise.all([deleteBlogPost])
             .then(() => {
               // eslint-disable-next-line no-alert
-              alert('Blog deleted!')
+              this.$store.commit('SET_MESSAGE', "Post deleted.")
               this.$router.push({
                 path: '/admin'
               })
               return null
             })
             .catch((error) => {
-              // eslint-disable-next-line no-alert
-              alert('Unable to delete blog!')
               // eslint-disable-next-line no-console
               console.error(error)
+              // eslint-disable-next-line no-alert
+              this.$store.commit('SET_MESSAGE', error.message || 'Unable to delete post!')
             })
         }
       }
@@ -302,7 +294,7 @@ export default {
 
       if (!file.type.match('image.*')) {
         // eslint-disable-next-line no-alert
-        alert('Please upload an image.')
+        this.$store.commit('SET_MESSAGE', 'Please upload an image');
         return
       }
 
@@ -350,7 +342,7 @@ export default {
         })
       }).catch((error) => {
         // eslint-disable-next-line no-console
-        console.error('Error uploading image', error)
+        this.$store.commit('SET_MESSAGE', error.message || 'Unable to upload the image.')
       })
     },
     generateVariation (file, maxDimension, quality, cb) {
@@ -413,12 +405,14 @@ export default {
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.error('Error deleting image', error)
+          this.$store.commit('SET_MESSAGE', error.message || 'Unable to delete the image.')
 
           if (error.code === 'storage/object-not-found') {
             this.blog.imageUrl = ''
             this.blog.teaserImageUrl = ''
           }
+          // eslint-disable-next-line no-console
+          console.error('Error deleting image', error)
         })
         .finally(() => {
           this.isDeletingImage = false
