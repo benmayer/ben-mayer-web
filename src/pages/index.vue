@@ -1,6 +1,14 @@
 <template>
-  <div class="flex container items-center mx-auto text-center">
+  <div class="flex column container items-center mx-auto text-center">
       <Header :title="title" />
+      <ul class="flex column text-left"> 
+        <li v-for="post of blogs" :key="post.id" class="mb-2">
+          <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}">
+            <h1>{{post.title}}</h1>
+            <div v-html="post.body.substring(0,50)+'..'"/>
+          </nuxt-link>
+          </li>
+      </ul>
   </div>
 </template>
 
@@ -8,8 +16,35 @@
 export default {
   data() {
     return {
-      title: 'Ben Mayer'
+      title: 'Ben Mayer',
+      blogs: [],
+      eof: false,
+      lastDoc: null,
+      batchSize: 10
     }
+  },
+  async mounted () {
+    // this.$store.commit('SET_LOADING', true)
+      const db = this.$fire.firestore
+
+      
+
+      const dbQueryBlogs = await db
+      .collection('blogs')
+      .where('published', '==', true)
+      // .orderBy('created', 'desc')
+      // .limit(this.batchSize)
+      .get()
+
+      dbQueryBlogs.forEach( (entry) => {
+        this.blogs.push({
+          id: entry.id,
+          ...entry.data()
+        })
+      })
+     console.log(this.blogs)
+
+      // this.$store.commit('SET_LOADING', false)
   },
   head() {
     return {
