@@ -29,6 +29,7 @@ export default {
           ...dbBlogQuery.data()
         }
       }
+      console.log("index", this.blog)
     } catch (e) {
       // eslint-disable-next-line no-console
       this.$nuxt.error({ statusCode: 500, message: 'No idea what\'s up. Maybe try again in a bit.'})

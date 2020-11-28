@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
     <editor-menu-bar v-slot="{commands, isActive, getMarkAttrs }" :editor="editor">
-      <div class="menubar flex flex-wrap items-center mb-2">
+       <div class="menubar flex flex-wrap items-center mb-2">
         <div class="menubar__group">
           <button
             :class="{ 'is-active': isActive.bold() }"
@@ -36,7 +36,7 @@
             class="menubar__button"
             @click="commands.code"
           >
-           <span><></span>
+           <span> code </span>
           </button>
         </div>
         <div class="menubar__group">
@@ -93,7 +93,6 @@
             class="menubar__button"
             @click="removeLink(commands.link)"
           >
-            <!-- <icon-link-off class="menubar__icon" /> -->
           </button>
           <button
             class="menubar__button"
@@ -113,7 +112,7 @@
             class="menubar__button"
             @click="commands.code_block"
           >
-            <span><></span>
+            <span> code </span>
           </button>
           <button
             class="menubar__button"
@@ -134,10 +133,9 @@
             @click="commands.redo"
           >
           <span>⟳</span>
-            <!-- <icon-redo class="menubar__icon" /> -->
           </button>
         </div>
-      </div>
+      </div> 
     </editor-menu-bar>
     <editor-content :editor="editor" class="editor__content content" />
   </div>
@@ -154,8 +152,6 @@ import {
   OrderedList,
   BulletList,
   ListItem,
-  TodoItem,
-  TodoList,
   Bold,
   Code,
   Italic,
@@ -177,6 +173,14 @@ export default {
       default: ''
     }
   },
+  watch: {
+    value: {
+      handler (data) {
+        console.log("Editor watch", data)
+      },
+      immediate: true
+    }
+  },
   data () {
     return {
       editor: null,
@@ -185,8 +189,12 @@ export default {
       html: ''
     }
   },
-    mounted () {
+  async mounted () {
       this.html = this.value
+      // for whatever reason it breaks if you remove this line. 
+      // https://github.com/ueberdosis/tiptap/issues/577
+      // https://github.com/ueberdosis/tiptap/pull/897
+      this.editor = new Editor()
       this.editor = new Editor({
         extensions: [
           new Blockquote(),
@@ -197,8 +205,6 @@ export default {
           new HorizontalRule(),
           new ListItem(),
           new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
           new Link(),
           new Bold(),
           new Code(),
@@ -211,13 +217,13 @@ export default {
         onUpdate: ({ getHTML }) => {
             this.html = getHTML()
             this.$emit('input', this.html)
-
             console.log(this.value)
         },
       }),
-    console.log(this.value)
+      console.log("editor mounted", this.editor)
   },
   beforeDestroy () {
+    console.log("destroy",this.editor)
     this.editor.destroy()
   },
   methods: {

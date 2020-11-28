@@ -22,7 +22,6 @@
   },
   "engines": {},
   "dependencies": {
-    "tiptap-extensions": "^1.33.2"
   },
   "devDependencies": {
     "eslint": "^5.12.0"
