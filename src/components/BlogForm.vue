@@ -6,7 +6,7 @@
           <label for="title">Title</label>
           <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId">
         </div>
-        <Editor v-model="blog.body" />
+        <!-- <Editor v-model="blog.body" /> -->
       </div>
     </div>
     <div class="lg:w-1/4">
@@ -141,7 +141,7 @@ export default {
   watch: {
     value: {
       handler (newValue) {
-        this.blog = cloneDeep(newValue)
+        // this.blog = cloneDeep(newValue)
         this.tags = this.blog.tags ? this.blog.tags.join() : ''
       },
       immediate: true
@@ -176,7 +176,7 @@ export default {
 
       const serverTimestamp = this.$fireModule.firestore.FieldValue.serverTimestamp()
       const db = this.$fire.firestore
-      const blog = cloneDeep(this.blog)
+      // const blog = cloneDeep(this.blog)
 
       console.log(blog)
 
@@ -213,7 +213,7 @@ export default {
       }
 
       blog.id = id
-      this.$emit('input', cloneDeep(blog))
+      // this.$emit('input', cloneDeep(blog))
 
       this.status = ''
 

@@ -1,28 +1,23 @@
 
 
 <template>
-    <header class="site__header mx-auto">
+    <header class="site__header sticky top-0 flex justify-between items-center w-full p-2 shadow-sm z-50 ld-mode" >
         <Logo />
-        <h1 class="site__title">{{ title }}</h1>
         <Nav />
     </header>
 </template>
 
 <script>
 export default {
-    props: {
-        title: {        
-            type: String,
-            required: true,
-        }
-    }
+    // props: {
+    //     title: {        
+    //         type: String,
+    //         required: true,
+    //     }
+    // }
 }
 </script>
 
 <style>
 
-.site__nav {
-    width: 100%;
-    padding:1em;
-}
 </style>

@@ -74,18 +74,6 @@ export default {
     }
   },
   mounted () {
-    // hljs.registerLanguage('javascript', javascript)
-    // hljs.registerLanguage('css', css)
-    // hljs.registerLanguage('xml', xml)
-    // hljs.registerLanguage('php', php)
-    // hljs.registerLanguage('yaml', yaml)
-    // hljs.registerLanguage('sql', sql)
-    // hljs.registerLanguage('bash', bash)
-    // hljs.registerLanguage('shell', shell)
-
-    // this.$el.querySelectorAll('pre code').forEach((block) => {
-    //   hljs.highlightBlock(block)
-    // })
   }
 }
 </script>

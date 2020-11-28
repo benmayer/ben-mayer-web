@@ -20,11 +20,11 @@
     "predeploy": "yarn predeploy:functions && yarn predeploy:public",
     "deploy": "yarn predeploy && firebase deploy"
   },
-  "engines": {
+  "engines": {},
+  "dependencies": {
+    "tiptap-extensions": "^1.33.2"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^3.2.0",
     "eslint": "^5.12.0"
   }
 }

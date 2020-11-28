@@ -1,6 +1,6 @@
 <template>
-  <div class="flex container items-center mx-auto text-center">
-    <form v-if="!user" name="login" class="login__form flex column" @submit.prevent>
+  <div class="flex m-auto">
+    <form v-if="!user" name="login" class="login__form flex column mx-auto" @submit.prevent>
       <input placeholder="email" v-model="credentials.email" class="login__form-input input__email"/> 
       <input type="password" placeholder="password" v-model="credentials.password" class="login__form-input input__password"/>
       <button class="button--green login__form-button" type="submit" @click="login">Login</button>
@@ -63,9 +63,6 @@ export default {
 </script>
 
 <style>
-.container {
-
-}
 
 .login__form{ 
   max-width: 300px;

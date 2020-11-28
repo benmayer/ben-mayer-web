@@ -1,6 +1,6 @@
 <template>
-  <div class="flex column container items-center mx-auto text-center">
-      <Header :title="title" />
+  <div class="flex flex-col container items-center mx-auto text-center">
+      <h1 class="site__title">{{ title }}</h1>
       <ul class="flex column text-left"> 
         <li v-for="post of blogs" :key="post.id" class="mb-2">
           <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}">
@@ -26,8 +26,6 @@ export default {
   async fetch () {
     // this.$store.commit('SET_LOADING', true)
       const db = this.$fire.firestore
-
-      
 
       const dbQueryBlogs = await db
       .collection('blogs')
