@@ -1,4 +1,4 @@
-# Ben Mayer - Nuxtjs
+# Ben Mayer Web - Nuxtjs
 
 ## Build Setup
 

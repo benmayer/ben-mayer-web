@@ -1,6 +1,8 @@
-# ben-mayer-nuxt-firebase
+# ben-mayer-web
 
-[Demo](https://benmayer-firebase-node-test.web.app/)
+[Demo](https://ben-mayer-web.web.app/)
+
+This is my website, a Univeral Nuxt.js application with Serverside Rendering, deployed to firebase functions, and using Firestore and Firebase Storage. 
 
 ## Build Setup
 
