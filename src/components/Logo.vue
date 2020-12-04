@@ -1,9 +1,9 @@
 <template>
-  
+  <nuxt-link to="/" class="site__logo">Ben Mayer</nuxt-link>
 </template>
 
 <style>
-.NuxtLogo {
-  margin: auto;
+.site__logo {
+
 }
 </style>

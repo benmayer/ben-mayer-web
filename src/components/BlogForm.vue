@@ -1,28 +1,28 @@
 <template>
-  <div class="flex lg:container w-full mx-auto justify-center">
-    <div class="lg:w-2/4">
-      <div class="mx-5">
-        <div class="mb-4">
-          <label for="title">Title</label>
-          <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId">
+  <div class="flex max-w-5xl w-full mx-auto justify-center">
+    <div class="w-2/3 ">
+      <div class="mx-5" >
+        <nuxt-link v-if="blog.published":to="{ name: 'blog-id', params: { 'id': blog.id }}" class="float-right">View Post</nuxt-link>
+        <div class="mb-4 flex-col ">
+          <label for="title" class="block w-full text-sm uppercase font-bold">Title</label>
+          <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId" class="block w-full ">
         </div>
         <Editor v-model="blog.body" />
       </div>
     </div>
-    <div class="lg:w-1/4">
-      <div class="rounded border shadow p-2">
-        <div class="mb-4">
-          <label for="id">ID</label>
-          <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
+    <div class="w-1/3 flex flex-col rounded border border-gray-100 shadow p-2">
+        <div class="mb-4 flex flex-col">
+          <label for="id" class="block w-full text-sm uppercase font-bold">Post ID</label>
+          <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID" class="block w-full">
         </div>
-        <div class="mb-4">
+        <div class="mb-4 flex flex-col">
           <label>
             <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
             <span class="text-sm">Published</span>
           </label>
         </div>
-        <div class="mb-4">
-          <label>Image</label>
+        <div class="mb-4 flex flex-col">
+          <label class="block w-full text-sm uppercase font-bold">Image</label>
           <div v-if="blog.imageUrl">
             <img :src="blog.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
             <button
@@ -51,51 +51,52 @@
             @change.prevent="uploadImageFile($event.target.files)"
           >
         </div>
-        <div class="mb-4">
-          <label for="imageAlt">Image Alt</label>
-          <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
+        <div class="mb-4 flex-col">
+          <label for="imageAlt" class="block w-full text-sm uppercase font-bold">Image Alt</label>
+          <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt" class="block w-full">
         </div>
-        <div class="mb-4">
-          <label for="imageCaption">Image caption</label>
-          <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
+        <div class="mb-4 flex-col">
+          <label for="imageCaption" class="block w-full text-sm uppercase font-bold">Image caption</label>
+          <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" class="block w-full"/>
         </div>
-        <div class="mb-4">
-          <label for="lead">Lead</label>
-          <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
+        <div class="mb-4 flex-col">
+          <label for="lead" class="block w-full text-sm uppercase font-bold">Lead</label>
+          <textarea id="lead" v-model="blog.lead" placeholder="Lead" class="block w-full" />
         </div>
-        <div class="mb-4">
-          <label for="teaser">Teaser</label>
-          <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
+        <div class="mb-4 flex-col">
+          <label for="teaser" class="block w-full text-sm uppercase font-bold">Teaser</label>
+          <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" class="block w-full" />
         </div>
-        <div class="mb-4">
-          <label for="tags">Tags</label>
-          <input id="tags" v-model="tags" type="text" placeholder="Tags">
+        <div class="mb-4 flex-col">
+          <label for="tags" class="block w-full text-sm uppercase font-bold">Tags</label>
+          <input id="tags" v-model="tags" type="text" placeholder="Tags" class="block w-full" />
         </div>
-        <div class="mb-4">
-          <label for="description">Description</label>
-          <textarea id="description" v-model="blog.description" placeholder="Description" />
+        <div class="mb-4 flex-col">
+          <label for="description" class="block w-full text-sm uppercase font-bold">Description</label>
+          <textarea id="description" v-model="blog.description" placeholder="Description" class="block w-full" />
         </div>
-        <div class="mb-4 clearfix">
-          <div class="float-left">
+        <div class="mb-4 flex justify-between">
+          <div class="">
             <button
               :disabled="!!status"
               type="button"
               @click="submitForm"
+              class="px-4 py-2"
             >
               {{ status ? status : 'Save' }}
             </button>
-            <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
+            <nuxt-link v-if="!blog.published" :to="{ name: 'blog-id-preview', params: { 'id': blog.id }}" class="px-4 py-2">Preview</nuxt-link>
+            <nuxt-link v-if="blog.published" :to="{ name: 'blog-id', params: { 'id': blog.id }}" class="px-4 py-2">View Post</nuxt-link>
           </div>
-          <div class="float-right">
+          <div class="">
             <button
               type="button"
-              class="bg-red-500 border-red-300 text-white"
+              class="px-4 py-2 bg-red-500 border-red-300 text-white"
               @click="confirmDelete"
             >
               Delete
             </button>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -143,18 +144,20 @@ export default {
       handler (newValue) {
         this.blog = cloneDeep(newValue)
         this.tags = this.blog.tags ? this.blog.tags.join() : ''
+        console.log("form watch", this.blog.id)
       },
       immediate: true
     }
   },
-  mounted () {
+  async mounted () {
+    console.log("blogform id", this.blog.id)
     this.originalId = this.blog.id
   },
   methods: {
     async submitForm () {
       if (!this.blog.id) {
         // eslint-disable-next-line no-alert
-        alert('Please enter the blog ID.')
+        this.$store.commit('SET_MESSAGE', 'Please enter the blog ID.')
         this.$refs.id.focus()
         return
       }

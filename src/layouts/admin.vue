@@ -1,8 +1,7 @@
 <template>
-    <div class="flex h-screen">
+    <div class="flex flex-col h-screen">
       <Message :message="message" />
-      <NuxtLink v-if="!user" class="button__login button--green" to="/">Home</NuxtLink>
-      <button v-if="user" @click="logout" class="button__login button--green">Logout</button>
+      <Header class="mx-auto"/>
       <Nuxt />
     </div>
 </template>
@@ -28,17 +27,17 @@ export default {
     }
   },
   methods: {
-    async logout (e) {
-      this.$store.commit('SET_LOADING', true)
-      await this.$fire.auth.signOut()
-      .then(() => {
-        this.$store.commit('SET_LOADING', false) 
-        this.$store.commit('SET_MESSAGE', 'Logout succesful')
-      }).catch((e) => {
-        this.$store.commit('SET_MESSAGE', e.message)
-      })
-    },
-  }
+    // async logout (e) {
+    //   this.$store.commit('SET_LOADING', true)
+    //   await this.$fire.auth.signOut()
+    //   .then(() => {
+    //     this.$store.commit('SET_LOADING', false) 
+    //     this.$store.commit('SET_MESSAGE', 'Logout succesful')
+    //   }).catch((e) => {
+    //     this.$store.commit('SET_MESSAGE', e.message)
+    //   })
+    // },
+    }
 }
 </script>
 

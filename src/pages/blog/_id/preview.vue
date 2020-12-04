@@ -27,11 +27,11 @@ export default {
         this.$nuxt.error({ statusCode: 404, message: 'Blog not found' })
         return
       }
-
       this.blog = {
         id: documentSnapshot.id,
         ...documentSnapshot.data()
       }
+      console.log("preview",this.blog)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e)

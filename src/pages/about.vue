@@ -1,6 +1,6 @@
 <template>
-  <div class="flex container items-center mx-auto text-center">
-    <Header :title="title" class="mx-auto"/>
+  <div class="flex m-auto">
+    <h1 class="site__title">{{ title }}</h1>
   </div>
 </template>
 

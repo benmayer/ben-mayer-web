@@ -1,6 +1,7 @@
 <template>
-    <div class="flex h-screen">
+    <div class="flex flex-col h-screen">
       <Message :message="message" />
+      <Header class="mx-auto"/>
       <Nuxt />
     </div>
 </template>
@@ -20,15 +21,7 @@ export default {
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family:'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -37,10 +30,8 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   
-  color: #040308e6;
-  background:#fbfbfb;
+  
 }
-
 *,
 *::before,
 *::after {
@@ -48,10 +39,12 @@ html {
   margin: 0;
 }
 
+.ld-mode, html {
+  @apply text-gray-900 bg-gray-100;
+}
 @media (prefers-color-scheme: dark) {
-  html {
-    background: #040308e6;
-    color:#fbfbfb;
+  .ld-mode, html {
+    @apply text-gray-100 bg-gray-900;
   }
 }
 
@@ -82,11 +75,6 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
-}
-
-.flex {
-    display: flex;
-    box-sizing: border-box;
 }
 .row {
     flex-direction: row;
