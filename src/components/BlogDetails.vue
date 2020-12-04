@@ -7,10 +7,11 @@
         </div>
       </div>
       <h1 class="post__title">{{ blog.title }}</h1>
-      <h2 v-if="blog.lead" class="font-sans text-gray-700 font-light">
+      <span>--</span>
+      <h2 v-if="blog.lead" class="font-sans text-lg font-display font-bold text-gray-600">
         {{ blog.lead }}
       </h2>
-      <div class="text-gray-600 text-xs font-light">
+      <div class="text-gray-600 text-xs">
         {{ blog.created }}
         <!-- {{ blog.created | toDate }} -->
       </div>

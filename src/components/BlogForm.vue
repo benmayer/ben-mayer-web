@@ -21,6 +21,14 @@
             <span class="text-sm">Published</span>
           </label>
         </div>
+        <div class="mb-4 flex-col">
+          <label for="lead" class="block w-full text-sm uppercase font-bold">Lead</label>
+          <textarea id="lead" v-model="blog.lead" placeholder="Lead" class="block w-full" />
+        </div>
+        <div class="mb-4 flex-col">
+          <label for="description" class="block w-full text-sm uppercase font-bold">Description</label>
+          <textarea id="description" v-model="blog.description" placeholder="Description" class="block w-full" />
+        </div>
         <div class="mb-4 flex flex-col">
           <label class="block w-full text-sm uppercase font-bold">Image</label>
           <div v-if="blog.imageUrl">
@@ -59,21 +67,14 @@
           <label for="imageCaption" class="block w-full text-sm uppercase font-bold">Image caption</label>
           <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" class="block w-full"/>
         </div>
-        <div class="mb-4 flex-col">
-          <label for="lead" class="block w-full text-sm uppercase font-bold">Lead</label>
-          <textarea id="lead" v-model="blog.lead" placeholder="Lead" class="block w-full" />
-        </div>
-        <div class="mb-4 flex-col">
+        <!-- <div class="mb-4 flex-col">
           <label for="teaser" class="block w-full text-sm uppercase font-bold">Teaser</label>
           <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" class="block w-full" />
-        </div>
+        </div> -->
+        
         <div class="mb-4 flex-col">
           <label for="tags" class="block w-full text-sm uppercase font-bold">Tags</label>
           <input id="tags" v-model="tags" type="text" placeholder="Tags" class="block w-full" />
-        </div>
-        <div class="mb-4 flex-col">
-          <label for="description" class="block w-full text-sm uppercase font-bold">Description</label>
-          <textarea id="description" v-model="blog.description" placeholder="Description" class="block w-full" />
         </div>
         <div class="mb-4 flex justify-between">
           <div class="">

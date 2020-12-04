@@ -25,7 +25,7 @@ export default {
             if (value){
                 setTimeout(() => {
                     this.$store.commit('SET_MESSAGE', null)
-                }, 2000);
+                }, 3000);
              }
         }
     }
