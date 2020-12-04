@@ -37,6 +37,7 @@
         {{ next.title }} &gt;
       </nuxt-link>
     </div>
+    <nuxt-link v-if="user" :to="{ name: 'blog-id-edit', params: { id: blog.id } }">Edit post</nuxt-link>
   </article>
 </template>
 
@@ -51,6 +52,7 @@
 // import xml from 'highlight.js/lib/languages/xml'
 // import yaml from 'highlight.js/lib/languages/yaml'
 
+import { mapState } from 'vuex'
 export default {
   name: 'BlogDetails',
   props: {
@@ -71,7 +73,12 @@ export default {
     tags () {
       // return this.blog.tags.slice(0).sort()
       return this.blog.tags
-    }
+    },
+    ...mapState([
+      'user',
+      'message',
+      'loading',
+    ])
   },
   mounted () {
   }

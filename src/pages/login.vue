@@ -1,6 +1,6 @@
 <template>
-  <div class="flex m-auto">
-    <form v-if="!user" name="login" class="login__form flex column mx-auto" @submit.prevent>
+  <div class="flex w-full m-auto">
+    <form name="login" class="login__form" @submit.prevent>
       <input placeholder="email" v-model="credentials.email" class="login__form-input input__email"/> 
       <input type="password" placeholder="password" v-model="credentials.password" class="login__form-input input__password"/>
       <button class="button--green login__form-button" type="submit" @click="login">Login</button>
@@ -65,9 +65,9 @@ export default {
 <style>
 
 .login__form{ 
-  max-width: 300px;
-  width: 100%;
-  padding: 1em;
+  @apply flex flex-col;
+  @apply w-full max-w-xs m-auto ;
+  @apply p-2;
   background: #a7a7a71c;
 }
 .login__form-input{
@@ -75,6 +75,7 @@ export default {
   margin-bottom: .5em;
   background: white;
   border: 1px solid #efefef;
+  @apply text-gray-700;
 }
 .login__form-button{
     margin-top: 1em;

@@ -16,12 +16,12 @@
       <tbody>
         <tr v-for="blog of blogs" :key="blog.id">
           <td class="p-2">
-            <nuxt-link :to="{ name: 'blog-id', params: { 'id': blog.id }}">{{ blog.id }}</nuxt-link>
+            <nuxt-link :to="{ name: 'blog-id-edit', params: { 'id': blog.id }}">{{ blog.id }}</nuxt-link>
           </td>
           <td class="p-2">{{ blog.title }}</td>
           <td class="p-2">{{ blog.published ? 'Published' : 'Draft' }}</td>
-          <td class="p-2">{{ blog.created | toDate }}</td>
-          <td class="p-2">{{ blog.changed | toDate }}</td>
+          <td class="p-2">{{ blog.created }}</td>
+          <td class="p-2">{{ blog.changed }}</td>
         </tr>
       </tbody>
     </table>
