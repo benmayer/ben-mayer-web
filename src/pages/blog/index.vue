@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-col m-auto text-center">
       <h1 class="site__title">{{ title }}</h1>
-      <h1 class="site__subtitle">Coming soon</h1>
       <ul class="posts__feed flex flex-col max-w-3xl text-left"> 
         <li v-for="post of blogs" :key="post.id" class="posts__feed-item">
           <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex">
@@ -37,7 +36,7 @@ export default {
       .collection('blogs')
       .where('published', '==', true)
       .orderBy('created', 'desc')
-      .limit(this.batchSize)
+      // .limit(this.batchSize)
       .get()
 
       dbQueryBlogs.forEach( (entry) => {

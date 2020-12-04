@@ -35,8 +35,8 @@ export default {
       const dbQueryBlogs = await db
       .collection('blogs')
       .where('published', '==', true)
-      .orderBy('created', 'desc')
-      .limit(this.batchSize)
+      // .orderBy('created', 'desc')
+      // .limit(this.batchSize)
       .get()
 
       dbQueryBlogs.forEach( (entry) => {
