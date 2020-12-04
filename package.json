@@ -1,6 +1,6 @@
 {
-  "name": "ben-mayer-firebase-nuxt",
-  "description": "This is a nuxt.js fibase test ",
+  "name": "ben-mayer-web",
+  "description": "This is my personal website, a Nuxt.js application with Serverside Rendering, deployed to firebase functions, and using Firestore and Firebase Storage.",
   "author": "benmayer",
   "private": true,
   "license": "MIT",

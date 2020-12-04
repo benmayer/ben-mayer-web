@@ -2,7 +2,7 @@
 
 [Demo](https://ben-mayer-web.web.app/)
 
-This is my website, a Univeral Nuxt.js application with Serverside Rendering, deployed to firebase functions, and using Firestore and Firebase Storage. 
+This is my personal website, a Nuxt.js application with Serverside Rendering, deployed to firebase functions, and using Firestore and Firebase Storage.
 
 ## Build Setup
 
