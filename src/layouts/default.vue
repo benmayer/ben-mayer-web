@@ -48,7 +48,6 @@ html {
 }
 
 p > a {
-  display: inline-block;
   color: #3b8070;
 }
 

@@ -1,6 +1,6 @@
 <template>
     <nav class="site__nav flex">
-        <!-- <NuxtLink class="m-2" to="/about">About</NuxtLink> -->
+        <NuxtLink class="m-2" to="/about">About</NuxtLink>
         <NuxtLink class="m-2" to="/blog">Blog</NuxtLink>
         <div v-if="user" class="flex">
             <span class="m-2">|</span>

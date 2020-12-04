@@ -22,20 +22,20 @@
     </figure>
     <div class="content" v-html="blog.body" />
     <div class="clearfix mt-10 text-xs font-semibold uppercase">
-      <nuxt-link
+      <!-- <nuxt-link
         v-if="prev"
         :to="{ name: 'blog-id', params: { id: prev.id } }"
         class="float-left no-underline w-1/2 break-normal pr-5"
       >
         &lt; {{ prev.title }}
-      </nuxt-link>
-      <nuxt-link
+      </nuxt-link> -->
+      <!-- <nuxt-link
         v-if="next"
         :to="{ name: 'blog-id', params: { id: next.id } }"
         class="float-right no-underline w-1/2 break-normal pl-5"
       >
         {{ next.title }} &gt;
-      </nuxt-link>
+      </nuxt-link> -->
     </div>
     <nuxt-link v-if="user" :to="{ name: 'blog-id-edit', params: { id: blog.id } }">Edit post</nuxt-link>
   </article>
