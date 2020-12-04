@@ -21,8 +21,7 @@ export default {
 
 <style>
 html {
-  font-family:'Source Sans Pro', 'Segoe UI', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
+  @apply font-sans;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -46,6 +45,10 @@ html {
   .ld-mode, html {
     @apply text-gray-100 bg-gray-900;
   }
+}
+
+p > a {
+  color: #3b8070;
 }
 
 .button--green {

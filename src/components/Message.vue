@@ -23,9 +23,9 @@ export default {
     watch: {
         message (value){
             if (value){
-                // setTimeout(() => {
-                //     this.$store.commit('SET_MESSAGE', null)
-                // }, 2000);
+                setTimeout(() => {
+                    this.$store.commit('SET_MESSAGE', null)
+                }, 2000);
              }
         }
     }

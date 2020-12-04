@@ -86,6 +86,19 @@ module.exports = {
       dev: false,
     }
   },
+  tailwindcss: {
+    config: {
+      theme: {
+        fontFamily: {
+          'sans': ['Source Sans Pro','Helvetica Neue','Arial', 'ui-sans-serif', 'system-ui'],
+          'serif': ['ui-serif', 'Georgia'],
+          'mono': ['ui-monospace', 'SFMono-Regular'],
+          'display': ['Quicksand'],
+          'body': ['Source Sans Pro','Helvetica Neue','Arial'],
+        }
+      }
+    }
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

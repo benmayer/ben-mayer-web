@@ -1,19 +1,22 @@
 <template>
   <div class="flex flex-col m-auto text-center">
       <h1 class="site__title">{{ title }}</h1>
-      <ul class="posts__feed flex flex-col max-w-3xl text-left"> 
-        <li v-for="post of blogs" :key="post.id" class="posts__feed-item">
-          <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex">
-            <div class="w-1/6 mr-4 bg-gray-600 bg-opacity-10">
-              <img v-if="post.teaserImageUrl" :src="post.teaserImageUrl" />
-            </div>
-            <div class="">
-              <h1 class="text-lg">{{post.title}}</h1>
-              <div v-html="post.body.substring(0,50)+'..'" />
-            </div>
-          </nuxt-link>
-          </li>
-      </ul>
+      <span>-</span>
+      <p>Here I share things I've learnt and thoughts I've thought.</p>
+      <div class="posts__feed flex flex-col max-w-3xl text-left"> 
+        <ul class="text-left my-8"> 
+          <li v-for="post of blogs" :key="post.id" class="posts__feed-item shadow hover:shadow-sm">
+            <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex">
+              <div class="w-1/4 mr-2 bg-gray-600 bg-opacity-10 bg-cover bg-center" :style="{backgroundImage: `url('${post.teaserImageUrl}')`}">
+              </div>
+              <div class="w-3/4 p-4">
+                <h1 class="text-2xl font-display font-light mb-2">{{post.title}}</h1>
+                <div v-html="post.body.substring(0,225)+'..'" />
+              </div>
+            </nuxt-link>
+            </li>
+        </ul>
+      </div>
   </div>
 </template>
 
@@ -57,40 +60,4 @@ export default {
 </script>
 
 <style>
-
-.site__title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.posts__feed {
-
-}
-.posts__feed-item {
-
-  background: rgba(144, 144, 144, 0.11);
-  @apply .p-2 .mb-2;
-
-}
 </style>

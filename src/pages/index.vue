@@ -1,19 +1,27 @@
 <template>
-  <div class="flex flex-col container items-center mx-auto text-center">
-      <h1 class="site__title">{{ title }}</h1>
-      <ul class="posts__feed flex flex-col max-w-3xl text-left"> 
-        <li v-for="post of blogs" :key="post.id" class="posts__feed-item">
-          <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex">
-            <div class="w-1/6 mr-4 bg-gray-600 bg-opacity-10">
-              <img v-if="post.teaserImageUrl" :src="post.teaserImageUrl" />
-            </div>
-            <div class="">
-              <h1 class="text-lg">{{post.title}}</h1>
-              <div v-html="post.body.substring(0,50)+'..'" />
-            </div>
-          </nuxt-link>
-          </li>
-      </ul>
+  <div class="flex flex-col mx-auto text-center">
+      <h1 class="site__title">Hi, I'm Ben.</h1>
+      <div class="site__intro my-8">
+        <span>—</span>
+        <p>
+          Product Manager, bass player and love climbing. Here I share things I've learnt and thoughts I've thought.
+        </p>
+        <p class="mt-4"><nuxtLink to="/about" class="font-bold ">My journey</nuxtLink></p>
+      </div>
+      <div class="posts__feed flex flex-col max-w-3xl ">
+        <ul class="text-left my-8"> 
+          <li v-for="post of blogs" :key="post.id" class="posts__feed-item shadow hover:shadow-sm">
+            <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex">
+              <div class="w-1/4 mr-2 bg-gray-600 bg-opacity-10 bg-cover bg-center" :style="{backgroundImage: `url('${post.teaserImageUrl}')`}">
+              </div>
+              <div class="w-3/4 p-4">
+                <h1 class="text-2xl font-display font-light mb-2">{{post.title}}</h1>
+                <div v-html="post.body.substring(0,225)+'..'" />
+              </div>
+            </nuxt-link>
+            </li>
+        </ul>
+      </div>
   </div>
 </template>
 
@@ -59,38 +67,19 @@ export default {
 <style>
 
 .site__title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  @apply font-display font-light;
   display: block;
-  font-weight: 300;
   font-size: 100px;
   color: #35495e;
   letter-spacing: 1px;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.posts__feed {
-
-}
 .posts__feed-item {
+  @apply mb-2 rounded overflow-hidden;
+  background: rgba(197 195 214 / 15%);
 
-  background: rgba(144, 144, 144, 0.11);
-  @apply .p-2 .mb-2;
+}
 
+.posts__feed-item:hover{
+  transform: translateY(1px);
 }
 </style>

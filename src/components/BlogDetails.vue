@@ -6,7 +6,7 @@
           {{ tag }}
         </div>
       </div>
-      <h1 class="text-5xl">{{ blog.title }}</h1>
+      <h1 class="post__title">{{ blog.title }}</h1>
       <h2 v-if="blog.lead" class="font-sans text-gray-700 font-light">
         {{ blog.lead }}
       </h2>
@@ -85,4 +85,9 @@ export default {
 }
 </script>
 <style scoped>
+.post__title{ 
+  @apply text-6xl font-display;
+  @apply font-light tracking-wide;
+  color: #35495e;
+}
 </style>
