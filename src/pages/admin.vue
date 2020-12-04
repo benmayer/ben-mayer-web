@@ -6,11 +6,11 @@
       <table class="table-auto border-collapse w-full mx-auto ">
         <thead>
           <tr>
-            <th class="p-2">ID</th>
+            <th class="p-2">Post ID</th>
             <th class="p-2">Title</th>
             <th class="p-2">Status</th>
+            <th class="p-2">Last Updated</th>
             <th class="p-2">Created</th>
-            <th class="p-2">Changed</th>
           </tr>
         </thead>
       <tbody>
@@ -20,8 +20,8 @@
           </td>
           <td class="p-2">{{ blog.title }}</td>
           <td class="p-2">{{ blog.published ? 'Published' : 'Draft' }}</td>
-          <td class="p-2">{{ blog.created }}</td>
-          <td class="p-2">{{ blog.changed }}</td>
+          <td class="p-2">{{ blog.changed | date }}</td>
+          <td class="p-2">{{ blog.created | date }}</td>
         </tr>
       </tbody>
     </table>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   layout: 'admin',
   data() {
@@ -40,6 +41,11 @@ export default {
   head() {
     return {
       title: this.title,
+    }
+  },
+  filters: {
+    date: (value) => {
+      return moment.unix(value.seconds).format('ddd, Do MMM YYYY, h:mma')
     }
   },
   async mounted () {

@@ -21,8 +21,7 @@
     "deploy": "yarn predeploy && firebase deploy"
   },
   "engines": {},
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^5.12.0"
   }

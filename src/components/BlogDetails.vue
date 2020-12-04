@@ -12,8 +12,7 @@
         {{ blog.lead }}
       </h2>
       <div class="text-gray-600 text-xs">
-        {{ blog.created }}
-        <!-- {{ blog.created | toDate }} -->
+        {{ blog.created | date }}
       </div>
     </div>
     <figure v-if="blog.imageUrl" class="mb-5">
@@ -54,6 +53,7 @@
 // import yaml from 'highlight.js/lib/languages/yaml'
 
 import { mapState } from 'vuex'
+import moment from 'moment'
 export default {
   name: 'BlogDetails',
   props: {
@@ -81,7 +81,10 @@ export default {
       'loading',
     ])
   },
-  mounted () {
+  filters: {
+    date: (value) => {
+      return moment.unix(value.seconds).format('ddd, Do MMM YYYY')
+    }
   }
 }
 </script>

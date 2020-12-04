@@ -2,7 +2,7 @@
   <div class="flex max-w-5xl w-full mx-auto justify-center">
     <div class="w-2/3 ">
       <div class="mx-5" >
-        <nuxt-link v-if="blog.published":to="{ name: 'blog-id', params: { 'id': blog.id }}" class="float-right">View Post</nuxt-link>
+        <nuxt-link v-if="blog.published" :to="{ name: 'blog-id', params: { 'id': blog.id }}" class="float-right">View Post</nuxt-link>
         <div class="mb-4 flex-col ">
           <label for="title" class="block w-full text-sm uppercase font-bold">Title</label>
           <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId" class="block w-full ">
