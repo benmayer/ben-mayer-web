@@ -12,7 +12,6 @@ export default {
     }
   },
   validate ({params}) {
-    console.log('params.id', params)
     return params.id !== undefined
   },
   async fetch() {
@@ -24,9 +23,6 @@ export default {
         .get()
       if (!dbBlogQuery.exists)
         return this.$nuxt.error({ statusCode: 404, message: 'Looks like you\'ve got the wrong page dude.' })
-      
-      console.log( (!this.$store.state.user && !dbBlogQuery.data().published))
-      console.log( !(this.$store.state.user && dbBlogQuery.data().published))
 
       if (!dbBlogQuery.data().published) 
         return this.$nuxt.error({ statusCode: 403, message: 'Not for your eyes, aparently.' })

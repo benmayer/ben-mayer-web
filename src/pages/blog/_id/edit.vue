@@ -34,8 +34,6 @@ export default {
         ...documentSnapshot.data()
       }
 
-      console.log("edit", this.blog)
-
       this.isLoaded = true
     } catch (e) {
       this.$nuxt.error({ statusCode: 404, message: 'Blog not found' })

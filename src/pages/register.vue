@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full m-auto">
     <form name="register" class="login__form" @submit.prevent>
-      <input placeholder="name" v-model="user.name" class="login__form-input input__email"/> 
+      <input placeholder="name" v-model="user.displayName" class="login__form-input input__name"/> 
       <input placeholder="email" v-model="user.email" class="login__form-input input__email"/> 
       <input type="password" placeholder="password" v-model="user.password" class="login__form-input input__password"/>
       <button class="button--green login__form-button" type="submit" @click="createUser">Create User</button>
@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       user: {
-        name: null,
+        displayName: null,
         email: null,
         password: null
       },
@@ -27,15 +27,20 @@ export default {
         await this.$fire.auth.createUserWithEmailAndPassword(
           this.user.email,
           this.user.password
-        ).then( () => {
-          this.user.name=""
+        ).then( ({user}) => {
+          if(user){
+            user.updateProfile({
+              displayName: this.user.displayName
+            })
+          }
+          this.user.displayName=""
           this.user.email=""
           this.user.password=""
-          this.$store.commit('SET_MESSAGE', e.message)
+          this.$store.commit('SET_MESSAGE', `User ${user.email} created`)
         }) 
       } catch (e) {
         this.$store.commit('SET_MESSAGE', e.message)
-        console.log(e)
+        console.error(e)
       }
     }
   }

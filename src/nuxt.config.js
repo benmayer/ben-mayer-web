@@ -6,7 +6,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'This is a website build with nuxt and firebase.' }
+      { hid: 'description', name: 'description', content: 'Ben Mayer - Product Manager, currently in Berlin. This is a collection of tings I\'ve learnt and thoughts I\'ve thought.' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

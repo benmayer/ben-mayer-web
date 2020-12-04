@@ -176,7 +176,6 @@ export default {
   watch: {
     value: {
       handler (data) {
-        console.log("Editor watch", data)
       },
       immediate: true
     }
@@ -217,13 +216,10 @@ export default {
         onUpdate: ({ getHTML }) => {
             this.html = getHTML()
             this.$emit('input', this.html)
-            console.log(this.value)
         },
-      }),
-      console.log("editor mounted", this.editor)
+      })
   },
   beforeDestroy () {
-    console.log("destroy",this.editor)
     this.editor.destroy()
   },
   methods: {

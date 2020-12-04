@@ -2,7 +2,7 @@
   <div class="flex flex-col m-auto text-center">
       <h1 class="site__title">{{ title }}</h1>
       <span>-</span>
-      <p>Here I share things I've learnt and thoughts I've thought.</p>
+      <p>Things I've learnt and thoughts I've thought.</p>
       <div class="posts__feed flex flex-col max-w-3xl text-left"> 
         <ul class="text-left my-8"> 
           <li v-for="post of blogs" :key="post.id" class="posts__feed-item shadow hover:shadow-sm">

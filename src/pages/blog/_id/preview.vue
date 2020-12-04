@@ -31,7 +31,6 @@ export default {
         id: documentSnapshot.id,
         ...documentSnapshot.data()
       }
-      console.log("preview",this.blog)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e)

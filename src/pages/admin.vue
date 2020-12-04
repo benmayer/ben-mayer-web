@@ -45,6 +45,7 @@ export default {
   },
   filters: {
     date: (value) => {
+      if (!value) return
       return moment.unix(value.seconds).format('ddd, Do MMM YYYY, h:mma')
     }
   },

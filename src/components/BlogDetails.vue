@@ -12,7 +12,7 @@
         {{ blog.lead }}
       </h2>
       <div class="text-gray-600 text-xs">
-        {{ blog.created | date }}
+        {{ blog.created | date }} 
       </div>
     </div>
     <figure v-if="blog.imageUrl" class="mb-5">
@@ -83,6 +83,7 @@ export default {
   },
   filters: {
     date: (value) => {
+      if (!value) return
       return moment.unix(value.seconds).format('ddd, Do MMM YYYY')
     }
   }

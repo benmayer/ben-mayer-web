@@ -4,9 +4,9 @@
       <div class="site__intro my-8">
         <span>—</span>
         <p>
-          Product Manager, bass player and love climbing. Here I share things I've learnt and thoughts I've thought.
+          Product Manager, bass player and love climbing, currently in Berlin. This is a collection of things I've learnt and thoughts I've thought.
         </p>
-        <p class="mt-4"><nuxtLink to="/about" class="font-bold ">My journey</nuxtLink></p>
+        <p class="mt-4"><nuxtLink to="/about" class="font-bold">My journey</nuxtLink></p>
       </div>
       <div class="posts__feed flex flex-col max-w-3xl ">
         <ul class="text-left my-8"> 
@@ -43,8 +43,8 @@ export default {
       const dbQueryBlogs = await db
       .collection('blogs')
       .where('published', '==', true)
-      // .orderBy('created', 'desc')
-      // .limit(this.batchSize)
+      .orderBy('created', 'desc')
+      .limit(this.batchSize)
       .get()
 
       dbQueryBlogs.forEach( (entry) => {

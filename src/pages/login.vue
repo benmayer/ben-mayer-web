@@ -1,12 +1,15 @@
 <template>
   <div class="flex w-full m-auto">
-    <form name="login" class="login__form" @submit.prevent>
+    <form v-if="!user" name="login" class="login__form" @submit.prevent>
       <input placeholder="email" v-model="credentials.email" class="login__form-input input__email"/> 
       <input type="password" placeholder="password" v-model="credentials.password" class="login__form-input input__password"/>
       <button class="button--green login__form-button" type="submit" @click="login">Login</button>
     </form>
-    <p v-if="user"> Hello {{user.email}}</p>
-    <NuxtLink v-if="user" class="button--green" to="/admin">Admin</NuxtLink>
+    <div v-if="user" class="flex flex-col m-auto text-center">
+      <h1 class="site__title"> Hello {{user.displayName}}</h1>
+      <p>If the redirect doesn't work, click here:</p>
+      <p><NuxtLink class="font-bold mt-2" to="/admin">Admin</NuxtLink> </p>
+    </div>
   </div>
 </template>
 
@@ -19,9 +22,6 @@ export default {
       credentials: {},
     }
   },
-  // fetch ({ store }) {
-
-  // },
   watch: {
     user (value) {
       if (value) {

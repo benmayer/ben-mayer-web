@@ -145,13 +145,11 @@ export default {
       handler (newValue) {
         this.blog = cloneDeep(newValue)
         this.tags = this.blog.tags ? this.blog.tags.join() : ''
-        console.log("form watch", this.blog.id)
       },
       immediate: true
     }
   },
   async mounted () {
-    console.log("blogform id", this.blog.id)
     this.originalId = this.blog.id
   },
   methods: {
