@@ -12,6 +12,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  loading: true,
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
   ],
