@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col text-center mx-auto ">
-    <h1 class="site__title">{{ title }}</h1>
+    <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
     <div class="site__intro max-w-lg my-8 mx-auto">
         <span>—</span>
         <img class="max-w-md m-auto" src="/images/Ben-Mayer.jpg" />

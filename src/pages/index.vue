@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mx-auto text-center">
-      <h1 class="site__title">Hi, I'm Ben.</h1>
+      <PageTitle :pageTitle="'Hi, I\'m Ben.'" class="text-5xl md:text-8xl"/>
       <div class="site__intro max-w-3xl my-8 mx-auto ">
         <span>—</span>
         <p>
@@ -77,14 +77,6 @@ export default {
 </script>
 
 <style>
-
-.site__title {
-  @apply font-display font-light;
-  display: block;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
 .posts__feed-item {
   @apply mb-2 rounded overflow-hidden;
   background: rgba(197 195 214 / 15%);

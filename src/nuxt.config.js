@@ -88,11 +88,12 @@ module.exports = {
       ],
       // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
       // only set this true for testing and remember to always clear your browser cache in development
-      dev: false,
+      dev: true,
     }
   },
   tailwindcss: {
     config: {
+      darkMode: 'media',
       theme: {
         fontFamily: {
           'sans': ['Source Sans Pro','Helvetica Neue','Arial', 'ui-sans-serif', 'system-ui'],
@@ -100,6 +101,13 @@ module.exports = {
           'mono': ['ui-monospace', 'SFMono-Regular'],
           'display': ['Quicksand'],
           'body': ['Source Sans Pro','Helvetica Neue','Arial'],
+        },
+        extend: {
+          fontSize: {
+            '8xl': '6rem',
+            '9xl': '8rem',
+            '10xl': '10rem',
+          }
         }
       }
     }

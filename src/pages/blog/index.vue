@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col m-auto text-center">
-      <h1 class="site__title">{{ title }}</h1>
+      <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
       <span>-</span>
       <p>Things I've learnt and thoughts I've thought.</p>
       <div class="posts__feed flex flex-col max-w-3xl text-left"> 
