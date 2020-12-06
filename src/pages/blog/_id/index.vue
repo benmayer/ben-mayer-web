@@ -8,7 +8,13 @@ export default {
   // middleware: 'anonymous-access',
   data () {
     return {
-      blog: {}
+      title: 'Blog post',
+      blog: {},
+    }
+  },
+  head() {
+    return {
+      title: this.blog ? this.blog.title : null,
     }
   },
   validate ({params}) {
@@ -39,11 +45,6 @@ export default {
   async mounted () {
 
   },
-  head () {
-    return {
-      title: this.blog ? this.blog.title : 'loading... '
-    }
-  }
 }
 </script>
 <style scoped>

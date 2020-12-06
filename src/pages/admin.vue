@@ -32,6 +32,7 @@
 import moment from 'moment'
 export default {
   layout: 'admin',
+  name: 'admin',
   data() {
     return {
       title: 'Admin',

@@ -16,10 +16,17 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  name: 'login',
   middleware: 'anonymous-access',
   data () {
     return {
+      title: 'Login',
       credentials: {},
+    }
+  },
+  head() {
+    return {
+      title: this.title,
     }
   },
   watch: {
@@ -46,11 +53,11 @@ export default {
         await this.$fire.auth.signInWithEmailAndPassword(
           this.credentials.email,
           this.credentials.password
-        ).then((e) => {
-          const message = e.message ? e.message : 'Success! You\'re logged in.'
+        ).then((user) => {
           this.$store.commit('SET_LOADING', false)
-          this.$store.commit('SET_MESSAGE', message)
+          this.$store.commit('SET_MESSAGE', 'Success! You\'re logged in.')
           this.credentials = {}
+          this.$fire.analytics.setUserId(user.uid)
         })
       } catch (e) {
         this.$store.commit('SET_LOADING', false)

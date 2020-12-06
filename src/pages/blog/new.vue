@@ -10,7 +10,13 @@ export default {
   layout: 'admin',
   data () {
     return {
-      blog: {}
+      title: 'New post',
+      blog: {},
+    }
+  },
+  head() {
+    return {
+      title: this.title,
     }
   }
 }

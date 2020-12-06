@@ -31,6 +31,11 @@ export default {
       batchSize: 10
     }
   },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
   async fetch () {
     // this.$store.commit('SET_LOADING', true)
       const db = this.$fire.firestore
@@ -51,11 +56,6 @@ export default {
 
       // this.$store.commit('SET_LOADING', false)
   },
-  head() {
-    return {
-      title: this.title,
-    }
-  }
 }
 </script>
 

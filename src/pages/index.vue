@@ -28,11 +28,17 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  data() {
+  name: 'home',
+  data () {
     return {
-      title: 'Ben Mayer',
+      title: 'Things I\'ve learnt, thoughts I\'ve thought',
       blogs: [],
       batchSize: 10
+    }
+  },
+  head() {
+    return {
+      title: this.title,
     }
   },
   computed: {
@@ -67,11 +73,6 @@ export default {
     }
       
   },
-  head() {
-    return {
-      title: this.title,
-    }
-  }
 }
 </script>
 

@@ -23,6 +23,7 @@
 
 <script>
 export default {
+  title: 'about',
   data() {
     return {
       title: 'About'
@@ -30,9 +31,9 @@ export default {
   },
   head() {
     return {
-      title: `Ben Mayer - ${this.title}`,
+      title: this.title,
     }
-  }
+  },
 }
 </script>
 

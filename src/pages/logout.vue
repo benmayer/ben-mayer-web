@@ -4,8 +4,18 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'LogoutPage',
- computed: {
+  name: 'logout',
+  data() {
+    return {
+      title: 'Logout',
+    }
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
+  computed: {
     // to avoid using this.$store.state.auth 
     ...mapState([
       'user',
@@ -23,7 +33,7 @@ export default {
     .catch((e) => {
         this.$store.commit('SET_MESSAGE', e.message)
     })
-  }
+  },
 }
 </script>
 <style scoped>

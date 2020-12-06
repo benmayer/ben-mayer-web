@@ -8,9 +8,15 @@ export default {
   layout: 'admin',
   data () {
     return {
+      title: 'Edit post',
       blog: {},
       id: '',
       isLoaded: false
+    }
+  },
+  head() {
+    return {
+      title: this.title,
     }
   },
   validate ({ params }) {

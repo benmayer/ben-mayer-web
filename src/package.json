@@ -3,6 +3,7 @@
   "description": "This is a nuxt.js application",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

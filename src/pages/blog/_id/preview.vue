@@ -8,7 +8,13 @@ export default {
   middleware: 'authenticated-access',
   data () {
     return {
-      blog: null
+      title: 'Preview post',
+      blog: null,
+    }
+  },
+  head() {
+    return {
+      title: this.title,
     }
   },
   validate ({ params }) {
