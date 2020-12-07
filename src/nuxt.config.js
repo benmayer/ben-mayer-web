@@ -103,6 +103,12 @@ module.exports = {
           'body': ['Source Sans Pro','Helvetica Neue','Arial'],
         },
         extend: {
+          height: {
+            '60': '15rem',
+          },
+          borderOpacity: {
+            '10': '0.1',
+          },
           fontSize: {
             '8xl': '6rem',
             '9xl': '8rem',

@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col text-center mx-auto ">
     <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
-    <div class="site__intro max-w-lg my-8 mx-auto">
+    <div class="site__intro w-full max-w-lg my-8 mx-auto">
         <span>—</span>
-        <img class="max-w-md m-auto" src="/images/Ben-Mayer.jpg" />
+        <img class="w-full max-w-md m-auto" src="/images/Ben-Mayer.jpg" />
         <p class="m-4">
-          This is me. I'm a Product Manager, bass player and I love climbing, I currently in Berlin.
+          This is me. I'm a Product Manager, bass player and I love climbing, I'm currently in Berlin.
           I also like to write code once in a while. I built this website from scratch using <a href="https://github.com/benmayer/ben-mayer-web/">Nuxt.js and deployed to Firebase.</a>
         </p>
         <p class="m-2">

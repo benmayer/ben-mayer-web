@@ -3,20 +3,7 @@
       <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
       <span>-</span>
       <p>Things I've learnt and thoughts I've thought.</p>
-      <div class="posts__feed flex flex-col max-w-3xl text-left"> 
-        <ul class="text-left my-8"> 
-          <li v-for="post of blogs" :key="post.id" class="posts__feed-item shadow hover:shadow-sm">
-            <nuxt-link :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex">
-              <div class="w-1/4 mr-2 bg-gray-600 bg-opacity-10 bg-cover bg-center" :style="{backgroundImage: `url('${post.teaserImageUrl}')`}">
-              </div>
-              <div class="w-3/4 p-4">
-                <h1 class="text-2xl font-display font-light mb-2">{{post.title}}</h1>
-                <div v-html="post.body.substring(0,225)+'..'" />
-              </div>
-            </nuxt-link>
-            </li>
-        </ul>
-      </div>
+      <BlogFeed :blogs="blogs" />
   </div>
 </template>
 
