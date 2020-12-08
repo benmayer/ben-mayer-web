@@ -1,7 +1,7 @@
 <template>
-  <div class="flex max-w-5xl w-full mx-auto justify-center">
-    <div class="w-2/3 ">
-      <div class="mx-5" >
+  <div class="flex flex-col sm:flex-row w-full mx-auto px-4">
+    <div class="flex w-full sm:w-2/3 py-5 ">
+      <div class="max-w-xl mx-auto" >
         <nuxt-link v-if="blog.published" :to="{ name: 'blog-id', params: { 'id': blog.id }}" class="float-right">View Post</nuxt-link>
         <div class="mb-4 flex-col ">
           <label for="title" class="block w-full text-sm uppercase font-bold">Title</label>
@@ -10,7 +10,7 @@
         <Editor v-model="blog.body" />
       </div>
     </div>
-    <div class="w-1/3 flex flex-col rounded border border-gray-100 shadow p-2">
+    <div class="flex flex-col w-full sm:w-1/3 mx-auto py-6 sm:pl-4 sm:border-l border-white border-opacity-10 shadow">
         <div class="mb-4 flex flex-col">
           <label for="id" class="block w-full text-sm uppercase font-bold">Post ID</label>
           <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID" class="block w-full">
