@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col m-auto px-4">
+  <div class="container flex flex-col w-full max-w-3xl m-auto px-4">
       <nuxt-link to="/blog/new" class="block mb-5 no-underline font-bold uppercase text-sm float-right">
       Create new article
     </nuxt-link>

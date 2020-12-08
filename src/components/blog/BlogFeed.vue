@@ -1,5 +1,5 @@
 <template>
-    <div class="feed flex flex-col w-full max-w-xl m-auto">
+    <div class="feed flex flex-col w-full m-auto">
         <ul v-if="!loading" class="text-left my-8">
           <li v-for="post of blogs" :key="post.id" class="feed-item shadow hover:shadow-sm">
             <NuxtLink :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex flex-col items-stretch sm:h-48 h-auto sm:flex-row">
