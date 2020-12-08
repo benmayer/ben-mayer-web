@@ -1,5 +1,5 @@
 <template>
-  <article class="blog__post w-full max-w-xl sm:p-4 p-2 mx-auto">
+  <article class="blog__post w-full max-w-xl px-4 mx-auto">
     <div class="mb-5">
       <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex flex-wrap">
         <div v-for="tag of tags" :key="tag" class="mx-2 first:ml-0">
