@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "install": "cd src && yarn install && cd ../functions && yarn install",
-    "dev": "cd src && yarn dev",
-    "serve": "firebase serve --only functions,hosting",
-    "build": "npm --prefix src run build",
+    "dev": "NODE_ENV=development && cd src && yarn dev",
+    "serve": "NODE_ENV=development firebase serve --only functions,hosting",
+    "build": "NODE_ENV=production && npm --prefix src run build",
     "clean": "yarn clean:public && yarn clean:functions",
     "clean:public": "rm -rf public/_nuxt",
     "clean:functions": "rm -rf functions/nuxt",
