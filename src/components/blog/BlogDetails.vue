@@ -1,12 +1,12 @@
 <template>
-  <article class="blog__post max-w-3xl sm:p-4 p-2 mx-auto">
+  <article class="blog__post w-full max-w-xl sm:p-4 p-2 mx-auto">
     <div class="mb-5">
       <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex flex-wrap">
         <div v-for="tag of tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
         </div>
       </div>
-      <h1 class="post__title">{{ blog.title }}</h1>
+      <PageTitle :pageTitle="blog.title" class="text-5xl md:text-6xl" />
       <span>--</span>
       <h2 v-if="blog.lead" class="font-sans text-lg font-display font-bold text-gray-600">
         {{ blog.lead }}

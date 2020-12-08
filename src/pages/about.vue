@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col text-center mx-auto ">
     <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
-    <div class="site__intro w-full max-w-lg my-8 mx-auto">
+    <div class="site__intro w-full max-w-xl my-8 mx-auto">
         <span>—</span>
         <img class="w-full max-w-md m-auto" src="/images/Ben-Mayer.jpg" />
         <p class="m-4">

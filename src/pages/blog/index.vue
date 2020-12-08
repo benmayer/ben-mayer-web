@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col m-auto text-center">
+  <div class="flex flex-col w-full m-auto text-center">
       <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
       <span>-</span>
       <p>Things I've learnt and thoughts I've thought.</p>
@@ -23,10 +23,10 @@ export default {
       title: this.title,
     }
   },
-  async fetch () {
-    // this.$store.commit('SET_LOADING', true)
+  async mounted () {
+    this.$store.commit('SET_LOADING', true)
+    try {
       const db = this.$fire.firestore
-
       const dbQueryBlogs = await db
       .collection('blogs')
       .where('published', '==', true)
@@ -40,8 +40,12 @@ export default {
           ...entry.data()
         })
       })
+      this.$store.commit('SET_LOADING', false)
 
-      // this.$store.commit('SET_LOADING', false)
+    } catch(e){
+      this.$store.commit('SET_LOADING', false)
+      this.$store.commit('SET_MESSAGE', e.message)
+    }
   },
 }
 </script>

@@ -104,6 +104,8 @@ module.exports = {
         },
         extend: {
           height: {
+            '48': '12rem',
+            '52': '13rem',
             '60': '15rem',
           },
           borderOpacity: {

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col mx-auto text-center">
+  <div class="flex flex-col w-full mx-auto text-center">
       <PageTitle :pageTitle="'Hi, I\'m Ben.'" class="text-5xl md:text-8xl"/>
-      <div class="site__intro w-full max-w-lg my-8 mx-auto ">
+      <div class="site__intro w-full max-w-xl my-8 mx-auto ">
         <span>—</span>
         <p>
           Product Manager, bass player and love climbing, currently in Berlin. This is a collection of things I've learnt and thoughts I've thought.
@@ -36,7 +36,7 @@ export default {
       'loading',
     ])
   },
-  async fetch () {
+  async mounted () {
     this.$store.commit('SET_LOADING', true)
 
     try {
@@ -54,6 +54,7 @@ export default {
           ...entry.data()
         })
       })
+      this.$store.commit('SET_LOADING', false)
     } catch(e){
       this.$store.commit('SET_LOADING', false)
       this.$store.commit('SET_MESSAGE', e.message)
@@ -64,13 +65,5 @@ export default {
 </script>
 
 <style>
-.posts__feed-item {
-  @apply mb-2 rounded overflow-hidden;
-  background: rgba(197 195 214 / 15%);
 
-}
-
-.posts__feed-item:hover{
-  transform: translateY(1px);
-}
 </style>
