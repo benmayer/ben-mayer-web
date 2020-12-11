@@ -3,32 +3,23 @@
     <div class="flex w-full sm:w-2/3 py-5 ">
       <div class="max-w-xl mx-auto" >
         <nuxt-link v-if="blog.published" :to="{ name: 'blog-id', params: { 'id': blog.id }}" class="float-right">View Post</nuxt-link>
-        <div class="mb-4 flex-col ">
-          <label for="title" class="block w-full text-sm uppercase font-bold">Title</label>
-          <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId" class="block w-full ">
-        </div>
+        <InputField :model="blog.title" label="Title" name="title" />
         <Editor v-model="blog.body" />
       </div>
     </div>
-    <div class="flex flex-col w-full sm:w-1/3 mx-auto py-6 sm:pl-4 sm:border-l border-white border-opacity-10 shadow">
-        <div class="mb-4 flex flex-col">
-          <label for="id" class="block w-full text-sm uppercase font-bold">Post ID</label>
-          <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID" class="block w-full">
-        </div>
+    <div class="flex flex-col w-full sm:w-1/3 mx-auto py-6 sm:pl-4 sm:border-l border-gray-500 border-opacity-25">
+        <InputField :model="blog.id" label="Post ID" name="id" />
         <div class="mb-4 flex flex-col">
           <label>
             <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
             <span class="text-sm">Published</span>
           </label>
         </div>
-        <div class="mb-4 flex-col">
-          <label for="lead" class="block w-full text-sm uppercase font-bold">Lead</label>
-          <textarea id="lead" v-model="blog.lead" placeholder="Lead" class="block w-full" />
-        </div>
-        <div class="mb-4 flex-col">
-          <label for="description" class="block w-full text-sm uppercase font-bold">Description</label>
-          <textarea id="description" v-model="blog.description" placeholder="Description" class="block w-full" />
-        </div>
+
+        <TextareaField name="lead" :model="blog.lead" label="Post Subtitle"  />
+        
+        <TextareaField name="description" :model="blog.description" label="Description"  />
+        
         <div class="mb-4 flex flex-col">
           <label class="block w-full text-sm uppercase font-bold">Image</label>
           <div v-if="blog.imageUrl">
@@ -59,23 +50,13 @@
             @change.prevent="uploadImageFile($event.target.files)"
           >
         </div>
-        <div class="mb-4 flex-col">
-          <label for="imageAlt" class="block w-full text-sm uppercase font-bold">Image Alt</label>
-          <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt" class="block w-full">
-        </div>
-        <div class="mb-4 flex-col">
-          <label for="imageCaption" class="block w-full text-sm uppercase font-bold">Image caption</label>
-          <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" class="block w-full"/>
-        </div>
-        <!-- <div class="mb-4 flex-col">
-          <label for="teaser" class="block w-full text-sm uppercase font-bold">Teaser</label>
-          <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" class="block w-full" />
-        </div> -->
+
+        <InputField name="imageAlt" :model="blog.imageAlt" label="Image Alt"  />
         
-        <div class="mb-4 flex-col">
-          <label for="tags" class="block w-full text-sm uppercase font-bold">Tags</label>
-          <input id="tags" v-model="tags" type="text" placeholder="Tags" class="block w-full" />
-        </div>
+        <TextareaField name="imageCaption" :model="blog.imageCaption" label="Image Caption"  />
+        
+        <InputField name="tags" :model="tags" label="Tags"  />
+
         <div class="mb-4 flex justify-between">
           <div class="">
             <button
@@ -425,9 +406,4 @@ export default {
 </script>
 
 <style scoped>
-input, textarea {
-    background: rgb(144 144 144 / 11%);
-    border: 1px solid #8a8a8a57;
-    padding: .25em .5em;
-}
 </style>

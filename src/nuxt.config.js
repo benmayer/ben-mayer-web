@@ -111,6 +111,9 @@ module.exports = {
           borderOpacity: {
             '10': '0.1',
           },
+          backgroundOpacity: {
+            '10': '0.1',
+          },
           fontSize: {
             '8xl': '6rem',
             '9xl': '8rem',
