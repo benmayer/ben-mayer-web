@@ -1,7 +1,7 @@
 
 
 <template>
-    <header class="header sticky top-0 justify-between shadow-sm border-b border-gray-500 border-opacity-25 z-50 ld-mode" >
+    <header class="header fixed top-0 justify-between shadow-sm border-b border-gray-500 border-opacity-25 z-50 ld-mode" >
         <Logo />
         <Nav />
     </header>

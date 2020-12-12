@@ -67,7 +67,7 @@
             >
               {{ status ? status : 'Save' }}
             </button>
-            <nuxt-link v-if="!post.published" :to="{ name: 'blog-id-preview', params: { 'id': post.id }}" class="px-4 py-2">Preview</nuxt-link>
+            <nuxt-link v-if="!post.published && post.id" :to="{ name: 'blog-id-preview', params: { 'id': post.id }}" class="px-4 py-2">Preview</nuxt-link>
             <nuxt-link v-if="post.published" :to="{ name: 'blog-id', params: { 'id': post.id }}" class="px-4 py-2">View Post</nuxt-link>
           </div>
           <div class="">

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full max-w-3xl m-auto px-4 text-center">
+  <div class="flex flex-col w-full max-w-3xl m-auto px-4 text-center py-20">
       <PageTitle :pageTitle="title" class="text-5xl md:text-8xl"/>
       <span>-</span>
       <p>Things I've learnt and thoughts I've thought.</p>

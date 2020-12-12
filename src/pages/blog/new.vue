@@ -1,5 +1,5 @@
 <template>
-  <BlogForm v-model="blog" />
+  <BlogForm v-model="blog" class="py-12"/>
 </template>
 
 <script>

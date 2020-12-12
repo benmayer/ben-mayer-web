@@ -1,5 +1,5 @@
 <template>
-  <BlogDetails v-if="post" :post="post" class="py-12"/>
+  <BlogDetails v-if="post" :post="post" class="py-20"/>
 </template>
 <script>
 import { mapState } from 'vuex'

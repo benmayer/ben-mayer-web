@@ -1,5 +1,5 @@
 <template>
-  <BlogForm v-if="isLoaded" v-model="blog" />
+  <BlogForm v-if="isLoaded" v-model="blog" class="py-12"/>
 </template>
 <script>
 export default {

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full m-auto">
+  <div class="flex w-full m-auto py-20">
     <form name="register" class="login__form" @submit.prevent>
       <input placeholder="name" v-model="user.displayName" class="login__form-input input__name"/> 
       <input placeholder="email" v-model="user.email" class="login__form-input input__email"/> 
