@@ -2,30 +2,30 @@
   <div class="flex flex-col sm:flex-row w-full mx-auto px-4">
     <div class="flex w-full sm:w-2/3 py-5 ">
       <div class="max-w-xl mx-auto" >
-        <nuxt-link v-if="blog.published" :to="{ name: 'blog-id', params: { 'id': blog.id }}" class="float-right">View Post</nuxt-link>
-        <InputField :model="blog.title" label="Title" name="title" />
-        <Editor v-model="blog.body" />
+        <nuxt-link v-if="post.published" :to="{ name: 'blog-id', params: { 'id': post.id }}" class="float-right">View Post</nuxt-link>
+        <InputField :model="post.title" label="Title" name="title" />
+        <Editor v-model="post.body" />
       </div>
     </div>
     <div class="flex flex-col w-full sm:w-1/3 mx-auto py-6 sm:pl-4 sm:border-l border-gray-500 border-opacity-25">
-        <InputField :model="blog.id" label="Post ID" name="id" />
+        <InputField :model="post.id" label="Post ID" name="id" />
         <div class="mb-4 flex flex-col">
           <label>
-            <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
+            <input v-model="post.published" class="mr-2 leading-tight" type="checkbox">
             <span class="text-sm">Published</span>
           </label>
         </div>
 
-        <TextareaField name="lead" :model="blog.lead" label="Post Subtitle"  />
+        <TextareaField name="lead" :model="post.lead" label="Post Subtitle"  />
         
-        <TextareaField name="description" :model="blog.description" label="Description"  />
+        <TextareaField name="description" :model="post.description" label="Description"  />
         
         <div class="mb-4 flex flex-col">
           <label class="block w-full text-sm uppercase font-bold">Image</label>
-          <div v-if="blog.imageUrl">
-            <img :src="blog.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
+          <div v-if="post.imageUrl">
+            <img :src="post.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
             <button
-              v-if="blog.imageUrl"
+              v-if="post.imageUrl"
               :disabled="isDeletingImage"
               type="button"
               class="bg-red-500 border-red-300 text-white"
@@ -35,7 +35,7 @@
             </button>
           </div>
           <button
-            v-if="!blog.imageUrl"
+            v-if="!post.imageUrl"
             :disabled="isUploadingImage"
             type="button"
             @click="launchImageFile"
@@ -51,9 +51,9 @@
           >
         </div>
 
-        <InputField name="imageAlt" :model="blog.imageAlt" label="Image Alt"  />
+        <InputField name="imageAlt" :model="post.imageAlt" label="Image Alt"  />
         
-        <TextareaField name="imageCaption" :model="blog.imageCaption" label="Image Caption"  />
+        <TextareaField name="imageCaption" :model="post.imageCaption" label="Image Caption"  />
         
         <InputField name="tags" :model="tags" label="Tags"  />
 
@@ -67,8 +67,8 @@
             >
               {{ status ? status : 'Save' }}
             </button>
-            <nuxt-link v-if="!blog.published" :to="{ name: 'blog-id-preview', params: { 'id': blog.id }}" class="px-4 py-2">Preview</nuxt-link>
-            <nuxt-link v-if="blog.published" :to="{ name: 'blog-id', params: { 'id': blog.id }}" class="px-4 py-2">View Post</nuxt-link>
+            <nuxt-link v-if="!post.published" :to="{ name: 'blog-id-preview', params: { 'id': post.id }}" class="px-4 py-2">Preview</nuxt-link>
+            <nuxt-link v-if="post.published" :to="{ name: 'blog-id', params: { 'id': post.id }}" class="px-4 py-2">View Post</nuxt-link>
           </div>
           <div class="">
             <button
@@ -98,7 +98,7 @@ export default {
   },
   data () {
     return {
-      blog: {},
+      post: {},
       tags: '',
       status: '',
       originalId: '',
@@ -124,26 +124,26 @@ export default {
   watch: {
     value: {
       handler (newValue) {
-        this.blog = cloneDeep(newValue)
-        this.tags = this.blog.tags ? this.blog.tags.join() : ''
+        this.post = cloneDeep(newValue)
+        this.tags = this.post.tags ? this.post.tags.join() : ''
       },
       immediate: true
     }
   },
   async mounted () {
-    this.originalId = this.blog.id
+    this.originalId = this.post.id
   },
   methods: {
     async submitForm () {
-      if (!this.blog.id) {
+      if (!this.post.id) {
         // eslint-disable-next-line no-alert
         this.$store.commit('SET_MESSAGE', 'Please enter the blog ID.')
         this.$refs.id.focus()
         return
       }
 
-      if (this.originalId !== this.blog.id) {
-        const exists = await this.checkExists(this.blog.id)
+      if (this.originalId !== this.post.id) {
+        const exists = await this.checkExists(this.post.id)
         if (exists) {
           // eslint-disable-next-line no-alert
           alert('Blog ID already exists. Please enter a unique blog ID.')
@@ -159,9 +159,7 @@ export default {
 
       const serverTimestamp = this.$fireModule.firestore.FieldValue.serverTimestamp()
       const db = this.$fire.firestore
-      const blog = cloneDeep(this.blog)
-
-      console.log(blog)
+      const blog = cloneDeep(this.post)
 
       const id = blog.id
       delete blog.id
@@ -238,11 +236,11 @@ export default {
       }
     },
     updateId () {
-      this.blog.id = this.slugify(this.blog.title)
+      this.post.id = this.slugify(this.post.title)
     },
     async checkExists () {
       const db = this.$fire.firestore
-      const documentSnapshot = await db.collection('blogs').doc(this.blog.id).get()
+      const documentSnapshot = await db.collection('blogs').doc(this.post.id).get()
       return documentSnapshot.exists
     },
     /**
@@ -304,8 +302,8 @@ export default {
 
       await Promise.all([fullImageUploadPromise, thumbImageUploadPromise])
         .then((results) => {
-          this.blog.imageUrl = results[0]
-          this.blog.teaserImageUrl = results[1]
+          this.post.imageUrl = results[0]
+          this.post.teaserImageUrl = results[1]
           return null
         })
         .finally(() => {
@@ -377,13 +375,13 @@ export default {
 
       const storage = this.$fire.storage;
 
-      const fullImageDeletePromise = storage.refFromURL(this.blog.imageUrl).delete()
-      const thumbImageDeletePromise = storage.refFromURL(this.blog.teaserImageUrl).delete()
+      const fullImageDeletePromise = storage.refFromURL(this.post.imageUrl).delete()
+      const thumbImageDeletePromise = storage.refFromURL(this.post.teaserImageUrl).delete()
 
       return Promise.all([fullImageDeletePromise, thumbImageDeletePromise])
         .then(() => {
-          this.blog.imageUrl = ''
-          this.blog.teaserImageUrl = ''
+          this.post.imageUrl = ''
+          this.post.teaserImageUrl = ''
           return null
         })
         .catch((error) => {
@@ -391,8 +389,8 @@ export default {
           this.$store.commit('SET_MESSAGE', error.message || 'Unable to delete the image.')
 
           if (error.code === 'storage/object-not-found') {
-            this.blog.imageUrl = ''
-            this.blog.teaserImageUrl = ''
+            this.post.imageUrl = ''
+            this.post.teaserImageUrl = ''
           }
           // eslint-disable-next-line no-console
           console.error('Error deleting image', error)

@@ -6,21 +6,21 @@
           {{ tag }}
         </div>
       </div>
-      <PageTitle :pageTitle="blog.title" class="text-5xl md:text-6xl" />
+      <PageTitle :pageTitle="post.title" class="text-5xl md:text-6xl" />
       <span>--</span>
-      <h2 v-if="blog.lead" class="font-sans text-lg font-display font-bold text-gray-600">
-        {{ blog.lead }}
+      <h2 v-if="post.lead" class="font-sans text-lg font-display font-bold text-gray-600">
+        {{ post.lead }}
       </h2>
       <div class="text-gray-600 text-xs">
-        {{ blog.created | date }} 
+        {{ post.created | date }} 
       </div>
     </div>
-    <figure v-if="blog.imageUrl" class="mb-5">
+    <figure v-if="post.imageUrl" class="mb-5">
       <!--suppress HtmlUnknownTarget -->
-      <img :src="blog.imageUrl" :alt="blog.imageAlt || blog.title" class="w-full">
-      <figcaption v-if="blog.imageCaption" class="text-center text-gray-600 text-sm my-2" v-html="blog.imageCaption" />
+      <img :src="post.imageUrl" :alt="post.imageAlt || post.title" class="w-full">
+      <figcaption v-if="post.imageCaption" class="text-center text-gray-600 text-sm my-2" v-html="post.imageCaption" />
     </figure>
-    <div class="content" v-html="blog.body" />
+    <div class="content" v-html="post.body" />
     <div class="clearfix mt-10 text-xs font-semibold uppercase">
       <!-- <nuxt-link
         v-if="prev"
@@ -37,7 +37,7 @@
         {{ next.title }} &gt;
       </nuxt-link> -->
     </div>
-    <nuxt-link v-if="user" :to="{ name: 'blog-id-edit', params: { id: blog.id } }">Edit post</nuxt-link>
+    <nuxt-link v-if="user" :to="{ name: 'blog-id-edit', params: { id: post.id } }">Edit post</nuxt-link>
   </article>
 </template>
 
@@ -57,7 +57,7 @@ import moment from 'moment'
 export default {
   name: 'BlogDetails',
   props: {
-    blog: {
+    post: {
       type: Object,
       required: true
     },
@@ -72,8 +72,7 @@ export default {
   },
   computed: {
     tags () {
-      // return this.blog.tags.slice(0).sort()
-      return this.blog.tags
+      return (this.post && this.post.tags) ? this.post.tags.slice(0).sort() : []
     },
     ...mapState([
       'user',

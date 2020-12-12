@@ -20,6 +20,6 @@ export default {
 
 <style>
 .header {
-    @apply flex  items-center w-full p-2;
+    @apply flex items-center w-full p-2;
 }
 </style>

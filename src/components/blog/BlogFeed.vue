@@ -1,7 +1,7 @@
 <template>
     <div class="feed flex flex-col w-full m-auto">
         <ul v-if="!loading" class="text-left my-8">
-          <li v-for="post of blogs" :key="post.id" class="feed-item shadow hover:shadow-sm">
+          <li v-for="post in blogs" :key="post.id" class="feed-item shadow hover:shadow-sm">
             <NuxtLink :to="{ name: 'blog-id', params: { 'id': post.id }}" class="flex flex-col items-stretch sm:h-48 h-auto sm:flex-row">
               <div class="w-full sm:w-1/4 sm:h-auto h-60 mr-2 bg-gray-600 bg-opacity-10 bg-cover bg-center" :style="{backgroundImage: `url('${post.teaserImageUrl}')`}">
               </div>
@@ -32,8 +32,8 @@ export default {
     name: 'BlogFeed',
     props: {
         blogs: {
-        type: Array,
-        required: true
+          type: Object,
+          required: true
         },
     },
     computed: {

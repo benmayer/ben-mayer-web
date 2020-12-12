@@ -19,7 +19,6 @@ export default {
   data () {
     return {
       title: 'Things I\'ve learnt, thoughts I\'ve thought',
-      blogs: [],
       batchSize: 10
     }
   },
@@ -29,16 +28,21 @@ export default {
     }
   },
   computed: {
-    // to avoid using this.$store.state.auth 
+    // to avoid using this.$store.state 
     ...mapState([
+      'blogs',
       'user',
       'message',
       'loading',
     ])
   },
   async mounted () {
+    
+    // check if local instance of state is already populated
+    // if not, fetch them from firebase
+    if (JSON.stringify(this.blogs) !== '{}') return
+    
     this.$store.commit('SET_LOADING', true)
-
     try {
       const db = this.$fire.firestore
       const dbQueryBlogs = await db
@@ -49,17 +53,16 @@ export default {
         .get()
 
       dbQueryBlogs.forEach( (entry) => {
-        this.blogs.push({
+        this.$store.commit("SET_POSTS", {
           id: entry.id,
           ...entry.data()
-        })
+        });
       })
       this.$store.commit('SET_LOADING', false)
     } catch(e){
       this.$store.commit('SET_LOADING', false)
       this.$store.commit('SET_MESSAGE', e.message)
     }
-      
   },
 }
 </script>

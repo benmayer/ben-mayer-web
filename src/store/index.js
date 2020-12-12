@@ -5,7 +5,8 @@ export const state = () => {
     user: null,
     loading: false,
     message: null,
-    status: null  
+    status: null,
+    blogs: {},  
   }
 }
 
@@ -19,6 +20,9 @@ export const mutations = {
   SET_MESSAGE: (state, message) => {
     state.message = message
   },
+  SET_POSTS: (state, payload) => {
+    state.blogs[payload.id] = payload
+  },
   ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
     if (!authUser) {
       state.user = null
@@ -26,7 +30,8 @@ export const mutations = {
       const { uid, email, displayName} = authUser
       state.user = { uid, email, displayName }
     }
-  }
+  },
+
 }
 
 export const actions = {
@@ -59,5 +64,8 @@ export const getters =  {
   },
   getUser: (state) => {
     return state.user
-  } 
+  },
+  getBlogs: (state) => {
+    return state.blogs
+  }
 }
