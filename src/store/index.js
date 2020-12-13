@@ -3,7 +3,7 @@ import nuxtConfig from "../nuxt.config"
 export const state = () => {
   return {
     user: null,
-    loading: false,
+    loading: true,
     message: null,
     status: null,
     blogs: {},  

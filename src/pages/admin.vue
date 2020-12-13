@@ -13,8 +13,8 @@
             <th class="p-2">Created</th>
           </tr>
         </thead>
-      <tbody>
-        <tr v-for="blog of blogs" :key="blog.id">
+      <tbody v-if="!loading">
+        <tr v-for="blog in blogs" :key="blog.id">
           <td class="p-2">
             <nuxt-link :to="{ name: 'blog-id-edit', params: { 'id': blog.id }}">{{ blog.id }}</nuxt-link>
           </td>
@@ -24,11 +24,29 @@
           <td class="p-2">{{ blog.created | date }}</td>
         </tr>
       </tbody>
+      <tbody v-else>
+        <tr>
+          <td class="p-2"><span class="skeleton w-5/6"></span></td>
+          <td class="p-2"><span class="skeleton w-5/6"></span></td>
+          <td class="p-2"><span class="skeleton w-4/6"></span></td>
+          <td class="p-2"><span class="skeleton w-4/6"></span></td>
+          <td class="p-2"><span class="skeleton w-4/6"></span></td>
+        </tr>
+        <tr>
+          <td class="p-2"><span class="skeleton w-4/6"></span></td>
+          <td class="p-2"><span class="skeleton w-3/6"></span></td>
+          <td class="p-2"><span class="skeleton w-1/2"></span></td>
+          <td class="p-2"><span class="skeleton w-4/6"></span></td>
+          <td class="p-2"><span class="skeleton w-4/6"></span></td>
+        </tr>
+      </tbody>
+
     </table>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import moment from 'moment'
 export default {
   layout: 'admin',
@@ -36,7 +54,6 @@ export default {
   data() {
     return {
       title: 'Admin',
-      blogs: [],
     }
   },
   head() {
@@ -50,18 +67,39 @@ export default {
       return moment.unix(value.seconds).format('ddd, Do MMM YYYY, h:mma')
     }
   },
+  computed: {
+    // to avoid using this.$store.state 
+    ...mapState([
+      'blogs',
+      'message',
+      'loading',
+    ])
+  },
   async mounted () {
-    const db = this.$fire.firestore
-    const dbQueryBlogs = await db
-      .collection('blogs')
-      .orderBy('created', 'desc')
-      .get()
-    dbQueryBlogs.forEach( (entry) => {
-      this.blogs.push({
-        id: entry.id,
-        ...entry.data()
+    // check if local instance of state is already populated
+    // if not, fetch them from firebase
+    if (JSON.stringify(this.blogs) !== '{}') return
+
+    this.$store.commit('SET_LOADING', true)
+    try {
+      const db = this.$fire.firestore
+      const dbQueryBlogs = await db
+        .collection('blogs')
+        .orderBy('created', 'desc')
+        .get()
+
+      dbQueryBlogs.forEach( (entry) => {
+        this.$store.commit("SET_POSTS", {
+          id: entry.id,
+          ...entry.data()
+        })
       })
-    })
+      console.log(this.$store)
+      this.$store.commit('SET_LOADING', false)
+    } catch(e){
+      this.$store.commit('SET_LOADING', false)
+      this.$store.commit('SET_MESSAGE', e.message)
+    }
   }
 }
 </script>
@@ -71,5 +109,9 @@ export default {
 thead > tr > th,
 tbody > tr > td {
   border: 1px solid #a2a2a2;
+}
+
+.skeleton {
+  @apply inline-block h-6 rounded bg-gray-500;
 }
 </style>
