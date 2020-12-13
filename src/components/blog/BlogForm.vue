@@ -184,10 +184,16 @@ export default {
         if (this.originalId && this.originalId !== id) {
           const deleteBlogPost = db.collection('blogs').doc(this.originalId).delete()
           firebaseQue.push(deleteBlogPost)
-          this.$store.commit("DELETE_POSTS", blog)
+          this.$store.commit("DELETE_POSTS", {
+            id: id,
+            ...blog
+          })
         }
         await Promise.all(firebaseQue).then(() => {
-          this.$store.commit("SET_POSTS", id, blog)
+          this.$store.commit("SET_POSTS", {
+            id: id,
+            ...blog
+          })
           this.$store.commit('SET_MESSAGE', "Post saved.")
         })
 
