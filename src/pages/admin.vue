@@ -54,6 +54,7 @@ export default {
   data() {
     return {
       title: 'Admin',
+      blogs: [],
     }
   },
   head() {
@@ -64,13 +65,12 @@ export default {
   filters: {
     date: (value) => {
       if (!value) return
-      return moment.unix(value.seconds).format('ddd, Do MMM YYYY, h:mma')
+      return moment.unix(value.seconds).format('Do MMM YY, h:mma')
     }
   },
   computed: {
     // to avoid using this.$store.state 
     ...mapState([
-      'blogs',
       'message',
       'loading',
     ])
@@ -78,7 +78,7 @@ export default {
   async mounted () {
     // check if local instance of state is already populated
     // if not, fetch them from firebase
-    if (JSON.stringify(this.blogs) !== '{}') return
+    // if (JSON.stringify(this.blogs) !== '{}') return
 
     this.$store.commit('SET_LOADING', true)
     try {
@@ -89,12 +89,11 @@ export default {
         .get()
 
       dbQueryBlogs.forEach( (entry) => {
-        this.$store.commit("SET_POSTS", {
+        this.blogs.push({
           id: entry.id,
           ...entry.data()
         })
       })
-      console.log(this.$store)
       this.$store.commit('SET_LOADING', false)
     } catch(e){
       this.$store.commit('SET_LOADING', false)
