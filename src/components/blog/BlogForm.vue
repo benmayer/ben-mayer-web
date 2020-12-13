@@ -3,7 +3,7 @@
     <div class="flex w-full sm:w-2/3 py-5 ">
       <div class="max-w-xl mx-auto" >
         <nuxt-link v-if="post.published" :to="{ name: 'blog-id', params: { 'id': post.id }}" class="float-right">View Post</nuxt-link>
-        <InputField v-model="post.title" label="Title" name="title" @input="updateId"/>
+        <InputField v-model="post.title" label="Title" name="title" ref="title" @input="updateId"/>
         <Editor v-model="post.body" />
       </div>
     </div>
@@ -141,10 +141,8 @@ export default {
   methods: {
     async submitForm () {
       if (!this.post.id) {
-        console.log(this.post.id)
         // eslint-disable-next-line no-alert
         this.$store.commit('SET_MESSAGE', 'Please enter the blog ID.')
-        this.$refs.id.focus()
         return
       }
 
@@ -153,7 +151,6 @@ export default {
         if (exists) {
           // eslint-disable-next-line no-alert
           alert('Blog ID already exists. Please enter a unique blog ID.')
-          this.$refs.id.focus()
           return
         }
       }
@@ -190,7 +187,7 @@ export default {
           this.$store.commit("DELETE_POSTS", blog)
         }
         await Promise.all(firebaseQue).then(() => {
-          this.$store.commit("SET_POSTS", blog)
+          this.$store.commit("SET_POSTS", id, blog)
           this.$store.commit('SET_MESSAGE', "Post saved.")
         })
 

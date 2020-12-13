@@ -40,7 +40,7 @@ export default {
       const db = this.$fire.firestore
       const dbBlogQuery = await db.collection('blogs')
         .doc(this.$route.params.id)
-        // .where('published', '==', true)
+        .where('published', '==', true)
         .get()
 
       if (!dbBlogQuery.exists)
@@ -59,7 +59,7 @@ export default {
       this.$store.commit('SET_LOADING', false)
     } catch (e) {
       this.$store.commit('SET_LOADING', false)
-      this.$nuxt.error({ statusCode: 500, message: 'No idea what\'s up. Maybe try again in a bit.'})
+      this.$nuxt.error({ statusCode: 500, message: e.message ? e.message: 'No idea what\'s up. Maybe try again in a bit.'})
     }
   },
   async mounted () {
