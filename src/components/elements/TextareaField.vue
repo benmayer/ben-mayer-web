@@ -1,7 +1,18 @@
 <template>
     <div class="flex flex-col mb-4">
         <label :for="name" class="label">{{ label }}</label>
-        <textarea :id="name" :ref="name" v-model="model" type="text" :placeholder="label" class="input" />
+        <textarea 
+            class="input"
+            type="text"
+            :id="name" 
+            :ref="name" 
+            :placeholder="label"
+            :value="value"
+            :disabled="disabled"
+            @input="inputEvent"
+            @change="onChange"  
+
+        />
     </div>
 </template>
 
@@ -17,11 +28,23 @@ export default {
             type: String,
             required: true
         },
-        model: {
+        value: {
             type: String,
-            required: false
+            required: false,
         },
-    }
+        disabled: {
+            type: Boolean,
+            required: false,
+        },
+    },
+    methods: {
+        inputEvent (e) {
+            this.$emit('input', e.target.value)
+        },
+        onChange (e) {
+            this.$emit('change', this.value, e)
+        },
+    },
 }
 </script>
 <style >

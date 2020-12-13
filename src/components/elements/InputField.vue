@@ -31,10 +31,6 @@ export default {
             type: String,
             required: false,
         },
-        input: {
-            type: Function,
-            required: false,
-        },
         disabled: {
             type: Boolean,
             required: false,
