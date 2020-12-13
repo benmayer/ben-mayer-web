@@ -36,7 +36,7 @@
             class="menubar__button"
             @click="commands.code"
           >
-           <span> code </span>
+           <span> ❮ ❯ </span>
           </button>
         </div>
         <div class="menubar__group">
@@ -85,14 +85,14 @@
             class="menubar__button"
             @click="showLinkPrompt(commands.link, getMarkAttrs('link'))"
           >
-            🔗
+            <span> ⩇ </span>
           </button>
           <button
             :disabled="!isActive.link()"
             :class="{ 'is-disabled': !isActive.link() }"
             class="menubar__button"
             @click="removeLink(commands.link)"
-          >
+          ><span> ⩉ </span>
           </button>
           <button
             class="menubar__button"
@@ -112,7 +112,7 @@
             class="menubar__button"
             @click="commands.code_block"
           >
-            <span> code </span>
+            <span> ❮ ❯ </span>
           </button>
           <button
             class="menubar__button"
@@ -121,23 +121,9 @@
             <span>—</span>
           </button>
         </div>
-        <div class="menubar__group">
-          <button
-            class="menubar__button"
-            @click="commands.undo"
-          >
-            <span>⟲</span>
-          </button>
-          <button
-            class="menubar__button"
-            @click="commands.redo"
-          >
-          <span>⟳</span>
-          </button>
-        </div>
       </div> 
     </editor-menu-bar>
-    <editor-content :editor="editor" class="editor__content content" />
+    <editor-content :editor="editor" class="editor__content content my-4" />
   </div>
 </template>
 
@@ -159,6 +145,7 @@ import {
   Strike,
   Underline,
   History,
+  Placeholder,
 } from 'tiptap-extensions'
 
 export default {
@@ -211,6 +198,13 @@ export default {
           new Strike(),
           new Underline(),
           new History(),
+          new Placeholder({
+            emptyEditorClass: 'is-editor-empty',
+            emptyNodeClass: 'is-empty',
+            emptyNodeText: 'Write something …',
+            showOnlyWhenEditable: true,
+            showOnlyCurrent: true,
+          }),
         ],
         content: this.html,
         onUpdate: ({ getHTML }) => {
@@ -251,6 +245,15 @@ export default {
   height: 80vh;
 }
 
+.editor p.is-editor-empty:first-child::before {
+  content: attr(data-empty-text);
+  float: left;
+  color: #aaa;
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+}
+
 .menubar {
   flex: 0 1 auto;
 }
@@ -267,7 +270,7 @@ export default {
 }
 
 .menubar__button {
-  @apply p-2 mb-2 bg-gray-400 text-black font-bold rounded;
+  @apply p-2 mb-2 bg-gray-400 border border-gray-400 text-black font-bold rounded;
   min-width: 40px;
 }
 
@@ -275,12 +278,13 @@ export default {
   outline: none;
 }
 
-
-.menubar__button.is-active,
 .menubar__button:hover {
-  @apply bg-gray-400;
+  @apply bg-gray-500 border border-gray-500
 }
-
+.menubar__button.is-active {
+  @apply border border-gray-600 border-opacity-50;
+  @apply bg-gray-500;
+}
 
 .menubar__button.is-disabled {
   @apply opacity-50 cursor-not-allowed;
