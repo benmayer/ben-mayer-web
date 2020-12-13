@@ -187,8 +187,10 @@ export default {
         if (this.originalId && this.originalId !== id) {
           const deleteBlogPost = db.collection('blogs').doc(this.originalId).delete()
           firebaseQue.push(deleteBlogPost)
+          this.$store.commit("DELETE_POSTS", blog)
         }
         await Promise.all(firebaseQue).then(() => {
+          this.$store.commit("SET_POSTS", blog)
           this.$store.commit('SET_MESSAGE', "Post saved.")
         })
 
@@ -227,6 +229,7 @@ export default {
             .then(() => {
               // eslint-disable-next-line no-alert
               this.$store.commit('SET_MESSAGE', "Post deleted.")
+              this.$store.commit("DELETE_POSTS", this.post)
               this.$router.push({
                 path: '/admin'
               })

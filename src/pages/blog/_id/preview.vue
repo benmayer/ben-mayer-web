@@ -1,5 +1,5 @@
 <template>
-  <BlogDetails v-if="blog" :blog="blog" class="py-20"/>
+  <BlogDetails v-if="blog" :post="blog" class="py-20"/>
 </template>
 <script>
 

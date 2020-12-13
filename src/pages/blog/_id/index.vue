@@ -44,11 +44,11 @@ export default {
         .get()
 
       if (!dbBlogQuery.exists)
-        // this.$store.commit('SET_LOADING', false)
+        this.$store.commit('SET_LOADING', false)
         return this.$nuxt.error({ statusCode: 404, message: 'Looks like you\'ve got the wrong page dude.' })
 
       if (!dbBlogQuery.data().published)
-        // this.$store.commit('SET_LOADING', false)
+        this.$store.commit('SET_LOADING', false)
         return this.$nuxt.error({ statusCode: 403, message: 'Not for your eyes, aparently.' })
 
       this.post = {
@@ -58,8 +58,7 @@ export default {
       this.$store.commit("SET_POSTS", this.post)
       this.$store.commit('SET_LOADING', false)
     } catch (e) {
-      // eslint-disable-next-line no-console
-      // this.$store.commit('SET_LOADING', false)
+      this.$store.commit('SET_LOADING', false)
       this.$nuxt.error({ statusCode: 500, message: 'No idea what\'s up. Maybe try again in a bit.'})
     }
   },

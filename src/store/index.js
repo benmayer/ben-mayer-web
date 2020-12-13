@@ -23,6 +23,11 @@ export const mutations = {
   SET_POSTS: (state, payload) => {
     state.blogs[payload.id] = payload
   },
+  DELETE_POSTS: (state, payload) => {
+    if (state.blogs[payload.id]){
+      delete state.blogs[payload.id]
+    }
+  },
   ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
     if (!authUser) {
       state.user = null
