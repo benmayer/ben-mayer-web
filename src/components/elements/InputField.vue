@@ -1,7 +1,17 @@
 <template>
     <div class="flex flex-col mb-4">
         <label :for="name" class="label">{{ label }}</label>
-        <input :id="name" :ref="name" v-model="model" type="text" :placeholder="label" class="input">
+        <input 
+            class="input"
+            type="text"
+            :id="name"
+            :ref="name" 
+            :placeholder="label"
+            :value="value"
+            :disabled="disabled"
+            @input="inputEvent"
+            @change="onChange"
+        >
     </div>
 </template>
 
@@ -11,16 +21,37 @@ export default {
     props: {
         label: {
             type: String,
-            required: true
+            required: true,
         },
         name: {
             type: String,
-            required: true
+            required: true,
         },
-        model: {
+        value: {
             type: String,
-            required: false
+            required: false,
         },
+        input: {
+            type: Function,
+            required: false,
+        },
+        disabled: {
+            type: Boolean,
+            required: false,
+        },
+    },
+    methods: {
+        inputEvent (e) {
+            this.$emit('input', e.target.value)
+        },
+        onChange (e) {
+            this.$emit('change', this.value, e)
+        },
+    },
+    data () {
+        return {
+
+        }
     }
 }
 </script>

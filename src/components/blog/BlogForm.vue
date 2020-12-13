@@ -3,12 +3,12 @@
     <div class="flex w-full sm:w-2/3 py-5 ">
       <div class="max-w-xl mx-auto" >
         <nuxt-link v-if="post.published" :to="{ name: 'blog-id', params: { 'id': post.id }}" class="float-right">View Post</nuxt-link>
-        <InputField :model="post.title" label="Title" name="title" />
+        <InputField v-model="post.title" label="Title" name="title" @input="updateId"/>
         <Editor v-model="post.body" />
       </div>
     </div>
     <div class="flex flex-col w-full sm:w-1/3 mx-auto py-6 sm:pl-4 sm:border-l border-gray-500 border-opacity-25">
-        <InputField :model="post.id" label="Post ID" name="id" />
+        <InputField v-model="post.id" label="Post ID" name="id" disabled/>
         <div class="mb-4 flex flex-col">
           <label>
             <input v-model="post.published" class="mr-2 leading-tight" type="checkbox">
@@ -16,9 +16,9 @@
           </label>
         </div>
 
-        <TextareaField name="lead" :model="post.lead" label="Post Subtitle"  />
+        <TextareaField name="lead" v-model="post.lead" label="Post Subtitle"  />
         
-        <TextareaField name="description" :model="post.description" label="Description"  />
+        <TextareaField name="description" v-model="post.description" label="Description"  />
         
         <div class="mb-4 flex flex-col">
           <label class="block w-full text-sm uppercase font-bold">Image</label>
@@ -51,11 +51,11 @@
           >
         </div>
 
-        <InputField name="imageAlt" :model="post.imageAlt" label="Image Alt"  />
+        <InputField name="imageAlt" v-model="post.imageAlt" label="Image Alt"  />
         
-        <TextareaField name="imageCaption" :model="post.imageCaption" label="Image Caption"  />
+        <TextareaField name="imageCaption" v-model="post.imageCaption" label="Image Caption"  />
         
-        <InputField name="tags" :model="tags" label="Tags"  />
+        <InputField name="tags" v-model="tags" label="Tags"  />
 
         <div class="mb-4 flex justify-between">
           <div class="">
@@ -98,7 +98,10 @@ export default {
   },
   data () {
     return {
-      post: {},
+      random: "Random",
+      post: {
+        id: "hello",
+      },
       tags: '',
       status: '',
       originalId: '',
@@ -124,6 +127,7 @@ export default {
   watch: {
     value: {
       handler (newValue) {
+        console.log(this.post)
         this.post = cloneDeep(newValue)
         this.tags = this.post.tags ? this.post.tags.join() : ''
       },
@@ -131,11 +135,13 @@ export default {
     }
   },
   async mounted () {
+    // save post id in case it is updated
     this.originalId = this.post.id
   },
   methods: {
     async submitForm () {
       if (!this.post.id) {
+        console.log(this.post.id)
         // eslint-disable-next-line no-alert
         this.$store.commit('SET_MESSAGE', 'Please enter the blog ID.')
         this.$refs.id.focus()
@@ -235,8 +241,10 @@ export default {
         }
       }
     },
-    updateId () {
-      this.post.id = this.slugify(this.post.title)
+    updateId (e) {
+      this.post.title = e
+      this.post.id = this.slugify(e)
+      return
     },
     async checkExists () {
       const db = this.$fire.firestore
