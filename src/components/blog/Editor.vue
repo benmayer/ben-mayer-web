@@ -145,6 +145,7 @@ import {
   Strike,
   Underline,
   History,
+  Image,
   Placeholder,
 } from 'tiptap-extensions'
 
@@ -198,6 +199,7 @@ export default {
           new Strike(),
           new Underline(),
           new History(),
+          new Image(),
           new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',

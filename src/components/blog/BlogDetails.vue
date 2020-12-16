@@ -88,10 +88,31 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .post__title{ 
   @apply text-6xl font-display;
   @apply font-light tracking-wide;
   color: #35495e;
+}
+.content p {
+  @apply my-6;
+}
+.content pre {
+    @apply my-6 py-2 px-4;
+    @apply bg-gray-800 rounded;
+}
+.content ol,
+.content ul {
+  @apply m-6 pl-4;
+}
+.content ol p,
+.content ul p{
+  @apply m-2;
+}
+.content ul li {
+  @apply list-disc;
+}
+.content ol li {
+  @apply list-decimal;
 }
 </style>

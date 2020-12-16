@@ -127,7 +127,6 @@ export default {
   watch: {
     value: {
       handler (newValue) {
-        console.log(this.post)
         this.post = cloneDeep(newValue)
         this.tags = this.post.tags ? this.post.tags.join() : ''
       },

@@ -96,9 +96,9 @@ module.exports = {
       darkMode: 'media',
       theme: {
         fontFamily: {
-          'sans': ['Source Sans Pro','Helvetica Neue','Arial', 'ui-sans-serif', 'system-ui'],
-          'serif': ['ui-serif', 'Georgia'],
-          'mono': ['ui-monospace', 'SFMono-Regular'],
+          'sans': ['Source Sans Pro','Helvetica Neue','Arial', 'sans'],
+          'serif': ['ui-serif', 'Georgia', 'serif'],
+          'mono': ['ui-monospace', 'monospace'],
           'display': ['Quicksand'],
           'body': ['Source Sans Pro','Helvetica Neue','Arial'],
         },
