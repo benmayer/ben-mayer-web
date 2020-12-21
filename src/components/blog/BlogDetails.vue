@@ -89,7 +89,7 @@ export default {
 }
 </script>
 <style>
-.post__title{ 
+.post__title { 
   @apply text-6xl font-display;
   @apply font-light tracking-wide;
   color: #35495e;
@@ -100,6 +100,10 @@ export default {
 .content pre {
     @apply my-6 py-2 px-4;
     @apply bg-gray-800 rounded;
+}
+.content p > code {
+  @apply px-2 py-1;
+  @apply bg-gray-800 rounded;
 }
 .content ol,
 .content ul {
