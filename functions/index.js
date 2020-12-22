@@ -11,8 +11,13 @@ const config = {
 };
 const nuxt = new Nuxt(config);
 
-exports.ssrapp = functions.https.onRequest(async (req, res) => {
-  res.set("Cache-Control", "public, max-age=300, s-maxage=600");
-  await nuxt.ready();
-  nuxt.render(req, res);
+
+// Todo: Optimise networking 
+// https://firebase.google.com/docs/functions/networking#https_requests
+
+exports.ssrapp = functions
+  .https.onRequest(async (req, res) => {
+    res.set("Cache-Control", "public, max-age=300, s-maxage=3600");
+    await nuxt.ready();
+    nuxt.render(req, res);
 });

@@ -32,24 +32,28 @@ export default {
     
     // check if local instance of state is already populated with blog post requested
     // if not, fetch it from firebase
-    if (this.blogs[this.$route.params.id]) {
-      return this.post = this.blogs[this.$route.params.id]
-    }
+    // if (this.blogs[this.$route.params.id]) {
+    //   return this.post = this.blogs[this.$route.params.id]
+    // }
     this.$store.commit('SET_LOADING', true)
+
+    
     try {
       const db = this.$fire.firestore
       const dbBlogQuery = await db.collection('blogs')
         .doc(this.$route.params.id)
-        .where('published', '==', true)
+        // .where('published', '==', true)
         .get()
 
-      if (!dbBlogQuery.exists)
+      if (!dbBlogQuery.exists) {
         this.$store.commit('SET_LOADING', false)
         return this.$nuxt.error({ statusCode: 404, message: 'Looks like you\'ve got the wrong page dude.' })
+      }
 
-      if (!dbBlogQuery.data().published)
+      if (!dbBlogQuery.data().published) {
         this.$store.commit('SET_LOADING', false)
         return this.$nuxt.error({ statusCode: 403, message: 'Not for your eyes, aparently.' })
+      }
 
       this.post = {
         id: dbBlogQuery.id,
@@ -59,7 +63,7 @@ export default {
       this.$store.commit('SET_LOADING', false)
     } catch (e) {
       this.$store.commit('SET_LOADING', false)
-      this.$nuxt.error({ statusCode: 500, message: e.message ? e.message: 'No idea what\'s up. Maybe try again in a bit.'})
+      this.$nuxt.error({ statusCode: 500, message: 'No idea what\'s up. Maybe try again in a bit.'})
     }
   },
   async mounted () {

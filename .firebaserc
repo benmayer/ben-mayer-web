@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ben-mayer-web"
+    "default": "ben-mayer-web",
+    "production ": "ben-mayer-web"
   }
 }
