@@ -26,7 +26,7 @@ const { Content } = await render(post);
       <time datetime={data.date.toISOString()}>
         {data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
       </time>
-      <ul class="stack-list">
+      <ul class="chip-list">
         {data.tags.map((tag) => (
           <li>{tag}</li>
         ))}
@@ -37,7 +37,7 @@ const { Content } = await render(post);
       <Image src={data.coverImage} alt={data.coverImageAlt} width={1200} height={750} />
     </div>
 
-    <article class="case-study-body blog-post-body">
+    <article class="case-study-body">
       <Content />
     </article>
   </div>

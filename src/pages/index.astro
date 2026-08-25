@@ -19,43 +19,42 @@ const latestPosts = allPosts
   <div class="container">
     <section class="hero">
       <h1>Hi, I'm Ben.</h1>
-      <p class="hero-subtitle">I love building apps and websites</p>
+      <p>I love building apps and websites</p>
       <a class="button" href="mailto:ben.lukas.mayer@gmail.com">Get in touch</a>
     </section>
-  </div>
 
-  <section id="projects" class="project-rows container">
-    {
-      projects.map((project, i) => (
-        <>
-          <hr />
-          <div class:list={['project-row', { reverse: i % 2 === 1 }]}>
-            <div class="project-row-media">
-              <Image
-                src={project.data.coverImage}
-                alt={project.data.coverImageAlt}
-                width={600}
-                height={750}
-              />
-            </div>
-            <div class="project-row-body">
-              <h2>{project.data.title}</h2>
-              <p class="project-subtitle">{project.data.summary}</p>
-              <div class="project-row-links">
-                <a href={`/projects/${project.id}/`}>Read more</a>
-                {project.data.links?.appstore && (
-                  <a href={project.data.links.appstore}>Appstore</a>
-                )}
+    <section id="projects" class="project-rows">
+      <h2 class="sr-only">Projects</h2>
+      {
+        projects.map((project, i) => (
+          <>
+            <hr />
+            <div class:list={['project-row', { reverse: i % 2 === 1 }]}>
+              <div class="project-row-media">
+                <Image
+                  src={project.data.coverImage}
+                  alt={project.data.coverImageAlt}
+                  width={600}
+                  height={750}
+                />
+              </div>
+              <div class="project-row-body">
+                <h3>{project.data.title}</h3>
+                <p class="project-subtitle">{project.data.summary}</p>
+                <div class="project-row-links">
+                  <a href={`/projects/${project.id}/`}>Read more</a>
+                  {project.data.links?.appstore && (
+                    <a href={project.data.links.appstore}>Appstore</a>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      ))
-    }
-    <hr />
-  </section>
+          </>
+        ))
+      }
+      <hr />
+    </section>
 
-  <div class="container">
     <section class="blog-teaser">
       <h2>Thoughts...</h2>
       {
@@ -76,9 +75,9 @@ const latestPosts = allPosts
                   <a href={`/blog/${post.id}/`}>{post.data.title}</a>
                 </h3>
                 <p>{post.data.description}</p>
-                <a class="read-more" href={`/blog/${post.id}/`}>
-                  Read more
-                </a>
+                <div class="blog-teaser-links">
+                  <a href={`/blog/${post.id}/`}>Read more</a>
+                </div>
               </div>
             </div>
           </>

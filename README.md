@@ -37,6 +37,7 @@ All commands run from the root of the project, from a terminal:
 | `npm run build`             | Build the production site to `./dist/`           |
 | `npm run preview`           | Preview the build locally, before deploying      |
 | `npm run astro ...`         | Run CLI commands like `astro add`, `astro check` |
+| `npm run lint`               | Lint markup/scripts (ESLint) and CSS (Stylelint) |
 
 ## Adding a project or blog post
 

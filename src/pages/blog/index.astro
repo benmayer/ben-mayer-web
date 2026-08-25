@@ -21,7 +21,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
             <a class="blog-item" href={`/blog/${post.id}/`}>
               <Image src={post.data.coverImage} alt={post.data.coverImageAlt} width={300} height={200} />
               <div class="blog-item-body">
-                <h2>{post.data.title}</h2>
+                <h3>{post.data.title}</h3>
                 <p>{post.data.description}</p>
                 <time datetime={post.data.date.toISOString()}>
                   {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -55,7 +55,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
   }
 
   .blog-item:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
     text-decoration: none;
   }
 
@@ -70,7 +70,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
     padding: 1.25rem 1.25rem 1.25rem 0;
   }
 
-  .blog-item-body h2 {
+  .blog-item-body h3 {
     margin: 0 0 0.5rem;
   }
 

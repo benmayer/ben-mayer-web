@@ -30,7 +30,7 @@ const roleLabel: Record<string, string> = {
       <span class="tag">{roleLabel[data.role]}</span>
       <h1>{data.title}</h1>
       <p>{data.summary}</p>
-      <ul class="stack-list">
+      <ul class="chip-list">
         {data.stack.map((tech) => (
           <li>{tech}</li>
         ))}
