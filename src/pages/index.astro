@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+
+const allProjects = await getCollection('projects', ({ data }) => !data.draft);
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+const roleLabel: Record<string, string> = {
+  developer: 'Developer',
+  'product-manager': 'Product Manager',
+  both: 'Developer & PM',
+};
+---
+
+<Base
+  title="Ben Mayer"
+  description="Developer and product manager showcasing app projects and case studies."
+>
+  <div class="container">
+    <section class="hero">
+      <h1>Ben Mayer</h1>
+      <p>
+        I build and lead software products. Below is a selection of apps I've worked on
+        as a developer and as a product manager.
+      </p>
+    </section>
+
+    <section class="project-grid">
+      {
+        projects.map((project) => (
+          <a class="project-card" href={`/projects/${project.id}/`}>
+            <Image
+              src={project.data.coverImage}
+              alt={project.data.coverImageAlt}
+              width={600}
+              height={375}
+            />
+            <div class="project-card-body">
+              <span class="tag">{roleLabel[project.data.role]}</span>
+              <h2>{project.data.title}</h2>
+              <p>{project.data.summary}</p>
+              <ul class="stack-list">
+                {project.data.stack.map((tech) => (
+                  <li>{tech}</li>
+                ))}
+              </ul>
+            </div>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</Base>
