@@ -19,6 +19,8 @@ Personal portfolio site showcasing app projects (developer + product-manager wor
 - Always run `npm run build` after content or schema changes — it validates frontmatter against the zod schema and will fail loudly on mistakes (missing required fields, bad image paths, etc.).
 - If any other legacy URL needs preserving, prefer recreating it at the identical path over adding a redirect (see `PROJECT_PLAN.md` → "Migrated legacy content").
 
+**Repo & deploy status**: pushed to GitHub at [`benmayer/ben-mayer-web`](https://github.com/benmayer/ben-mayer-web) (`origin/main`). The Cloudflare Claude Code plugin (skills + MCP servers) is installed, so Cloudflare Pages/DNS work can be done via MCP tools in addition to the dashboard. The Cloudflare Pages project itself is **not yet connected** — deliberately deferred until real project content and page layout are finished (see `PROJECT_PLAN.md` → "Open follow-ups"). Don't set up the Pages project or push placeholder content live until the user confirms content/layout is ready.
+
 ## Development
 
 When starting the dev server, use background mode:

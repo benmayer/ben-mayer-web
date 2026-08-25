@@ -1,43 +1,43 @@
-# Astro Starter Kit: Minimal
+# ben-mayer.com
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Personal portfolio site — showcases app projects (developer + product-manager work) for recruiters/clients, plus a small blog migrated from an earlier Nuxt/Firebase site.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built with [Astro](https://astro.build), content in Markdown via Astro Content Collections, deploying to Cloudflare Pages.
 
-## 🚀 Project Structure
+For architecture, decisions, and open follow-ups, see [`PROJECT_PLAN.md`](./PROJECT_PLAN.md). For conventions when working on this repo with an AI coding agent, see [`AGENTS.md`](./AGENTS.md).
 
-Inside of your Astro project, you'll see the following folders and files:
+## Repo & deploy status
+
+- GitHub: [`benmayer/ben-mayer-web`](https://github.com/benmayer/ben-mayer-web)
+- Cloudflare Pages: not yet connected — real project content and page layout are being finished first.
+
+## Project structure
 
 ```text
 /
-├── public/
+├── public/                      # static assets
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── content.config.ts        # `projects` and `blog` collection schemas
+│   ├── content/
+│   │   ├── projects/<slug>/     # one folder per project (index.md + cover image)
+│   │   └── blog/<slug>/         # one folder per blog post
+│   ├── layouts/Base.astro       # shared head/SEO, header, footer
+│   └── pages/                   # routes (index, projects/[id], about, blog/*)
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+All commands run from the root of the project, from a terminal:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| `npm install`              | Installs dependencies                            |
+| `npm run dev`               | Starts local dev server at `localhost:4321`      |
+| `npm run build`             | Build the production site to `./dist/`           |
+| `npm run preview`           | Preview the build locally, before deploying      |
+| `npm run astro ...`         | Run CLI commands like `astro add`, `astro check` |
 
-## 👀 Want to learn more?
+## Adding a project or blog post
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+See "Content model" in [`PROJECT_PLAN.md`](./PROJECT_PLAN.md#content-model) — add a folder + `index.md` under `src/content/projects/` or `src/content/blog/`, run `npm run build` to validate frontmatter, then commit and push.

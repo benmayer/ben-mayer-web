@@ -67,23 +67,27 @@ No CMS login, no separate service — just a file and a git push. See "Future: e
 - `src/pages/blog/[id].astro` — blog post template (same content model as projects: `src/content/blog/<slug>/index.md`)
 - `src/layouts/Base.astro` — shared `<head>` (per-page title/description/OG tags), header, footer
 
-## Deploying to Cloudflare Pages
+## Repo & deploy status
 
-One-time setup (manual, needs your Cloudflare account):
+- **GitHub**: pushed — [`benmayer/ben-mayer-web`](https://github.com/benmayer/ben-mayer-web), `main` tracked as `origin/main`.
+- **Cloudflare**: account created, and the [Cloudflare Claude Code plugin](https://developers.cloudflare.com/agent-setup/prompt.md) (skills + MCP servers) is installed locally, so Pages setup/deploys can be driven from an agent session instead of only the dashboard.
+- **Pages project**: **not yet created.** Deliberately holding off connecting the repo to Cloudflare Pages until the real project content and page layout are finished (see "Open follow-ups") — no point deploying placeholder content.
 
-1. Push this repo to GitHub.
-2. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**, select the repo.
-3. Build settings:
+### Deploying to Cloudflare Pages (when ready)
+
+1. In the Cloudflare dashboard (or via the Cloudflare MCP tools): **Workers & Pages → Create → Pages → Connect to Git**, select `benmayer/ben-mayer-web`.
+2. Build settings:
    - Framework preset: **Astro**
    - Build command: `npm run build`
    - Build output directory: `dist`
-4. Deploy. Cloudflare will auto-build and deploy on every push to `main`, with preview deployments for other branches/PRs.
-5. Add the custom domain `ben-mayer.com` under the Pages project's **Custom domains** tab (Cloudflare will guide DNS setup, especially easy if the domain's nameservers are already on Cloudflare).
+3. Deploy. Cloudflare will auto-build and deploy on every push to `main`, with preview deployments for other branches/PRs.
+4. Add the custom domain `ben-mayer.com` under the Pages project's **Custom domains** tab (Cloudflare will guide DNS setup, especially easy if the domain's nameservers are already on Cloudflare).
 
 ## Open follow-ups (not yet done)
 
-- **Visual design pass**: current styling is a minimal, functional baseline (see `src/styles/global.css`), not the final visual identity. Revisit layout, typography, and branding once real project content exists.
-- **Real content**: the two example projects are placeholders — replace with real case studies and screenshots.
+- **Finish real project content** (blocking deploy): the two example projects are placeholders — replace with real case studies, screenshots, and finalize the home page / project layout before connecting Cloudflare Pages.
+- **Visual design pass**: current styling is a minimal, functional baseline (see `src/styles/global.css`), not the final visual identity. Revisit layout, typography, and branding alongside the real content.
+- **Connect Cloudflare Pages**: once content/layout above is done, follow "Deploying to Cloudflare Pages".
 - **Decap CMS (maybe)**: if editing raw Markdown files still feels like enough friction that updates don't happen, add [Decap CMS](https://decapcms.org) — a free, git-based CMS that gives a `/admin` web form and commits straight to this same GitHub repo (no new backend, no database, no extra cost). Not added yet since the file-based flow may be low-friction enough on its own.
 - **Analytics** (optional): none set up yet. If added later, consider Cloudflare Web Analytics (free, no cookies, privacy-friendly) over something heavier.
 - **Contact method**: currently a plain `mailto:` link in the header. Fine for now; revisit if spam becomes an issue.
