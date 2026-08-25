@@ -24,6 +24,7 @@ const projects = defineCollection({
           live: z.string().url().optional(),
           demo: z.string().url().optional(),
           repo: z.string().url().optional(),
+          appstore: z.string().url().optional(),
         })
         .optional(),
       order: z.number().default(0),

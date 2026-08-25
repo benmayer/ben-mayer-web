@@ -6,11 +6,10 @@ import Base from '../layouts/Base.astro';
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
 const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
-const roleLabel: Record<string, string> = {
-  developer: 'Developer',
-  'product-manager': 'Product Manager',
-  both: 'Developer & PM',
-};
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
 ---
 
 <Base
@@ -19,36 +18,73 @@ const roleLabel: Record<string, string> = {
 >
   <div class="container">
     <section class="hero">
-      <h1>Ben Mayer</h1>
-      <p>
-        I build and lead software products. Below is a selection of apps I've worked on
-        as a developer and as a product manager.
-      </p>
+      <h1>Hi, I'm Ben.</h1>
+      <p class="hero-subtitle">I love building apps and websites</p>
+      <a class="button" href="mailto:ben.lukas.mayer@gmail.com">Get in touch</a>
     </section>
+  </div>
 
-    <section class="project-grid">
-      {
-        projects.map((project) => (
-          <a class="project-card" href={`/projects/${project.id}/`}>
-            <Image
-              src={project.data.coverImage}
-              alt={project.data.coverImageAlt}
-              width={600}
-              height={375}
-            />
-            <div class="project-card-body">
-              <span class="tag">{roleLabel[project.data.role]}</span>
-              <h2>{project.data.title}</h2>
-              <p>{project.data.summary}</p>
-              <ul class="stack-list">
-                {project.data.stack.map((tech) => (
-                  <li>{tech}</li>
-                ))}
-              </ul>
+  <section id="projects" class="project-rows container">
+    {
+      projects.map((project, i) => (
+        <>
+          <hr />
+          <div class:list={['project-row', { reverse: i % 2 === 1 }]}>
+            <div class="project-row-media">
+              <Image
+                src={project.data.coverImage}
+                alt={project.data.coverImageAlt}
+                width={600}
+                height={750}
+              />
             </div>
-          </a>
+            <div class="project-row-body">
+              <h2>{project.data.title}</h2>
+              <p class="project-subtitle">{project.data.summary}</p>
+              <div class="project-row-links">
+                <a href={`/projects/${project.id}/`}>Read more</a>
+                {project.data.links?.appstore && (
+                  <a href={project.data.links.appstore}>Appstore</a>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      ))
+    }
+    <hr />
+  </section>
+
+  <div class="container">
+    <section class="blog-teaser">
+      <h2>Thoughts...</h2>
+      {
+        latestPosts.map((post) => (
+          <>
+            <hr />
+            <div class="blog-teaser-row">
+              <a class="blog-teaser-thumb" href={`/blog/${post.id}/`}>
+                <Image
+                  src={post.data.coverImage}
+                  alt={post.data.coverImageAlt}
+                  width={200}
+                  height={200}
+                />
+              </a>
+              <div class="blog-teaser-body">
+                <h3>
+                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                </h3>
+                <p>{post.data.description}</p>
+                <a class="read-more" href={`/blog/${post.id}/`}>
+                  Read more
+                </a>
+              </div>
+            </div>
+          </>
         ))
       }
+      <hr />
     </section>
   </div>
 </Base>
