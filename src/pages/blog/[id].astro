@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+---
+
+<Base title={data.title} description={data.description}>
+  <div class="container">
+    <a class="back-link" href="/blog">&larr; Back to all posts</a>
+
+    <header class="case-study-header">
+      <h1>{data.title}</h1>
+      {data.lead && <p>{data.lead}</p>}
+      <time datetime={data.date.toISOString()}>
+        {data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </time>
+      <ul class="stack-list">
+        {data.tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    </header>
+
+    <div class="case-study-cover">
+      <Image src={data.coverImage} alt={data.coverImageAlt} width={1200} height={750} />
+    </div>
+
+    <article class="case-study-body blog-post-body">
+      <Content />
+    </article>
+  </div>
+</Base>

@@ -16,6 +16,15 @@ A professional online presence showcasing ~5-10 app projects (developer and prod
 
 Previously: Nuxt on Firebase (~3¢/month). Migrated away because Astro's content-collection model fits a mostly-static portfolio better and gives stronger default SEO than Nuxt SSR for this use case.
 
+## Migrated legacy content (`/about`, `/blog`)
+
+The old site had two already-indexed URLs worth preserving for SEO: `/about` (static content) and `/blog` + two posts (content lived in Firestore, fetched client/server-side in Nuxt — not in the old repo as files). Both were ported at **identical URLs**, so no redirects were needed:
+
+- `/about` — recreated as a static Astro page (`src/pages/about.astro`), content copied from the old `src/pages/about.vue`, with the Nuxt/Firebase mention updated to Astro/Cloudflare Pages.
+- `/blog` + `/blog/hello-world` + `/blog/building-a-web-app-using-nuxtjs-and-firebase` — the old post URLs used real slugs (not Firestore auto-IDs), so they were recreated exactly via a new `blog` content collection. Post content and inline screenshots were pulled from the live site's server-rendered HTML (`window.__NUXT__` state) and images re-hosted locally instead of depending on the old Firebase Storage URLs.
+
+If any other old URLs need preserving later (check Google Search Console for what's actually indexed), the same approach applies: recreate at the same path if possible, otherwise add a 301 in a Cloudflare Pages `_redirects` file.
+
 ## Content model
 
 Each project lives in its own folder under `src/content/projects/<project-slug>/`:
@@ -53,6 +62,9 @@ No CMS login, no separate service — just a file and a git push. See "Future: e
 
 - `src/pages/index.astro` — hero + grid of project cards, sorted by `order`
 - `src/pages/projects/[id].astro` — case-study template (renders one project's Markdown body, cover, gallery, links)
+- `src/pages/about.astro` — static about page (migrated from the old site)
+- `src/pages/blog/index.astro` — blog post listing, sorted newest first
+- `src/pages/blog/[id].astro` — blog post template (same content model as projects: `src/content/blog/<slug>/index.md`)
 - `src/layouts/Base.astro` — shared `<head>` (per-page title/description/OG tags), header, footer
 
 ## Deploying to Cloudflare Pages

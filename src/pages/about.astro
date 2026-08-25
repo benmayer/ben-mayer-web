@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import benMayer from '../assets/about/ben-mayer.jpg';
+---
+
+<Base
+  title="About"
+  description="Ben Mayer - Product Manager and developer, currently in Berlin."
+>
+  <div class="container about-page">
+    <h1>About</h1>
+    <span>&mdash;</span>
+    <Image src={benMayer} alt="Picture of Ben Mayer" width={600} height={600} />
+    <p>
+      This is me. I'm a Product Manager, bass player and I love climbing, I'm currently
+      in Berlin. I also like to write code once in a while. I built this website from
+      scratch using Astro and deployed to Cloudflare Pages.
+    </p>
+    <p>Say hello:</p>
+    <div class="about-links">
+      <a href="https://linkedin.com/in/mayerben" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="http://instagram.com/mayer_ben" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="http://github.com/benmayer" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+    <p><a href="/blog">Go to my Blog</a></p>
+  </div>
+</Base>
+
+<style>
+  .about-page {
+    max-width: 42rem;
+    text-align: center;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .about-page img {
+    border-radius: 0.5rem;
+    margin: 1.5rem auto;
+  }
+
+  .about-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+</style>

@@ -38,7 +38,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <header class="site-header">
       <nav class="container">
         <a class="brand" href="/">Ben Mayer</a>
-        <a href="mailto:ben.lukas.mayer@gmail.com">Get in touch</a>
+        <div class="nav-links">
+          <a href="/about">About</a>
+          <a href="/blog">Blog</a>
+          <a href="mailto:ben.lukas.mayer@gmail.com">Get in touch</a>
+        </div>
       </nav>
     </header>
 
