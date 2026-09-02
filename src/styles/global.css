@@ -1,14 +1,15 @@
 :root {
   --color-bg: #f7fafc;
+  --color-bg-alt: #fdfdfd;
   --color-text: #1a202c;
   --color-muted: #718096;
   --color-heading: #35495e;
   --color-accent: #3b8070;
   --color-border: rgb(160 174 192 / 25%);
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
-  --max-width: 72rem;
+  --max-width: 65rem;
   --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", arial, sans-serif;
-  --font-display: "Quicksand", "Source Sans 3", "Helvetica Neue", arial, sans-serif;
+  --font-display: "Montserrat", "Source Sans 3", "Helvetica Neue", arial, sans-serif;
 
   color-scheme: light;
 }
@@ -16,6 +17,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #1a202c;
+    --color-bg-alt: #010101;
     --color-text: #f7fafc;
     --color-muted: #a0aec0;
     --color-heading: #a8bccf;
@@ -36,11 +38,17 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
+  font-size: 18px;
 }
 
 a {
   color: var(--color-accent);
   text-decoration: none;
+}
+
+nav a {
+  color: var(--color-text);
+  font-weight: 600;
 }
 
 a:hover {
@@ -65,13 +73,13 @@ img {
   border: 0;
 }
 
-h1,
-.blog-teaser h2 {
+h1,h2,h3 {
   font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 2rem;
-  letter-spacing: 0.01em;
   color: var(--color-heading);
+  line-height: 1.2;
+}
+
+h1 {
   margin: 0 0 0.5rem;
 }
 
@@ -87,7 +95,7 @@ h1,
   padding: 1.25rem 0;
 }
 
-nav {
+.site-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -101,15 +109,14 @@ nav {
   color: var(--color-text);
 }
 
-.nav-links {
+.brand:hover {
+  text-decoration: none;
+}
+
+nav {
   display: flex;
   gap: 1.25rem;
   align-items: center;
-}
-
-.nav-links a {
-  color: var(--color-text);
-  font-weight: 600;
 }
 
 footer {
@@ -131,13 +138,24 @@ footer .container {
   text-align: center;
 }
 
+.home-hero {
+  background: var(--color-bg-alt);
+}
+
+.hero-apps {
+  width: 40rem;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 2rem;
+}
+
 .hero h1 {
-  font-size: 3.25rem;
+  font-size: 5rem;
+  font-weight: 100;
 }
 
 .hero p {
   color: var(--color-text);
-  font-size: 1.1rem;
   margin: 0 auto 2rem;
 }
 
@@ -146,7 +164,7 @@ footer .container {
   font-weight: 600;
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 0.625rem 1.875rem;
 }
 
@@ -156,18 +174,27 @@ footer .container {
   background-color: var(--color-accent);
 }
 
-.project-rows hr,
+.prose {
+  text-align: left;
+}
+
 .blog-teaser hr {
   border: none;
   border-top: 1px solid var(--color-border);
   margin: 0;
 }
 
+.project-band.alt {
+  background: rgb(178 177 177 / 10%);
+}
+
 .project-row {
   display: flex;
   align-items: center;
   gap: 3rem;
-  padding: 3rem 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
 }
 
 .project-row.reverse {
@@ -179,25 +206,45 @@ footer .container {
 }
 
 .project-row-media img {
-  border-radius: 0.5rem;
-  box-shadow: var(--shadow-sm);
-  width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .project-row-body {
   flex: 1 1 60%;
 }
 
-.project-row-body h3 {
-  font-size: 1.5rem;
-  margin: 0 0 0.4rem;
+.project-icon {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.project-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.project-title {
+  font-size: 4rem;
+  line-height: 1;
+  margin: 0 0 1rem;
 }
 
 .project-subtitle {
+  font-size: 1.5rem;
+  line-height: 1.2;
   font-weight: 600;
   margin: 0 0 0.75rem;
+}
+
+.project-summary {
+  color: var(--color-text);
+  margin: 0 0 1rem;
 }
 
 .project-row-links {
@@ -237,6 +284,10 @@ footer .container {
   box-shadow: var(--shadow-sm);
 }
 
+.project-links-line a {
+  font-weight: 600;
+}
+
 .blog-teaser-body h3 {
   font-size: 1.1rem;
   margin: 0 0 0.4rem;
@@ -269,6 +320,16 @@ footer .container {
   .blog-teaser-row {
     flex-direction: column;
   }
+
+  .project-header-row {
+    flex-direction: column;
+  }
+
+  .project-header-media {
+    flex-basis: auto;
+    width: 100%;
+    max-width: 20rem;
+  }
 }
 
 .case-study-header {
@@ -277,17 +338,6 @@ footer .container {
 
 .case-study-header h1 {
   margin: 0.5rem 0;
-}
-
-.tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  border-radius: 999px;
-  padding: 0.15rem 0.6rem;
 }
 
 .chip-list {
@@ -307,36 +357,88 @@ footer .container {
   padding: 0.2rem 0.5rem;
 }
 
+.project-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 55rem;
+  margin: 0 auto;
+}
+
+.project-header-media {
+  flex: 0 1 24rem;
+}
+
+.project-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.project-header-content > .chip-list {
+  margin-top: 0;
+}
+
+.project-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.project-title-group p {
+  margin: 0;
+
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.project-details dt {
+  display: inline;
+  font-weight: 600;
+}
+
+.project-details dt::after {
+  content: ': ';
+}
+
+.project-details dd {
+  display: inline;
+  margin: 0;
+}
+
+.project-links-line {
+  margin: 0;
+}
+
 .case-study-cover {
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 1.5rem 0;
 }
 
-.case-study-links {
-  display: flex;
-  gap: 1rem;
-  margin: 1rem 0 2rem;
-}
-
-.case-study-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0 4rem;
-}
-
-.case-study-gallery img {
-  border-radius: 0.4rem;
-  box-shadow: var(--shadow-sm);
-}
-
 .case-study-body {
+  max-width: 45rem;
+  margin: 0 auto;
   padding-bottom: 4rem;
 }
 
 .case-study-body h2 {
   margin-top: 2rem;
+}
+
+.case-study-body h3 {
+  margin-top: 1.75rem;
+}
+
+.case-study-body h4 {
+  margin-top: 1.25rem;
 }
 
 .case-study-body pre {
@@ -355,8 +457,13 @@ footer .container {
 }
 
 .case-study-body img {
-  border-radius: 0.4rem;
-  margin: 1.5rem 0;
+  margin:  auto;
+}
+
+.case-study-body img.inline-narrow {
+  max-width: 22rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .back-link {

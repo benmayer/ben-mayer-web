@@ -24,7 +24,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&family=Source+Sans+3:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -43,21 +43,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <header class="site-header">
-      <nav class="container">
+      <div class="site-nav container">
         <a class="brand" href="/">Ben Mayer</a>
-        <div class="nav-links">
+        <nav>
           <a href="/#projects">projects</a>
           <a href="/blog">blog</a>
           <a href="/about">about</a>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main class="site-main">
       <slot />
     </main>
 
-    <footer>
+    <footer class="site-footer">
       <div class="container">
         <a href="/imprint">Imprint</a>
         <p>&copy; {new Date().getFullYear()} Ben Mayer</p>

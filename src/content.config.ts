@@ -6,16 +6,18 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      subtitle: z.string().optional(),
       summary: z.string(),
       role: z.enum(['developer', 'product-manager', 'both']),
       stack: z.array(z.string()).default([]),
       coverImage: image(),
       coverImageAlt: z.string(),
-      gallery: z
+      icon: image().optional(),
+      details: z
         .array(
           z.object({
-            image: image(),
-            alt: z.string(),
+            label: z.string(),
+            value: z.string(),
           })
         )
         .optional(),
@@ -25,6 +27,7 @@ const projects = defineCollection({
           demo: z.string().url().optional(),
           repo: z.string().url().optional(),
           appstore: z.string().url().optional(),
+          playstore: z.string().url().optional(),
         })
         .optional(),
       order: z.number().default(0),

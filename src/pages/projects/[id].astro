@@ -14,55 +14,82 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { data } = project;
 const { Content } = await render(project);
-
-const roleLabel: Record<string, string> = {
-  developer: 'Developer',
-  'product-manager': 'Product Manager',
-  both: 'Developer & PM',
-};
 ---
 
 <Base title={data.title} description={data.summary}>
   <div class="container">
-    <a class="back-link" href="/">&larr; Back to all projects</a>
-
     <header class="case-study-header">
-      <span class="tag">{roleLabel[data.role]}</span>
-      <h1>{data.title}</h1>
-      <p>{data.summary}</p>
-      <ul class="chip-list">
-        {data.stack.map((tech) => (
-          <li>{tech}</li>
-        ))}
-      </ul>
-    </header>
-
-    <div class="case-study-cover">
-      <Image src={data.coverImage} alt={data.coverImageAlt} width={1200} height={750} />
-    </div>
-
-    {
-      data.links && (
-        <div class="case-study-links">
-          {data.links.live && <a href={data.links.live}>Live site</a>}
-          {data.links.demo && <a href={data.links.demo}>Demo</a>}
-          {data.links.repo && <a href={data.links.repo}>Source code</a>}
+      <div class="project-header-row">
+        <div class="project-header-media">
+          <Image src={data.coverImage} alt={data.coverImageAlt} width={720} />
         </div>
-      )
-    }
+        <div class="project-header-content">
+          {
+            data.stack.length > 0 && (
+              <ul class="chip-list">
+                {data.stack.map((tech) => (
+                  <li>{tech}</li>
+                ))}
+              </ul>
+            )
+          }
+
+          <div class="project-title-group">
+          <h1 class="project-title">{data.title}</h1>
+          {data.subtitle && <h2 class="project-subtitle">{data.subtitle}</h2>}
+          <p class="project-summary">{data.summary}</p>
+          </div>
+
+          {
+            data.details && data.details.length > 0 && (
+              <dl class="project-details">
+                {data.details.map((item) => (
+                  <div>
+                    <dt>{item.label}</dt>
+                    <dd>{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )
+          }
+
+          {
+            data.links && (
+              <p class="project-links-line">
+                {data.links.live && <a href={data.links.live}>Website</a>}
+                {data.links.appstore && (
+                  <>
+                    {' '}
+                    &bull; <a href={data.links.appstore}>AppStore</a>
+                  </>
+                )}
+                {data.links.playstore && (
+                  <>
+                    {' '}
+                    &bull; <a href={data.links.playstore}>PlayStore</a>
+                  </>
+                )}
+                {data.links.demo && (
+                  <>
+                    {' '}
+                    &bull; <a href={data.links.demo}>Demo</a>
+                  </>
+                )}
+                {data.links.repo && (
+                  <>
+                    {' '}
+                    &bull; <a href={data.links.repo}>Source code</a>
+                  </>
+                )}
+              </p>
+            )
+          }
+        </div>
+      </div>
+    </header>
 
     <article class="case-study-body">
       <Content />
     </article>
-
-    {
-      data.gallery && data.gallery.length > 0 && (
-        <section class="case-study-gallery">
-          {data.gallery.map((item) => (
-            <Image src={item.image} alt={item.alt} width={1200} height={750} />
-          ))}
-        </section>
-      )
-    }
   </div>
 </Base>

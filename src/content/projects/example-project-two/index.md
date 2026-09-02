@@ -22,4 +22,6 @@ Replace this with a real project write-up focused on product work:
 
 ## Details
 
+**Demo:** [https://example.com/demo](https://example.com/demo)
+
 Add more sections as needed — research findings, before/after screenshots, metrics dashboards.

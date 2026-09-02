@@ -23,4 +23,8 @@ Replace this with a real project write-up. A good structure to follow:
 
 ## Details
 
+**Live site:** [https://example.com](https://example.com)
+
+**Source code:** [https://github.com/example/example-project-one](https://github.com/example/example-project-one)
+
 Add more sections as needed — architecture notes, screenshots, challenges overcome, lessons learned. This body renders as the full case-study page.
