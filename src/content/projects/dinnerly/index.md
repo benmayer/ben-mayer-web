@@ -48,9 +48,7 @@ Dinnerly started out at $5 per serving — that was the challenge the team had s
 
 A big advantage Dinnerly's brand had over Marley Spoon was a clear and bold USP: "It's the cheapest meal kit on the market." I devised a series of A/B tests to drive this message home during the checkout flow, reminding customers at every step of the great value Dinnerly offered.
 
-![2017 & 2018: Focus on convenience, price an afterthought](./convenience-first-2017-2018.png)
-
-![2019: Refocused USP drove a conversion increase](./refocused-usp-2019.png)
+![Dinnerly.com Homepage Optimisations](./dinnerly-homepage-optimisations.jpg)
 
 ### Dinnerly outgrew Marley Spoon on order volume
 
