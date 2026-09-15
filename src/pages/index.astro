@@ -2,10 +2,12 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import apps from '../assets/apps.png';
 
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
 const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+const featuredProjects = projects.slice(0, 2);
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -17,46 +19,24 @@ const latestPosts = allPosts
   title="Ben Mayer"
   description="Developer and product manager showcasing app projects and case studies."
 >
-  <section class="hero home-hero">
+  <section class="hero">
     <Image src={apps} alt="" width={748} class="hero-apps" />
     <h1>Hi, I'm Ben.</h1>
-    <p>I love building apps and websites</p>
-    <a class="button" href="mailto:ben.lukas.mayer@gmail.com">Get in touch</a>
+    <p>
+      I love building apps and websites and have 20 odd years of experience as{' '}
+      <span>Designer</span>, <span>Developer</span> and <span>Product Manager</span>.
+    </p>
+    <div class="hero-links">
+      <a href="#work">My Work</a>
+      <a href="mailto:ben.lukas.mayer@gmail.com">Get in touch</a>
+    </div>
   </section>
 
-  <section id="projects" class="project-rows">
-    <h2 class="sr-only">Projects</h2>
-    {
-      projects.map((project, i) => (
-        <div class:list={['project-band', { alt: i % 2 === 1 }]}>
-          <div class:list={['project-row', { reverse: i % 2 === 1 }]}>
-            <div class="project-row-media">
-              <Image
-                src={project.data.coverImage}
-                alt={project.data.coverImageAlt}
-                width={600}
-              />
-            </div>
-            <div class="project-row-body">
-              {project.data.icon && (
-                <div class="project-icon">
-                  <Image src={project.data.icon} alt="" width={88} densities={[1, 2, 3]} />
-                </div>
-              )}
-              <h3 class="project-title">{project.data.title}</h3>
-              <h4 class="project-subtitle">{project.data.subtitle}</h4>
-              <p class="project-summary">{project.data.summary}</p>
-              <div class="project-row-links">
-                <a href={`/projects/${project.id}/`}>Read more</a>
-                {project.data.links?.appstore && (
-                  <a href={project.data.links.appstore}>Appstore</a>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      ))
-    }
+  <hr class="hero-divider" />
+
+  <section id="work" class="project-rows work-teaser">
+    <h2>Work</h2>
+    {featuredProjects.map((project, i) => <ProjectCard project={project} reverse={i % 2 === 1} />)}
   </section>
 
   <div class="container">

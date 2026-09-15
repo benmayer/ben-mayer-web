@@ -13,6 +13,7 @@ const projects = defineCollection({
       coverImage: image(),
       coverImageAlt: z.string(),
       icon: image().optional(),
+      accentColor: z.string().optional(),
       details: z
         .array(
           z.object({

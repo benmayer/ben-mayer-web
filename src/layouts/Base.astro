@@ -42,15 +42,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-nav container">
-        <a class="brand" href="/">Ben Mayer</a>
-        <nav>
-          <a href="/#projects">projects</a>
-          <a href="/blog">blog</a>
-          <a href="/about">about</a>
-        </nav>
-      </div>
+    <header class="site-header" id="site-header">
+      <a class="brand-pill" href="/">Ben Mayer</a>
+      <nav class="nav-pill">
+        <a href="/work">work</a>
+        <a href="/blog">blog</a>
+        <a href="/about">about</a>
+      </nav>
     </header>
 
     <main class="site-main">
@@ -63,5 +61,28 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <p>&copy; {new Date().getFullYear()} Ben Mayer</p>
       </div>
     </footer>
+
+    <script>
+      // Header starts merged (single bar). Past a tiny scroll threshold it
+      // splits into two independently-styled pills — purely a background
+      // color/shadow crossfade (see global.css), no layout ever changes,
+      // so this can't introduce reflow jank at any viewport size.
+      const header = document.getElementById('site-header');
+      if (header) {
+        let ticking = false;
+        const syncSplitState = () => {
+          header.classList.toggle('is-split', window.scrollY > 4);
+          ticking = false;
+        };
+        const onScroll = () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(syncSplitState);
+          }
+        };
+        syncSplitState();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    </script>
   </body>
 </html>

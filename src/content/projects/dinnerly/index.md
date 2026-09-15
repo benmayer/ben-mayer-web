@@ -7,6 +7,7 @@ stack: ["iOS", "Android", "Web", "A/B testing"]
 coverImage: "./cover.png"
 coverImageAlt: "Dinnerly meal kit box"
 icon: "./icon.webp"
+accentColor: "#3d0a6e"
 details:
   - label: "Industry"
     value: "Mealkits"
