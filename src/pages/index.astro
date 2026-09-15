@@ -42,33 +42,34 @@ const latestPosts = allPosts
   <div class="container">
     <section class="blog-teaser">
       <h2>Thoughts...</h2>
-      {
-        latestPosts.map((post) => (
-          <>
-            <hr />
-            <div class="blog-teaser-row">
-              <a class="blog-teaser-thumb" href={`/blog/${post.id}/`}>
+      <ul class="blog-list">
+        {
+          latestPosts.map((post) => (
+            <li>
+              <a class="blog-item" href={`/blog/${post.id}/`}>
                 <Image
                   src={post.data.coverImage}
                   alt={post.data.coverImageAlt}
-                  width={200}
+                  width={300}
                   height={200}
                 />
-              </a>
-              <div class="blog-teaser-body">
-                <h3>
-                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-                </h3>
-                <p>{post.data.description}</p>
-                <div class="blog-teaser-links">
-                  <a href={`/blog/${post.id}/`}>Read more</a>
+                <div class="blog-item-body">
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                  <time datetime={post.data.date.toISOString()}>
+                    {post.data.date.toLocaleDateString('en-GB', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </time>
                 </div>
-              </div>
-            </div>
-          </>
-        ))
-      }
-      <hr />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="blog-teaser-links" href="/blog">View all posts &rarr;</a>
     </section>
   </div>
 </Base>
