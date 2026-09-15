@@ -7,6 +7,7 @@ stack: ["iOS", "Android", "Web", "A/B testing"]
 coverImage: "./cover.png"
 coverImageAlt: "Marley Spoon meal kit box"
 icon: "./icon.png"
+accentColor: "#e8d400"
 details:
   - label: "Industry"
     value: "Mealkits"

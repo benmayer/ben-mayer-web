@@ -1,6 +1,6 @@
 ---
 title: "Building a web app using Nuxt.js and Firebase"
-description: "I created this website from scratch using Nuxt.js as it promised being an intuitive, yet proweful framework for building Vue.js applications."
+description: "I created this website from scratch using Nuxt.js as it promised being an intuitive, yet powerful framework for building Vue.js applications."
 lead: "Why I decided to build a blog from scratch using Nuxt.js and hosted it by deploying to Firebase Functions"
 tags: ["development"]
 coverImage: "./cover.jpg"
@@ -8,11 +8,11 @@ coverImageAlt: "Firebase and Nuxt.js logos"
 date: 2020-12-13
 ---
 
-I created this website from scratch. Instead of the usual Wordpress site or any existing headless CMS, I chose to build it from the ground up (with a little help from other exiting projects) using Nuxt.js as the foundation. Nuxt.js, promised being an intuitive, yet proweful framework for building Vue.js applications. After trying it out for about half an hour, Nuxt.js and Vue.js felt most intuitive and fun, compared to its alternatives Angular or React, especially in terms rendering content from the server (SSR), which was a crucial reason to pick Nuxt.js
+I created this website from scratch. Instead of the usual Wordpress site or any existing headless CMS, I chose to build it from the ground up (with a little help from other existing projects) using Nuxt.js as the foundation. Nuxt.js promised being an intuitive, yet powerful framework for building Vue.js applications. After trying it out for about half an hour, Nuxt.js and Vue.js felt most intuitive and fun, compared to its alternatives Angular or React, especially in terms of rendering content from the server (SSR), which was a crucial reason to pick Nuxt.js.
 
-Additionally, I wanted to deploy the app to firebase functions, as I was planning to use Firebase Auth, Firestore in combination with Firebase hosting already and wanted everything in one place. Firebase offers a great selection of products that really simplify app developments (also web apps), and has a pretty generous free tier, so I was very interested to learn the tools as part of this project.
+Additionally, I wanted to deploy the app to firebase functions, as I was planning to use Firebase Auth, Firestore in combination with Firebase hosting already and wanted everything in one place. Firebase offers a great selection of products that really simplify app development (also web apps), and has a pretty generous free tier, so I was very interested to learn the tools as part of this project.
 
-In this article I'll share my approach of making this happen. I'll be using Nuxt.js, following the [Nuxt.js installation guide](https://nuxtjs.org/docs/2.x/get-started/installation), as well as [Firebase](https://firebase.google.com/docs/web/setup), using the Firebase CLI to set up the projects template and deploy to Firebase hosting.
+In this article I'll share my approach of making this happen. I'll be using Nuxt.js, following the [Nuxt.js installation guide](https://nuxtjs.org/docs/2.x/get-started/installation), as well as [Firebase](https://firebase.google.com/docs/web/setup), using the Firebase CLI to set up the project template and deploy to Firebase hosting.
 
 I'm not going to run through these steps in too much detail as there's plenty of good documentation on it, plus, I've created a [template repository](https://github.com/benmayer/nuxt-ssr-firebase-template) on Github for anyone interested in creating a similar setup.
 
@@ -20,7 +20,7 @@ I'm not going to run through these steps in too much detail as there's plenty of
 
 First, you will have to create a Firebase account and set up a [firebase project](https://console.firebase.google.com/), following [these steps in the firebase setup guide](https://firebase.google.com/docs/web/setup). Make sure you upgrade from the Free "Spark" plan to the Pay as you go "Blaze" plan, as you'll need this to deploy your app later.
 
-Now, you will have to set up setup up your local project folder. Create a directory with your project name:
+Now, you will have to set up your local project folder. Create a directory with your project name:
 
 ```
 $ mkdir <my-firebase-nuxt-project>
@@ -36,11 +36,11 @@ $ firebase login
 $ firebase init
 ```
 
-Use the following installation defaults if you're unsure which to choose from: during the installation:
+Use the following installation defaults if you're unsure which to choose during the installation:
 
 1. Choose Firebase functions and hosting
 2. Choose the project you set up in the first step, or create new one, and give it an ID and name. This will be your project in the [Google Firebase Console](https://console.firebase.google.com/).
-3. Choose Javascript
+3. Choose JavaScript
 4. Skip ESLint
 5. Don't install dependencies now, as we'll do that later
 6. Choose 'public' as your default public folder. (This is where the static files go later)
@@ -59,7 +59,7 @@ This is where your Nuxt.js files go later, but first let's create a local nuxt.j
 
 ## Create Nuxt.js app
 
-These next steps are base on the regular Nuxt.js installation from the [Nuxt.js installtion guide](https://nuxtjs.org/docs/2.x/get-started/installation).
+These next steps are based on the regular Nuxt.js installation from the [Nuxt.js installation guide](https://nuxtjs.org/docs/2.x/get-started/installation).
 
 Within the root directory of your 'my-firebase-nuxt-project' project create a new Nuxt.js instance called 'src' with the following command:
 
@@ -67,7 +67,7 @@ Within the root directory of your 'my-firebase-nuxt-project' project create a ne
 $ yarn create nuxt-app src
 ```
 
-Using `src` in the command above will install the Nuxt project in the src folder, which is where we want it to sit - seperate from the firebase files. You can choose the the setup options as you please.
+Using `src` in the command above will install the Nuxt project in the src folder, which is where we want it to sit - separate from the Firebase files. You can choose the setup options as you please.
 
 In order for the application to work, we need to generate all the files for the server and client. Generating the Nuxt files in the `src` directory will work out of the box, like with any other Nuxt project. Run
 
@@ -76,7 +76,7 @@ $ cd src
 $ yarn build
 ```
 
-It output should look should look something like this:
+The output should look something like this:
 
 ![Nuxt files](./nuxt-files.png)
 
@@ -84,7 +84,7 @@ Notice the `.nuxt` folder within the `src` directory - these are your generated 
 
 ## Connecting Nuxt to Firebase
 
-Now that we have Firebase and Nuxt.js set up, let's connect the two. In `./functions/node.js` add the following code:
+Now that we have Firebase and Nuxt.js set up, let's connect the two. In `./functions/index.js` add the following code:
 
 ```js
 const { Nuxt } = require('nuxt-start');
@@ -105,7 +105,7 @@ exports.ssrapp = functions.https.onRequest(async (req, res) => {
 });
 ```
 
-As you can see, we require an extra dependency in the functions folder: "nuxt-start" to create a server. Install all node modules, then add in the functions folder, and add the nuxt-start package:
+As you can see, we require an extra dependency in the functions folder: "nuxt-start" to create a server. Install all node modules in the functions folder, and add the nuxt-start package:
 
 ```
 $ cd ../functions
@@ -141,7 +141,7 @@ Replace the content of firebase.json file, in the root folder of your project, w
 }
 ```
 
-Your server is set up and you're pretty much ready to go. The only part that's missing is coping your Nuxt.js files to the right directory, for Firebase to find them, otherwise starting the server will result in a Internal Server Error.
+Your server is set up and you're pretty much ready to go. The only part that's missing is copying your Nuxt.js files to the right directory, for Firebase to find them, otherwise starting the server will result in an Internal Server Error.
 
 For this we will need to copy our Nuxt.js files we generated earlier, when running the `$ yarn build` command from the `src` directory to our `functions` folder.
 
@@ -171,7 +171,7 @@ You can now 'test' the Firebase functions on a local environment using the follo
 $ yarn serve --only functions,hosting
 ```
 
-You should see firebase setting up a local environment for functions and hosting, and confirm the successful set up with the message: "All emulators are ready! View status and logs at http://localhost:4000". It should start the execution of "ssrapp", and confirm you local server is running on http://localhost:5000, and that it is serving local files from the "public" directory.
+You should see firebase setting up a local environment for functions and hosting, and confirm the successful set up with the message: "All emulators are ready! View status and logs at http://localhost:4000". It should start the execution of "ssrapp", and confirm your local server is running on http://localhost:5000, and that it is serving local files from the "public" directory.
 
 You're all set up.
 
@@ -185,6 +185,6 @@ Once everything is uploaded, you should receive a message: **✔ Deploy complete
 
 That's it, you're ready to start working on your own Nuxt.js application, and deploying it to Firebase - it should look something like this [Demo](https://benmayer-nuxt-firebase.web.app/).
 
-In order to save yourself manually copying the generated files every time you want to deploy we can set up some automation scrips. I've added them to the template of this project.
+In order to save yourself manually copying the generated files every time you want to deploy we can set up some automation scripts. I've added them to the template of this project.
 
 You can download the repository here [https://github.com/benmayer/nuxt-ssr-firebase-template](https://github.com/benmayer/nuxt-ssr-firebase-template)

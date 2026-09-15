@@ -10,6 +10,7 @@ links:
   repo: "https://github.com/example/example-project-one"
 order: 1
 date: 2024-01-15
+draft: true
 ---
 
 ## Overview

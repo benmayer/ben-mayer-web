@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  reverse?: boolean;
+}
+
+const { project, reverse = false } = Astro.props;
+const { data, id } = project;
+---
+
+<article
+  class="project-card"
+  style={data.accentColor ? `--project-accent: ${data.accentColor}` : undefined}
+>
+  <div class:list={['project-row', { reverse }]}>
+    <div class="project-row-media">
+      <Image src={data.coverImage} alt={data.coverImageAlt} width={600} />
+    </div>
+    <div class="project-row-body">
+      {
+        data.icon && (
+          <div class="project-icon">
+            <Image src={data.icon} alt="" width={88} densities={[1, 2, 3]} />
+          </div>
+        )
+      }
+      <h3 class="project-title">{data.title}</h3>
+      <h4 class="project-subtitle">{data.subtitle}</h4>
+      <p class="project-summary">{data.summary}</p>
+      <div class="project-row-links">
+        <a href={`/projects/${id}/`} class="project-card-primary-link">
+          Read more
+        </a>
+        {
+          data.links?.appstore && (
+            <a href={data.links.appstore} class="project-card-link">
+              Appstore
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</article>

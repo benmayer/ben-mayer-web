@@ -10,4 +10,4 @@ date: 2020-12-04
 
 Hello World, this is the beginning of my blog. It's been a long time coming and I finally have the [website](http://ben-mayer.com) that allows me to publish my thoughts and opinions.
 
-This is very exiting - so stay tuned for more to come.
+This is very exciting - so stay tuned for more to come.
