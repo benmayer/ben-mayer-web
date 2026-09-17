@@ -12,7 +12,8 @@
     "astro": "astro",
     "lint": "eslint . && stylelint \"src/**/*.{css,astro}\"",
     "lint:js": "eslint .",
-    "lint:css": "stylelint \"src/**/*.{css,astro}\""
+    "lint:css": "stylelint \"src/**/*.{css,astro}\"",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -29,6 +30,7 @@
     "postcss-html": "^2.0.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
-    "typescript-eslint": "^8.68.0"
+    "typescript-eslint": "^8.68.0",
+    "wrangler": "^4.131.2"
   }
 }

@@ -1,8 +1,8 @@
 ## Project: ben-mayer.com
 
-Personal portfolio site showcasing app projects (developer + product-manager work) for recruiters/clients. Full architecture context, decision rationale, and open follow-ups: see `PROJECT_PLAN.md` in this repo.
+Personal portfolio site showcasing app projects (developer + product-manager work) for recruiters/clients. Full architecture context, decision rationale, and open follow-ups: see `.claude/docs/PROJECT_PLAN.md` in this repo.
 
-**Stack**: Astro (static output) + `@astrojs/vue` for interactive islands + `@astrojs/sitemap`. Content lives in Markdown via Astro Content Collections, not a headless CMS. Hosted on Cloudflare Pages (free tier).
+**Stack**: Astro (static output) + `@astrojs/vue` for interactive islands + `@astrojs/sitemap`. Content lives in Markdown via Astro Content Collections, not a headless CMS. Hosted on Cloudflare Workers with static assets (free tier), config in `wrangler.jsonc`.
 
 **Key files**:
 - `src/content.config.ts` — the `projects` and `blog` collection schemas (must live at this exact path, not `src/content/config.ts` — Astro 7 requires it at the project root of `src/`)
@@ -17,7 +17,7 @@ Personal portfolio site showcasing app projects (developer + product-manager wor
 - Keep pages static-first — avoid adding client-side JS/hydration unless a piece of UI genuinely needs interactivity. This is deliberate for SEO/performance, not an oversight.
 - New projects: add a folder under `src/content/projects/`, don't edit the schema unless a genuinely new field is needed across projects.
 - Always run `npm run build` after content or schema changes — it validates frontmatter against the zod schema and will fail loudly on mistakes (missing required fields, bad image paths, etc.).
-- If any other legacy URL needs preserving, prefer recreating it at the identical path over adding a redirect (see `PROJECT_PLAN.md` → "Migrated legacy content").
+- If any other legacy URL needs preserving, prefer recreating it at the identical path over adding a redirect (see `.claude/docs/PROJECT_PLAN.md` → "Migrated legacy content").
 
 **CSS & markup conventions** — the rule is *explicit, matching semantics*, not "more classes" or "fewer classes":
 
@@ -29,7 +29,7 @@ Personal portfolio site showcasing app projects (developer + product-manager wor
 - A class name is a claim about what the thing *is*, not just what it looks like — `.stack-list` was reused for blog post tags, which aren't a tech stack; it was renamed to `.chip-list` (the shared visual component both use). If two elements share a class only because they happen to look alike, give the class a name that describes the shared concept, not one borrowed from its first use case.
 - Run `npm run lint` (ESLint for `.astro`/`.ts`, Stylelint for CSS incl. `<style>` blocks) alongside `npm run build` after markup/style changes — configs are `eslint.config.js` and `stylelint.config.js` at the repo root.
 
-**Repo & deploy status**: pushed to GitHub at [`benmayer/ben-mayer-web`](https://github.com/benmayer/ben-mayer-web) (`origin/main`). The Cloudflare Claude Code plugin (skills + MCP servers) is installed, so Cloudflare Pages/DNS work can be done via MCP tools in addition to the dashboard. The Cloudflare Pages project itself is **not yet connected** — deliberately deferred until real project content and page layout are finished (see `PROJECT_PLAN.md` → "Open follow-ups"). Don't set up the Pages project or push placeholder content live until the user confirms content/layout is ready.
+**Repo & deploy status**: pushed to GitHub at [`benmayer/ben-mayer-web`](https://github.com/benmayer/ben-mayer-web) (`origin/main`). The Cloudflare Claude Code plugin (skills + MCP servers) is installed, so some Cloudflare work can be done via MCP tools in addition to the dashboard — though there's no MCP tool for creating/deploying a Worker or managing DNS zones/nameservers, so those steps go through `wrangler` CLI and the Cloudflare dashboard respectively. Deploy with `npm run deploy` (requires `wrangler login` once). See `.claude/docs/PROJECT_PLAN.md` → "Domain cutover checklist" before touching DNS or nameservers — the live domain has active email (Mailgun MX) and DNSSEC that must be preserved.
 
 ## Development
 

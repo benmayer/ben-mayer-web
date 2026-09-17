@@ -11,7 +11,7 @@ A professional online presence showcasing ~5-10 app projects (developer and prod
 | Framework     | [Astro](https://astro.build) — static-first, zero JS by default, best-in-class SEO |
 | Interactivity | Vue components as islands where needed (`@astrojs/vue`), kept minimal   |
 | Content       | Markdown files in `src/content/projects/`, validated via a typed schema |
-| Hosting       | Cloudflare Pages — free tier, global CDN, strong EU coverage            |
+| Hosting       | Cloudflare Workers (static assets) — free tier, global CDN, strong EU coverage |
 | SEO           | Per-page meta/OG tags (`src/layouts/Base.astro`) + `@astrojs/sitemap`   |
 
 Previously: Nuxt on Firebase (~3¢/month). Migrated away because Astro's content-collection model fits a mostly-static portfolio better and gives stronger default SEO than Nuxt SSR for this use case.
@@ -20,10 +20,10 @@ Previously: Nuxt on Firebase (~3¢/month). Migrated away because Astro's content
 
 The old site had two already-indexed URLs worth preserving for SEO: `/about` (static content) and `/blog` + two posts (content lived in Firestore, fetched client/server-side in Nuxt — not in the old repo as files). Both were ported at **identical URLs**, so no redirects were needed:
 
-- `/about` — recreated as a static Astro page (`src/pages/about.astro`), content copied from the old `src/pages/about.vue`, with the Nuxt/Firebase mention updated to Astro/Cloudflare Pages.
+- `/about` — recreated as a static Astro page (`src/pages/about.astro`), content copied from the old `src/pages/about.vue`, with the Nuxt/Firebase mention updated to Astro/Cloudflare Workers.
 - `/blog` + `/blog/hello-world` + `/blog/building-a-web-app-using-nuxtjs-and-firebase` — the old post URLs used real slugs (not Firestore auto-IDs), so they were recreated exactly via a new `blog` content collection. Post content and inline screenshots were pulled from the live site's server-rendered HTML (`window.__NUXT__` state) and images re-hosted locally instead of depending on the old Firebase Storage URLs.
 
-If any other old URLs need preserving later (check Google Search Console for what's actually indexed), the same approach applies: recreate at the same path if possible, otherwise add a 301 in a Cloudflare Pages `_redirects` file.
+If any other old URLs need preserving later (check Google Search Console for what's actually indexed), the same approach applies: recreate at the same path if possible, otherwise add a redirect via a Worker route.
 
 ## Content model
 
@@ -54,7 +54,7 @@ Frontmatter schema (defined in `src/content.config.ts`):
 1. Create `src/content/projects/<new-slug>/index.md` (copy an existing folder as a template).
 2. Add a cover image in the same folder, reference it as `./cover.jpg` (or `.png`/`.svg`).
 3. Fill in frontmatter + write the case-study body in Markdown below the frontmatter.
-4. `npm run dev` to preview, `npm run build` to confirm no schema errors, then commit and push — Cloudflare Pages auto-deploys on push to `main`.
+4. `npm run dev` to preview, `npm run build` to confirm no schema errors, then commit and push, then `npm run deploy` to ship (or wire up Cloudflare Workers Builds for auto-deploy on push to `main`, once set up).
 
 No CMS login, no separate service — just a file and a git push. See "Future: easier editing" below if this still feels like friction once real content is added.
 
@@ -70,24 +70,35 @@ No CMS login, no separate service — just a file and a git push. See "Future: e
 ## Repo & deploy status
 
 - **GitHub**: pushed — [`benmayer/ben-mayer-web`](https://github.com/benmayer/ben-mayer-web), `main` tracked as `origin/main`.
-- **Cloudflare**: account created, and the [Cloudflare Claude Code plugin](https://developers.cloudflare.com/agent-setup/prompt.md) (skills + MCP servers) is installed locally, so Pages setup/deploys can be driven from an agent session instead of only the dashboard.
-- **Pages project**: **not yet created.** Deliberately holding off connecting the repo to Cloudflare Pages until the real project content and page layout are finished (see "Open follow-ups") — no point deploying placeholder content.
+- **Cloudflare**: account created, and the [Cloudflare Claude Code plugin](https://developers.cloudflare.com/agent-setup/prompt.md) (skills + MCP servers) is installed locally, so Workers setup/deploys can be driven from an agent session instead of only the dashboard.
+- **Hosting**: Cloudflare Workers with static assets (not Pages — Pages isn't where Cloudflare is investing new features; Workers assets is the actively-developed path and lets deploys happen straight from the CLI via `wrangler`, same tool as any future server logic). Config lives in `wrangler.jsonc` at the repo root.
+- **Worker**: not yet deployed. Config is in place (`wrangler.jsonc`, `npm run deploy` script), but deploying requires `wrangler login` (or an API token) and hasn't been run yet.
+- **Domain cutover**: `ben-mayer.com` currently resolves to the old Firebase-hosted site, with DNS on Google Cloud DNS nameservers (via Squarespace) and DNSSEC enabled. Moving nameservers to Cloudflare is planned but not yet done — see "Domain cutover checklist" below. Email (Mailgun MX) and several TXT records (SPF, Google site verification, OpenAI domain verification) must be recreated in Cloudflare DNS before the nameserver switch, or they'll break.
 
-### Deploying to Cloudflare Pages (when ready)
+### Deploying to Cloudflare Workers
 
-1. In the Cloudflare dashboard (or via the Cloudflare MCP tools): **Workers & Pages → Create → Pages → Connect to Git**, select `benmayer/ben-mayer-web`.
-2. Build settings:
-   - Framework preset: **Astro**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-3. Deploy. Cloudflare will auto-build and deploy on every push to `main`, with preview deployments for other branches/PRs.
-4. Add the custom domain `ben-mayer.com` under the Pages project's **Custom domains** tab (Cloudflare will guide DNS setup, especially easy if the domain's nameservers are already on Cloudflare).
+1. Authenticate: `npx wrangler login` (opens a browser OAuth flow), or set `CLOUDFLARE_API_TOKEN`.
+2. `npm run deploy` — builds the Astro site to `dist/` and runs `wrangler deploy`, which uploads it as a Worker with static assets per `wrangler.jsonc`.
+3. First deploy will be reachable at `ben-mayer-web.<your-subdomain>.workers.dev` — verify it there before DNS/custom domain is wired up.
+4. Custom domains (`ben-mayer.com`, `www.ben-mayer.com`) are already declared in `wrangler.jsonc`'s `routes`, but only take effect once the zone is on Cloudflare — see the cutover checklist.
+
+### Domain cutover checklist (ben-mayer.com)
+
+Current live DNS (recorded 2026-09-15, before any changes): A records → `151.101.1.195` / `151.101.65.195` (old Firebase site), MX → `mxa.mailgun.org` / `mxb.mailgun.org` (email — do not lose this), TXT: SPF (`_spf.firebasemail.com`, `_spf.google.com`, `mailgun.org`), two `google-site-verification` records, `openai-domain-verification`, `firebase=ben-mayer-web`. DNSSEC is active (a `DS` record exists at the registrar).
+
+1. In the Cloudflare dashboard, **Add a Site** for `ben-mayer.com` — this creates the zone without touching nameservers yet.
+2. Recreate every record above in the new Cloudflare zone (MX + all TXT records especially — skipping these breaks email and domain verifications).
+3. Deploy the Worker (see above) and confirm the custom domain routes work once DNS is on Cloudflare.
+4. Cloudflare will show new nameservers to set at the registrar (Squarespace). Before switching: note Cloudflare's provided DNSSEC `DS` record values.
+5. At Squarespace: update nameservers to Cloudflare's, and update the `DS` record at the registrar to Cloudflare's new values (or temporarily disable DNSSEC, switch nameservers, then re-enable DNSSEC in Cloudflare and set the new `DS` record) — getting this step wrong causes a domain-wide outage including email, not just the site.
+6. Wait for propagation (can take up to 24-48h, though often much faster), then verify: site loads over HTTPS, `dig MX ben-mayer.com` still shows Mailgun, mail still delivers, Google Search Console/OpenAI verifications still pass.
+7. Once confirmed stable, decommission the old Firebase Hosting project (optional cleanup).
 
 ## Open follow-ups (not yet done)
 
-- **Finish real project content** (blocking deploy): the two example projects are placeholders — replace with real case studies, screenshots, and finalize the home page / project layout before connecting Cloudflare Pages.
 - **Visual design pass**: current styling is a minimal, functional baseline (see `src/styles/global.css`), not the final visual identity. Revisit layout, typography, and branding alongside the real content.
-- **Connect Cloudflare Pages**: once content/layout above is done, follow "Deploying to Cloudflare Pages".
+- **Complete the domain cutover**: follow "Domain cutover checklist" above — deploy the Worker, recreate DNS records in Cloudflare, then move nameservers.
+- **Auto-deploy on push**: currently `npm run deploy` is manual. Consider Cloudflare Workers Builds (Git-connected auto-deploy, the Workers equivalent of what Pages offered) once the manual flow feels like friction.
 - **Decap CMS (maybe)**: if editing raw Markdown files still feels like enough friction that updates don't happen, add [Decap CMS](https://decapcms.org) — a free, git-based CMS that gives a `/admin` web form and commits straight to this same GitHub repo (no new backend, no database, no extra cost). Not added yet since the file-based flow may be low-friction enough on its own.
 - **Analytics** (optional): none set up yet. If added later, consider Cloudflare Web Analytics (free, no cookies, privacy-friendly) over something heavier.
 - **Contact method**: currently a plain `mailto:` link in the header. Fine for now; revisit if spam becomes an issue.

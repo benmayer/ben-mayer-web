@@ -1,0 +1,11 @@
+{
+	"name": "ben-mayer-web",
+	"compatibility_date": "2026-09-15",
+	"assets": {
+		"directory": "./dist"
+	},
+	"routes": [
+		{ "pattern": "ben-mayer.com", "custom_domain": true },
+		{ "pattern": "www.ben-mayer.com", "custom_domain": true }
+	]
+}
