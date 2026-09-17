@@ -221,6 +221,11 @@ footer .container {
   align-items: center;
 }
 
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
 .hero {
   padding: 2rem 1.5rem 3rem;
   text-align: center;

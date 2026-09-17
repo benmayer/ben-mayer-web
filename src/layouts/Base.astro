@@ -57,8 +57,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <footer class="site-footer">
       <div class="container">
-        <a href="/imprint">Imprint</a>
-        <a href="/imprint#privacy">Privacy Policy</a>
+        <nav class="footer-links">
+          <a href="/imprint">Imprint</a>
+          <a href="/imprint#privacy">Privacy Policy</a>
+        </nav>
         <p>&copy; {new Date().getFullYear()} Ben Mayer</p>
       </div>
     </footer>
