@@ -226,10 +226,37 @@ footer .container {
 }
 
 .hero-apps {
-  width: 46.75rem;
+  width: 30rem;
   max-width: 100%;
   height: auto;
   margin: 0 auto 2rem;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+}
+
+.pulse {
+  animation-name: pulse;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated {
+    animation: none;
+  }
 }
 
 .hero h1 {
