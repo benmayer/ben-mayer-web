@@ -29,12 +29,12 @@
     --color-text: #f7fafc;
     --color-muted: #a0aec0;
     --color-heading: #a8bccf;
+    --color-accent: #537589;
     --color-border: rgb(160 174 192 / 25%);
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 40%);
     --glass-bg: rgb(45 55 72 / 75%);
     --glass-border: rgb(160 174 192 / 18%);
     --glass-shadow: 0 4px 4px 0 rgb(0 0 0 / 35%);
-
     color-scheme: dark;
   }
 }
