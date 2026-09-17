@@ -442,8 +442,8 @@ footer .container {
 
 .blog-item img {
   width: 220px;
-  height: 100%;
-  aspect-ratio: auto;
+  height: auto;
+  align-self: stretch;
   object-fit: cover;
   flex-shrink: 0;
 }
